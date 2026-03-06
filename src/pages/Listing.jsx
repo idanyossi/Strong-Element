@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import ListingFilters from "../components/listings/ListingFilters";
 import ListingCard from "../components/listings/ListingCard";
+import ListingModal from "../components/listings/ListingModal";
 import AddListingDialog from "../components/listings/AddListingDialog";
 
 const ITEMS_PER_PAGE = 12;
@@ -36,6 +37,7 @@ export default function Listings() {
   const [sortBy, setSortBy] = useState("newest");
   const [page, setPage] = useState(1);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [selectedListing, setSelectedListing] = useState(null);
 
   const { isAdmin } = useAuth();
   const queryClient = useQueryClient();
@@ -245,12 +247,13 @@ export default function Listings() {
                 <>
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                     {paginatedListings.map((listing) => (
-                      <ListingCard
-                        key={listing.id}
-                        listing={listing}
-                        isAdmin={isAdmin}
-                        onDelete={(id) => deleteMutation.mutate(id)}
-                      />
+                      <div key={listing.id} onClick={() => setSelectedListing(listing)} className="cursor-pointer">
+                        <ListingCard
+                          listing={listing}
+                          isAdmin={isAdmin}
+                          onDelete={(id) => deleteMutation.mutate(id)}
+                        />
+                      </div>
                     ))}
                   </div>
 
@@ -317,6 +320,11 @@ export default function Listings() {
           </div>
         </div>
       </section>
+
+      <ListingModal
+        listing={selectedListing}
+        onClose={() => setSelectedListing(null)}
+      />
     </div>
   );
 }
