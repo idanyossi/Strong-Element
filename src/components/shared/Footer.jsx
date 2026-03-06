@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div>
+          {/*  <div>
             <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-5">
               Services
             </h4>
@@ -58,7 +58,7 @@ export default function Footer() {
               <li>Investment Advisory</li>
               <li>Market Analysis</li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Contact */}
           <div>
@@ -90,14 +90,14 @@ export default function Footer() {
           <p className="text-slate-500 text-xs tracking-wide">
             © {new Date().getFullYear()} Strong Element. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-slate-500">
+          {/* <div className="flex gap-6 text-xs text-slate-500">
             <span className="hover:text-slate-300 cursor-pointer transition-colors">
               Privacy Policy
             </span>
             <span className="hover:text-slate-300 cursor-pointer transition-colors">
               Terms of Service
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
