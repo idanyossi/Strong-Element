@@ -1,33 +1,38 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { MongoClient } from 'mongodb';
 import { config } from 'dotenv';
 
 config();
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const DB_PATH = join(__dirname, 'db.json');
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-change-this';
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'changeme';
-
-// Ensure DB file exists
-if (!existsSync(DB_PATH)) {
-  writeFileSync(DB_PATH, JSON.stringify({ listings: [], agents: [], articles: [] }, null, 2));
-}
-
-const readDB = () => JSON.parse(readFileSync(DB_PATH, 'utf8'));
-const writeDB = (data) => writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ── Auth middleware ──────────────────────────────────────────────────────────
+// ── MongoDB connection ────────────────────────────────────────────────────────
+let db;
+
+async function connectDB() {
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI is not set in .env');
+  }
+  const client = new MongoClient(MONGODB_URI);
+  await client.connect();
+  db = client.db('strong-element');
+  console.log('Connected to MongoDB');
+}
+
+// Strip MongoDB _id from documents
+const clean = ({ _id, ...doc }) => doc;
+
+// ── Auth middleware ───────────────────────────────────────────────────────────
 const requireAdmin = (req, res, next) => {
   const auth = req.headers.authorization;
   if (!auth?.startsWith('Bearer ')) {
@@ -43,7 +48,7 @@ const requireAdmin = (req, res, next) => {
   }
 };
 
-// ── Auth routes ──────────────────────────────────────────────────────────────
+// ── Auth routes ───────────────────────────────────────────────────────────────
 app.post('/api/auth/login', (req, res) => {
   const { username, password } = req.body || {};
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
@@ -64,81 +69,112 @@ app.get('/api/auth/me', (req, res) => {
   }
 });
 
-// ── Listings ─────────────────────────────────────────────────────────────────
-app.get('/api/listings', (req, res) => {
-  const db = readDB();
-  let listings = [...db.listings];
-  if (req.query.featured === 'true') {
-    listings = listings.filter((l) => l.is_featured);
+// ── Listings ──────────────────────────────────────────────────────────────────
+app.get('/api/listings', async (req, res) => {
+  try {
+    const filter = req.query.featured === 'true' ? { is_featured: true } : {};
+    const listings = await db.collection('listings')
+      .find(filter)
+      .sort({ created_date: -1 })
+      .toArray();
+    res.json(listings.map(clean));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-  listings.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
-  res.json(listings);
 });
 
-app.post('/api/listings', requireAdmin, (req, res) => {
-  const db = readDB();
-  const listing = { ...req.body, id: Date.now().toString(), created_date: new Date().toISOString() };
-  db.listings.push(listing);
-  writeDB(db);
-  res.json(listing);
+app.post('/api/listings', requireAdmin, async (req, res) => {
+  try {
+    const listing = { ...req.body, id: Date.now().toString(), created_date: new Date().toISOString() };
+    await db.collection('listings').insertOne(listing);
+    res.json(clean(listing));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.delete('/api/listings/:id', requireAdmin, (req, res) => {
-  const db = readDB();
-  db.listings = db.listings.filter((l) => l.id !== req.params.id);
-  writeDB(db);
-  res.json({ success: true });
+app.delete('/api/listings/:id', requireAdmin, async (req, res) => {
+  try {
+    await db.collection('listings').deleteOne({ id: req.params.id });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// ── Agents ───────────────────────────────────────────────────────────────────
-app.get('/api/agents', (req, res) => {
-  const db = readDB();
-  const agents = [...db.agents].sort(
-    (a, b) => new Date(b.created_date) - new Date(a.created_date)
-  );
-  res.json(agents);
+// ── Agents ────────────────────────────────────────────────────────────────────
+app.get('/api/agents', async (req, res) => {
+  try {
+    const agents = await db.collection('agents')
+      .find()
+      .sort({ created_date: -1 })
+      .toArray();
+    res.json(agents.map(clean));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.post('/api/agents', requireAdmin, (req, res) => {
-  const db = readDB();
-  const agent = { ...req.body, id: Date.now().toString(), created_date: new Date().toISOString() };
-  db.agents.push(agent);
-  writeDB(db);
-  res.json(agent);
+app.post('/api/agents', requireAdmin, async (req, res) => {
+  try {
+    const agent = { ...req.body, id: Date.now().toString(), created_date: new Date().toISOString() };
+    await db.collection('agents').insertOne(agent);
+    res.json(clean(agent));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.delete('/api/agents/:id', requireAdmin, (req, res) => {
-  const db = readDB();
-  db.agents = db.agents.filter((a) => a.id !== req.params.id);
-  writeDB(db);
-  res.json({ success: true });
+app.delete('/api/agents/:id', requireAdmin, async (req, res) => {
+  try {
+    await db.collection('agents').deleteOne({ id: req.params.id });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// ── Articles ─────────────────────────────────────────────────────────────────
-app.get('/api/articles', (req, res) => {
-  const db = readDB();
-  const articles = db.articles
-    .filter((a) => a.is_published)
-    .sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
-  res.json(articles);
+// ── Articles ──────────────────────────────────────────────────────────────────
+app.get('/api/articles', async (req, res) => {
+  try {
+    const articles = await db.collection('articles')
+      .find({ is_published: true })
+      .sort({ created_date: -1 })
+      .toArray();
+    res.json(articles.map(clean));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.post('/api/articles', requireAdmin, (req, res) => {
-  const db = readDB();
-  const article = { ...req.body, id: Date.now().toString(), created_date: new Date().toISOString() };
-  db.articles.push(article);
-  writeDB(db);
-  res.json(article);
+app.post('/api/articles', requireAdmin, async (req, res) => {
+  try {
+    const article = { ...req.body, id: Date.now().toString(), created_date: new Date().toISOString() };
+    await db.collection('articles').insertOne(article);
+    res.json(clean(article));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.delete('/api/articles/:id', requireAdmin, (req, res) => {
-  const db = readDB();
-  db.articles = db.articles.filter((a) => a.id !== req.params.id);
-  writeDB(db);
-  res.json({ success: true });
+app.delete('/api/articles/:id', requireAdmin, async (req, res) => {
+  try {
+    await db.collection('articles').deleteOne({ id: req.params.id });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// ── Start ────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`API server running at http://localhost:${PORT}`);
+// ── Start ─────────────────────────────────────────────────────────────────────
+async function startServer() {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`API server running at http://localhost:${PORT}`);
+  });
+}
+
+startServer().catch((err) => {
+  console.error('Failed to start server:', err.message);
+  process.exit(1);
 });
