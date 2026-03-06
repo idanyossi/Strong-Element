@@ -85,6 +85,30 @@ export default function ListingModal({ listing, onClose }) {
             )}
           </div>
 
+          {/* Building details */}
+          {listing.property_type === "building" && (listing.total_apartments || listing.apartment_breakdown?.length > 0) && (
+            <div className="mt-5">
+              <h3 className="text-sm font-semibold text-[#0A1628] uppercase tracking-wider mb-3">
+                Building Details
+              </h3>
+              {listing.total_apartments && (
+                <p className="text-slate-600 text-sm mb-3">
+                  <span className="font-medium">Total Apartments:</span> {listing.total_apartments}
+                </p>
+              )}
+              {listing.apartment_breakdown?.length > 0 && (
+                <div className="grid grid-cols-3 gap-2">
+                  {listing.apartment_breakdown.map((b) => (
+                    <div key={b.rooms} className="bg-slate-50 px-3 py-2 text-center">
+                      <p className="text-lg font-bold text-[#0A1628]">{b.count}</p>
+                      <p className="text-xs text-slate-500">{b.rooms}-room</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Description */}
           {listing.description && (
             <div className="mt-5">

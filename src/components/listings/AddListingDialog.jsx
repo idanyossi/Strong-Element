@@ -36,7 +36,11 @@ const initialForm = {
   address: "",
   image_url: "",
   is_featured: false,
+  total_apartments: "",
+  apartment_breakdown: [],
 };
+
+const ROOM_OPTIONS = ["1", "2", "3", "4", "5", "6+"];
 
 export default function AddListingDialog() {
   const [open, setOpen] = useState(false);
@@ -66,6 +70,25 @@ export default function AddListingDialog() {
   };
 
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
+
+  const updateBreakdown = (rooms, count) => {
+    setForm((prev) => {
+      const existing = prev.apartment_breakdown.filter(
+        (b) => b.rooms !== rooms,
+      );
+      if (count === "" || count === "0")
+        return { ...prev, apartment_breakdown: existing };
+      return {
+        ...prev,
+        apartment_breakdown: [...existing, { rooms, count: Number(count) }],
+      };
+    });
+  };
+
+  const getBreakdownCount = (rooms) => {
+    const entry = form.apartment_breakdown.find((b) => b.rooms === rooms);
+    return entry ? String(entry.count) : "";
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -126,6 +149,7 @@ export default function AddListingDialog() {
                     "penthouse",
                     "commercial",
                     "land",
+                    "building",
                   ].map((t) => (
                     <SelectItem key={t} value={t} className="capitalize">
                       {t}
@@ -135,35 +159,76 @@ export default function AddListingDialog() {
               </Select>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <Label>Bedrooms</Label>
-              <Input
-                type="number"
-                value={form.bedrooms}
-                onChange={(e) => update("bedrooms", e.target.value)}
-                className="rounded-none mt-1"
-              />
+          {form.property_type !== "building" && (
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <Label>Bedrooms</Label>
+                <Input
+                  type="number"
+                  value={form.bedrooms}
+                  onChange={(e) => update("bedrooms", e.target.value)}
+                  className="rounded-none mt-1"
+                />
+              </div>
+              <div>
+                <Label>Bathrooms</Label>
+                <Input
+                  type="number"
+                  value={form.bathrooms}
+                  onChange={(e) => update("bathrooms", e.target.value)}
+                  className="rounded-none mt-1"
+                />
+              </div>
+              <div>
+                <Label>Area (sqft)</Label>
+                <Input
+                  type="number"
+                  value={form.area_sqft}
+                  onChange={(e) => update("area_sqft", e.target.value)}
+                  className="rounded-none mt-1"
+                />
+              </div>
             </div>
-            <div>
-              <Label>Bathrooms</Label>
-              <Input
-                type="number"
-                value={form.bathrooms}
-                onChange={(e) => update("bathrooms", e.target.value)}
-                className="rounded-none mt-1"
-              />
+          )}
+          {form.property_type === "building" && (
+            <div className="border border-slate-200 p-4 space-y-4">
+              <h3 className="text-sm font-semibold text-[#0A1628] uppercase tracking-wider">
+                Building Details
+              </h3>
+              <div>
+                <Label>Total Apartments</Label>
+                <Input
+                  type="number"
+                  value={form.total_apartments}
+                  onChange={(e) => update("total_apartments", e.target.value)}
+                  placeholder="e.g. 24"
+                  className="rounded-none mt-1"
+                />
+              </div>
+              <div>
+                <Label className="mb-2 block">
+                  Apartment Breakdown (by rooms)
+                </Label>
+                <div className="grid grid-cols-3 gap-3">
+                  {ROOM_OPTIONS.map((rooms) => (
+                    <div key={rooms}>
+                      <label className="text-xs text-slate-500 mb-1 block">
+                        {rooms} - room
+                      </label>
+                      <Input
+                        type="number"
+                        value={getBreakdownCount(rooms)}
+                        onChange={(e) => updateBreakdown(rooms, e.target.value)}
+                        placeholder="0"
+                        className="rounded-none h-9 text-sm"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div>
-              <Label>Area (sqft)</Label>
-              <Input
-                type="number"
-                value={form.area_sqft}
-                onChange={(e) => update("area_sqft", e.target.value)}
-                className="rounded-none mt-1"
-              />
-            </div>
-          </div>
+          )}
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label>City</Label>
