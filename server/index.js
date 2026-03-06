@@ -2,6 +2,8 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import { MongoClient } from 'mongodb';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { config } from 'dotenv';
 
 config();
@@ -164,6 +166,14 @@ app.delete('/api/articles/:id', requireAdmin, async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// ── Serve frontend in production ──────────────────────────────────────────────
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const distPath = join(__dirname, '../dist');
+app.use(express.static(distPath));
+app.get('*', (req, res) => {
+  res.sendFile(join(distPath, 'index.html'));
 });
 
 // ── Start ─────────────────────────────────────────────────────────────────────
