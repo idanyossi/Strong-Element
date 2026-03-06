@@ -1,21 +1,31 @@
 import React from "react";
-import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
-import { Mail, Phone, Linkedin, Award } from "lucide-react";
+import { api } from "@/api/client";
+import { useAuth } from "@/lib/AuthContext";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Mail, Phone, Linkedin, Award, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
+import AddAgentDialog from "@/components/agents/AddAgentDialog";
 
 export default function Agents() {
+  const { isAdmin } = useAuth();
+  const queryClient = useQueryClient();
+
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ["agents"],
-    queryFn: () => base44.entities.Agent.list("-created_date"),
+    queryFn: () => api.agents.list(),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => api.agents.delete(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["agents"] }),
   });
 
   return (
     <div className="pt-20">
       {/* Header */}
       <section className="bg-[#0A1628] py-24 lg:py-28 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04]">
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04] pointer-events-none">
           <div
             className="absolute inset-0"
             style={{
@@ -23,7 +33,7 @@ export default function Agents() {
             }}
           />
         </div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-[#C9A84C]" />
@@ -40,6 +50,7 @@ export default function Agents() {
               exceptional results.
             </p>
           </div>
+          {isAdmin && <AddAgentDialog />}
         </div>
       </section>
 
@@ -83,6 +94,18 @@ export default function Agents() {
                   className="group bg-white shadow-sm hover:shadow-lg transition-shadow"
                 >
                   <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
+                    {isAdmin && (
+                      <button
+                        onClick={() => {
+                          if (window.confirm(`Delete "${agent.name}"?`))
+                            deleteMutation.mutate(agent.id);
+                        }}
+                        className="absolute top-2 right-2 z-10 w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
+                        title="Delete agent"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                     {agent.photo_url ? (
                       <img
                         src={agent.photo_url}

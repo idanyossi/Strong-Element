@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { api } from "@/api/client";
+import { useAuth } from "@/lib/AuthContext";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, User, BookOpen } from "lucide-react";
+import { ArrowRight, Calendar, User, BookOpen, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import AddArticleDialog from "../components/articles/AddArticleDialog";
@@ -17,24 +18,20 @@ const CATEGORY_LABELS = {
 };
 
 export default function Articles() {
-  const [user, setUser] = useState(null);
+  const { isAdmin } = useAuth();
+  const queryClient = useQueryClient();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [expandedId, setExpandedId] = useState(null);
 
-  useEffect(() => {
-    base44.auth
-      .me()
-      .then(setUser)
-      .catch(() => {});
-  }, []);
-
   const { data: articles = [], isLoading } = useQuery({
     queryKey: ["articles"],
-    queryFn: () =>
-      base44.entities.Article.filter({ is_published: true }, "-created_date"),
+    queryFn: () => api.articles.list(),
   });
 
-  const isAdmin = user?.role === "admin";
+  const deleteMutation = useMutation({
+    mutationFn: (id) => api.articles.delete(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["articles"] }),
+  });
 
   const filtered =
     selectedCategory === "all"
@@ -45,7 +42,7 @@ export default function Articles() {
     <div className="pt-20">
       {/* Header */}
       <section className="bg-[#0A1628] py-20 lg:py-24 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04]">
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04] pointer-events-none">
           <div
             className="absolute inset-0"
             style={{
@@ -147,6 +144,19 @@ export default function Articles() {
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
+                    {isAdmin && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (window.confirm(`Delete "${article.title}"?`))
+                            deleteMutation.mutate(article.id);
+                        }}
+                        className="absolute top-2 right-2 z-10 w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
+                        title="Delete article"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                     <div className="absolute top-3 left-3">
                       <span className="bg-[#0A1628]/90 text-white text-[10px] font-semibold px-3 py-1 tracking-wider uppercase">
                         {CATEGORY_LABELS[article.category] || article.category}

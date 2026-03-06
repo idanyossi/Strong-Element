@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import { Menu, X } from "lucide-react";
 import Footer from "./components/shared/Footer";
+import LoginModal from "./components/shared/LoginModal";
 
 const navLinks = [
   { label: "Home", page: "Home" },
@@ -16,14 +17,8 @@ const navLinks = [
 export default function Layout({ children, currentPageName }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    base44.auth
-      .me()
-      .then(setUser)
-      .catch(() => {});
-  }, []);
+  const [showLogin, setShowLogin] = useState(false);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -48,14 +43,12 @@ export default function Layout({ children, currentPageName }) {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center">
               <span className="text-lg font-bold text-white tracking-tight">
                 STRONG<span className="text-[#C9A84C]">ELEMENT</span>
               </span>
             </Link>
 
-            {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
@@ -72,18 +65,17 @@ export default function Layout({ children, currentPageName }) {
               ))}
             </nav>
 
-            {/* Auth + Mobile Toggle */}
             <div className="flex items-center gap-4">
               {user ? (
                 <button
-                  onClick={() => base44.auth.logout()}
+                  onClick={logout}
                   className="hidden lg:inline-flex text-sm text-slate-400 hover:text-white transition-colors"
                 >
                   Sign Out
                 </button>
               ) : (
                 <button
-                  onClick={() => base44.auth.redirectToLogin()}
+                  onClick={() => setShowLogin(true)}
                   className="hidden lg:inline-flex text-sm text-slate-400 hover:text-white transition-colors"
                 >
                   Sign In
@@ -93,17 +85,12 @@ export default function Layout({ children, currentPageName }) {
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="lg:hidden text-white p-2"
               >
-                {mobileOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Menu className="w-5 h-5" />
-                )}
+                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile menu */}
         {mobileOpen && (
           <div className="lg:hidden bg-[#0A1628] border-t border-white/10">
             <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
@@ -123,14 +110,17 @@ export default function Layout({ children, currentPageName }) {
               <div className="mt-2 pt-3 border-t border-white/10">
                 {user ? (
                   <button
-                    onClick={() => base44.auth.logout()}
+                    onClick={logout}
                     className="px-4 py-3 text-sm text-slate-400"
                   >
                     Sign Out
                   </button>
                 ) : (
                   <button
-                    onClick={() => base44.auth.redirectToLogin()}
+                    onClick={() => {
+                      setMobileOpen(false);
+                      setShowLogin(true);
+                    }}
                     className="px-4 py-3 text-sm text-slate-400"
                   >
                     Sign In
@@ -145,6 +135,7 @@ export default function Layout({ children, currentPageName }) {
       <main className="flex-1">{children}</main>
 
       <Footer />
+      <LoginModal open={showLogin} onClose={() => setShowLogin(false)} />
     </div>
   );
 }

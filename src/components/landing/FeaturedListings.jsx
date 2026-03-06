@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { base44 } from "@/api/base44Client";
+import { api } from "@/api/client";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Bed, Bath, Maximize } from "lucide-react";
 import { motion } from "framer-motion";
@@ -10,8 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function FeaturedListings() {
   const { data: listings = [], isLoading } = useQuery({
     queryKey: ["featured-listings"],
-    queryFn: () =>
-      base44.entities.Listing.filter({ is_featured: true }, "-created_date", 6),
+    queryFn: () => api.listings.featured(),
   });
 
   const displayListings = listings.length > 0 ? listings : [];

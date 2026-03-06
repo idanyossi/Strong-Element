@@ -1,7 +1,12 @@
 import React from "react";
-import { Bed, Bath, Maximize, MapPin } from "lucide-react";
+import { Bed, Bath, Maximize, MapPin, Trash2 } from "lucide-react";
 
-export default function ListingCard({ listing }) {
+export default function ListingCard({ listing, isAdmin, onDelete }) {
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (window.confirm(`Delete "${listing.title}"?`)) onDelete(listing.id);
+  };
+
   return (
     <div className="bg-white shadow-sm hover:shadow-lg transition-shadow group">
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -23,8 +28,19 @@ export default function ListingCard({ listing }) {
             </span>
           )}
         </div>
-        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-[#0A1628] text-xs font-medium px-3 py-1 capitalize">
-          {listing.property_type?.replace("_", " ")}
+        <div className="absolute top-3 right-3 flex items-center gap-2">
+          {isAdmin && (
+            <button
+              onClick={handleDelete}
+              className="w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
+              title="Delete listing"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          )}
+          <span className="bg-white/90 backdrop-blur-sm text-[#0A1628] text-xs font-medium px-3 py-1 capitalize">
+            {listing.property_type?.replace("_", " ")}
+          </span>
         </div>
       </div>
       <div className="p-5">

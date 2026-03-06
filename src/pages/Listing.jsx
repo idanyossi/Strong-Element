@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
+import { api } from "@/api/client";
+import { useAuth } from "@/lib/AuthContext";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -23,7 +24,6 @@ import AddListingDialog from "../components/listings/AddListingDialog";
 const ITEMS_PER_PAGE = 12;
 
 export default function Listings() {
-  const [user, setUser] = useState(null);
   const [filters, setFilters] = useState({
     search: "",
     property_type: "all",
@@ -37,19 +37,21 @@ export default function Listings() {
   const [page, setPage] = useState(1);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  useEffect(() => {
-    base44.auth
-      .me()
-      .then(setUser)
-      .catch(() => {});
-  }, []);
+  const { isAdmin } = useAuth();
+  const queryClient = useQueryClient();
 
   const { data: listings = [], isLoading } = useQuery({
     queryKey: ["listings"],
-    queryFn: () => base44.entities.Listing.list("-created_date", 200),
+    queryFn: () => api.listings.list(),
   });
 
-  const isAdmin = user?.role === "admin";
+  const deleteMutation = useMutation({
+    mutationFn: (id) => api.listings.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["listings"] });
+      queryClient.invalidateQueries({ queryKey: ["featured-listings"] });
+    },
+  });
 
   // Apply filters
   const filteredListings = useMemo(() => {
@@ -121,7 +123,7 @@ export default function Listings() {
     <div className="pt-20">
       {/* Header */}
       <section className="bg-[#0A1628] py-16 lg:py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04]">
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04] pointer-events-none">
           <div
             className="absolute inset-0"
             style={{
@@ -243,7 +245,12 @@ export default function Listings() {
                 <>
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                     {paginatedListings.map((listing) => (
-                      <ListingCard key={listing.id} listing={listing} />
+                      <ListingCard
+                        key={listing.id}
+                        listing={listing}
+                        isAdmin={isAdmin}
+                        onDelete={(id) => deleteMutation.mutate(id)}
+                      />
                     ))}
                   </div>
 

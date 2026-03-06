@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { base44 } from "@/api/base44Client";
+import { api } from "@/api/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Dialog,
@@ -45,7 +45,7 @@ export default function AddArticleDialog() {
   const queryClient = useQueryClient();
 
   const createMutation = useMutation({
-    mutationFn: (data) => base44.entities.Article.create(data),
+    mutationFn: (data) => api.articles.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["articles"] });
       setOpen(false);

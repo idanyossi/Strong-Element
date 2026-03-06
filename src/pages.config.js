@@ -50,7 +50,7 @@
 import Home from './pages/Home';
 import About from './pages/About';
 import Agents from './pages/Agents';
-import Listings from './pages/Listings';
+import Listings from './pages/Listing';
 import Articles from './pages/Articles';
 import __Layout from './Layout.jsx';
 
