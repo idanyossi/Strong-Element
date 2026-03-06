@@ -1,0 +1,40 @@
+{
+  "name": "Agent",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job title"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "specializations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "years_experience": {
+      "type": "number"
+    },
+    "linkedin_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

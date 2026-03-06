@@ -1,0 +1,90 @@
+{
+  "name": "Listing",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Property title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Property description"
+    },
+    "price": {
+      "type": "number",
+      "description": "Price in USD"
+    },
+    "property_type": {
+      "type": "string",
+      "enum": [
+        "apartment",
+        "house",
+        "villa",
+        "penthouse",
+        "commercial",
+        "land"
+      ],
+      "description": "Type of property"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "for_sale",
+        "for_rent",
+        "sold",
+        "rented"
+      ],
+      "default": "for_sale"
+    },
+    "bedrooms": {
+      "type": "number"
+    },
+    "bathrooms": {
+      "type": "number"
+    },
+    "area_sqft": {
+      "type": "number",
+      "description": "Area in square feet"
+    },
+    "city": {
+      "type": "string"
+    },
+    "neighborhood": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Main image URL"
+    },
+    "gallery_urls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional image URLs"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Property features like parking, pool, etc."
+    },
+    "agent_id": {
+      "type": "string",
+      "description": "ID of the assigned agent"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "title",
+    "price",
+    "property_type"
+  ]
+}

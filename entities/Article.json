@@ -1,0 +1,42 @@
+{
+  "name": "Article",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short summary for cards"
+    },
+    "content": {
+      "type": "string",
+      "description": "Full article content in markdown"
+    },
+    "cover_image_url": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "market_insights",
+        "investment_tips",
+        "neighborhood_guides",
+        "company_news",
+        "guides"
+      ],
+      "default": "market_insights"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "is_published": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "content"
+  ]
+}
