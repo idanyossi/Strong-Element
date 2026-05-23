@@ -13,7 +13,6 @@ import {
 import {
   SlidersHorizontal,
   ChevronLeft,
-  ChevronRight,
   Loader2,
 } from "lucide-react";
 import ListingFilters from "../components/listings/ListingFilters";
@@ -326,7 +325,7 @@ export default function Listings() {
                         className="h-11 w-11 rounded-full border-slate-200 bg-white"
                         aria-label="Next listings page"
                       >
-                        <ChevronRight className="w-4 h-4" aria-hidden="true" />
+                        <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                       </Button>
                     </div>
                   )}

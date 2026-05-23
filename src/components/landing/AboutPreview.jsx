@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowRight, Shield, TrendingUp, Users } from "lucide-react";
+import { ArrowLeft, Shield, TrendingUp, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const values = [
@@ -44,7 +44,7 @@ export default function AboutPreview() {
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#082b86] px-7 py-4 text-sm font-extrabold text-white hover:bg-[#06216b]"
             >
               קרא עוד עלינו
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
 

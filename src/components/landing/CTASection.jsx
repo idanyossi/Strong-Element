@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowLeft, Phone } from "lucide-react";
 
 export default function CTASection() {
   return (
@@ -33,7 +33,7 @@ export default function CTASection() {
           <Link to={createPageUrl("Listings")}>
             <Button className="h-14 w-full rounded-full bg-white px-9 text-sm font-extrabold text-[#082b86] hover:bg-slate-100 sm:w-auto">
               לתיאום פגישת אסטרטגיה
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             </Button>
           </Link>
           <Link to={createPageUrl("Agents")}>

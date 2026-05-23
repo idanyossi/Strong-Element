@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowRight, LocateFixed, Search } from "lucide-react";
+import { ArrowLeft, LocateFixed, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -60,7 +60,7 @@ export default function HeroSection() {
             <Link to={createPageUrl("Listings")}>
               <Button className="h-12 rounded-full bg-white px-7 text-sm font-extrabold text-[#082b86] hover:bg-slate-100">
                 לתיאום פגישת אסטרטגיה לחץ כאן
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               </Button>
             </Link>
             <Link to={createPageUrl("About")}>

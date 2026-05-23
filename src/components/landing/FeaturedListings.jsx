@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { api } from "@/api/client";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Bath, Bed, Maximize } from "lucide-react";
+import { ArrowLeft, Bath, Bed, Maximize } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -108,7 +108,7 @@ export default function FeaturedListings() {
           className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#082b86] px-7 py-4 text-sm font-extrabold text-white hover:bg-[#06216b]"
         >
           View All Listings
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>
     </section>

@@ -4,7 +4,7 @@ import { useAuth } from "@/lib/AuthContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Calendar, Trash2, User } from "lucide-react";
+import { ArrowLeft, BookOpen, Calendar, Trash2, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import AddArticleDialog from "../components/articles/AddArticleDialog";
 
@@ -187,7 +187,7 @@ export default function Articles() {
                     )}
                     <div className="mt-4 flex items-center text-sm font-extrabold text-[#082b86]">
                       {expandedId === article.id ? "Collapse Article" : "Read Article"}{" "}
-                      <ArrowRight className="me-1 h-4 w-4 rotate-180" aria-hidden="true" />
+                      <ArrowLeft className="me-1 h-4 w-4" aria-hidden="true" />
                     </div>
                   </div>
 

@@ -96,9 +96,6 @@ export default function About() {
               <p className="text-4xl font-black tracking-[-0.05em] text-[#082b86]">
                 since 1985
               </p>
-              <p className="text-sm font-black text-slate-500">
-                לבדוק עם צחי
-              </p>
             </div>
           </div>
         </div>
