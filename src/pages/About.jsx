@@ -47,29 +47,27 @@ const milestones = [
 
 export default function About() {
   return (
-    <div className="bg-[#f4f4f4] pt-24">
-      <section className="px-5 pb-12 pt-8 sm:px-8 lg:pt-14">
-        <div className="mx-auto max-w-[1760px] overflow-hidden rounded-[34px] bg-black text-white lg:rounded-[44px]">
-          <div className="relative min-h-[520px] px-7 py-14 sm:px-10 lg:px-14 lg:py-20">
-            <img
-              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1800&q=85"
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-55"
-              aria-hidden="true"
-            />
-            <div className="absolute inset-0 bg-black/45" />
-            <div className="relative z-10 max-w-4xl">
-              <p className="mb-4 text-sm font-black text-white/75">About Us</p>
-              <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-                Where Strength Meets Strategy in Real Estate
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/80">
-                Strong Element was founded on a simple principle: real estate
-                decisions should be driven by data, guided by expertise, and
-                delivered with integrity. We are not just agents - we are
-                strategic partners in your wealth-building journey.
-              </p>
-            </div>
+    <div className="bg-[#f4f4f4]">
+      <section className="overflow-hidden bg-black text-white">
+        <div className="relative flex min-h-[650px] items-center px-7 pb-20 pt-32 sm:px-10 lg:min-h-[760px] lg:px-14 lg:pt-36">
+          <img
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1800&q=85"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover opacity-55"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-black/45" />
+          <div className="relative z-10 mx-auto w-full max-w-[1760px]">
+            <p className="mb-4 text-sm font-black text-white/75">About Us</p>
+            <h1 className="max-w-5xl text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+              Where Strength Meets Strategy in Real Estate
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/80">
+              Strong Element was founded on a simple principle: real estate
+              decisions should be driven by data, guided by expertise, and
+              delivered with integrity. We are not just agents - we are
+              strategic partners in your wealth-building journey.
+            </p>
           </div>
         </div>
       </section>
@@ -109,7 +107,7 @@ export default function About() {
               alt="Modern office"
               className="aspect-[4/3] w-full object-cover"
             />
-            <div className="absolute bottom-5 left-5 rounded-2xl bg-white px-6 py-5">
+            <div className="absolute bottom-5 right-5 rounded-2xl bg-white px-6 py-5">
               <p className="text-4xl font-black tracking-[-0.05em] text-[#082b86]">
                 15+
               </p>

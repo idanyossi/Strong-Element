@@ -88,7 +88,7 @@ export default function Agents() {
                           if (window.confirm(`Delete "${agent.name}"?`))
                             deleteMutation.mutate(agent.id);
                         }}
-                        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
+                        className="absolute left-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
                         type="button"
                         aria-label={`Delete agent ${agent.name}`}
                       >

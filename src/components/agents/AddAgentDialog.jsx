@@ -59,7 +59,7 @@ export default function AddAgentDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-[#C9A84C] hover:bg-[#D4B96A] text-[#0A1628] rounded-none h-11 font-semibold">
-          <Plus className="w-4 h-4 mr-2" /> Add Agent
+          <Plus className="ms-2 h-4 w-4" /> Add Agent
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto rounded-none">
@@ -163,7 +163,7 @@ export default function AddAgentDialog() {
               className="bg-[#0A1628] hover:bg-[#1B2D4F] rounded-none"
             >
               {createMutation.isPending && (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <Loader2 className="ms-2 h-4 w-4 animate-spin" />
               )}
               Add Agent
             </Button>

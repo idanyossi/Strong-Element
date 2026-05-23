@@ -149,14 +149,14 @@ export default function Articles() {
                           if (window.confirm(`Delete "${article.title}"?`))
                             deleteMutation.mutate(article.id);
                         }}
-                        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
+                        className="absolute left-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
                         type="button"
                         aria-label={`Delete article ${article.title}`}
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     )}
-                    <div className="absolute left-4 top-4">
+                    <div className="absolute right-4 top-4">
                       <span className="rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
                         {CATEGORY_LABELS[article.category] || article.category}
                       </span>
@@ -187,7 +187,7 @@ export default function Articles() {
                     )}
                     <div className="mt-4 flex items-center text-sm font-extrabold text-[#082b86]">
                       {expandedId === article.id ? "Collapse Article" : "Read Article"}{" "}
-                      <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                      <ArrowRight className="me-1 h-4 w-4 rotate-180" aria-hidden="true" />
                     </div>
                   </div>
 

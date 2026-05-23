@@ -18,7 +18,7 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
           alt={listing.title}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute left-3 top-3 flex gap-2">
+        <div className="absolute right-3 top-3 flex gap-2">
           <span className="rounded-md bg-white px-3 py-1.5 text-[11px] font-extrabold text-[#082b86]">
             {listing.status?.replace("_", " ") || "For Sale"}
           </span>
@@ -28,7 +28,7 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
             </span>
           )}
         </div>
-        <div className="absolute right-3 top-3 flex items-center gap-2">
+        <div className="absolute left-3 top-3 flex items-center gap-2">
           {isAdmin && (
           <button
             onClick={handleDelete}

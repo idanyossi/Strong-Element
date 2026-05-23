@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { useAuth } from "@/lib/AuthContext";
-import { Menu, Search, UserRound, X } from "lucide-react";
+import { UserRound } from "lucide-react";
 import Footer from "./components/shared/Footer";
 import LoginModal from "./components/shared/LoginModal";
 
@@ -14,10 +14,7 @@ const navLinks = [
   { label: "Articles", page: "Articles" },
 ];
 
-const mobileNavId = "mobile-navigation";
-
 export default function Layout({ children, currentPageName }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const { user, logout } = useAuth();
@@ -27,10 +24,6 @@ export default function Layout({ children, currentPageName }) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [currentPageName]);
 
   const isHome = currentPageName === "Home";
   const headerBg =
@@ -43,7 +36,7 @@ export default function Layout({ children, currentPageName }) {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      <header className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${headerBg}`}>
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${headerBg}`}>
         <div className="px-5 py-2 sm:px-7">
           <div className="flex h-16 items-center justify-between gap-5 rounded-full px-3 text-white lg:h-[76px]">
             <Link
@@ -57,7 +50,7 @@ export default function Layout({ children, currentPageName }) {
             </Link>
 
             <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
-              {navLinks.slice(1).map((link) => (
+              {navLinks.slice(1).reverse().map((link) => (
                 <Link
                   key={link.page}
                   to={createPageUrl(link.page)}
@@ -74,13 +67,6 @@ export default function Layout({ children, currentPageName }) {
             </nav>
 
             <div className="hidden items-center gap-3 lg:flex">
-              <Link
-                to={createPageUrl("Listings")}
-                className="serhant-pill flex h-11 items-center gap-3 px-5 text-sm font-extrabold"
-              >
-                <Search className="h-4 w-4" aria-hidden="true" />
-                STRONG ELEMENT Homes & Agents
-              </Link>
               <Link
                 to={createPageUrl("Listings")}
                 className="flex h-11 items-center rounded-full bg-white px-6 text-sm font-extrabold text-[#082b86]"
@@ -106,77 +92,9 @@ export default function Layout({ children, currentPageName }) {
                   <UserRound className="h-5 w-5" aria-hidden="true" />
                 </button>
               )}
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="serhant-pill flex h-11 items-center gap-3 px-6 text-sm font-extrabold"
-                type="button"
-                aria-controls={mobileNavId}
-                aria-expanded={mobileOpen}
-                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
-              >
-                Menu
-                {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
-              </button>
-            </div>
-
-            <div className="flex items-center gap-3 lg:hidden">
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="serhant-pill flex h-11 items-center gap-3 px-5 text-sm font-extrabold text-white"
-                type="button"
-                aria-controls={mobileNavId}
-                aria-expanded={mobileOpen}
-                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
-              >
-                Menu
-                {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
-              </button>
             </div>
           </div>
         </div>
-
-        {mobileOpen && (
-          <div className="mx-5 rounded-[28px] bg-[#082b86] shadow-2xl lg:hidden" id={mobileNavId}>
-            <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4" aria-label="Mobile navigation">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.page}
-                  to={createPageUrl(link.page)}
-                  aria-current={currentPageName === link.page ? "page" : undefined}
-                  className={`px-4 py-3 text-sm font-extrabold text-white transition-opacity hover:opacity-75 ${
-                    currentPageName === link.page
-                      ? "underline underline-offset-8"
-                      : ""
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="mt-2 pt-3 border-t border-white/10">
-                {user ? (
-                  <button
-                    onClick={logout}
-                    className="px-4 py-3 text-sm text-slate-400"
-                    type="button"
-                  >
-                    Sign Out
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setMobileOpen(false);
-                      setShowLogin(true);
-                    }}
-                    className="px-4 py-3 text-sm text-slate-400"
-                    type="button"
-                  >
-                    Sign In
-                  </button>
-                )}
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
 
       <main id="main-content" className="flex-1" tabIndex={-1}>

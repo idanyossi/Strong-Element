@@ -21,7 +21,7 @@ export default function Accessibility() {
             <h2 className="text-2xl font-bold text-[#0A1628]">
               Accessibility Adjustments
             </h2>
-            <ul className="mt-4 list-disc space-y-2 pl-6">
+            <ul className="mt-4 list-disc space-y-2 pr-6">
               <li>Semantic page structure, headings, landmarks, and navigation.</li>
               <li>Keyboard-accessible menus, filters, listings, articles, and dialogs.</li>
               <li>Visible focus indicators and skip navigation.</li>

@@ -84,13 +84,13 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
           Search properties
         </Label>
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
+          <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <Input
             id={`search-${suffix}`}
             placeholder="Search properties..."
             value={filters.search}
             onChange={(e) => updateFilter("search", e.target.value)}
-            className="h-12 rounded-full border-slate-200 pl-10"
+            className="h-12 rounded-full border-slate-200 pr-10"
           />
         </div>
       </div>
@@ -229,7 +229,7 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
           variant="ghost"
           className="w-full rounded-full text-xs font-extrabold text-[#082b86]"
         >
-          <X className="w-3 h-3 mr-1" aria-hidden="true" /> Clear All Filters
+          <X className="ms-1 h-3 w-3" aria-hidden="true" /> Clear All Filters
         </Button>
       )}
     </aside>

@@ -41,13 +41,13 @@ export default function ListingModal({ listing, onClose }) {
           <button
             ref={closeButtonRef}
             onClick={onClose}
-            className="absolute top-3 right-3 w-9 h-9 bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors"
+            className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center bg-black/50 text-white transition-colors hover:bg-black/70"
             type="button"
             aria-label="Close listing details"
           >
             <X className="w-5 h-5" aria-hidden="true" />
           </button>
-          <div className="absolute top-3 left-3 flex gap-2">
+          <div className="absolute right-3 top-3 flex gap-2">
             <span className="bg-[#0A1628]/90 text-white text-[10px] font-semibold px-3 py-1 tracking-wider uppercase">
               {listing.status?.replace("_", " ") || "For Sale"}
             </span>

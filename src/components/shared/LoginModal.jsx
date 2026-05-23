@@ -77,7 +77,7 @@ export default function LoginModal({ open, onClose }) {
             disabled={isLoading}
             className="w-full bg-[#0A1628] hover:bg-[#1B2D4F] rounded-none"
           >
-            {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+            {isLoading && <Loader2 className="ms-2 h-4 w-4 animate-spin" />}
             Sign In
           </Button>
         </form>

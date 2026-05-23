@@ -65,7 +65,7 @@ export default function FeaturedListings() {
                     alt={listing.title}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute left-4 top-4 rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
+                  <div className="absolute right-4 top-4 rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
                     {listing.status?.replace("_", " ") || "For Sale"}
                   </div>
                 </div>

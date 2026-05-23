@@ -34,12 +34,12 @@ export default function HeroSection() {
           </p>
 
           <div className="mx-auto mt-9 flex max-w-[740px] items-center rounded-full bg-white p-2 shadow-2xl">
-            <div className="flex min-h-16 flex-1 items-center gap-3 px-6 text-left text-slate-400">
+            <div className="flex min-h-16 flex-1 items-center gap-3 px-6 text-start text-slate-400">
               <span className="text-sm font-medium sm:text-base">
                 Search Strong Element properties, locations, agents...
               </span>
             </div>
-            <LocateFixed className="mr-4 hidden h-5 w-5 text-slate-500 sm:block" aria-hidden="true" />
+            <LocateFixed className="ms-4 hidden h-5 w-5 text-slate-500 sm:block" aria-hidden="true" />
             <Link to={createPageUrl("Listings")} aria-label="Explore properties">
               <Button className="h-14 w-14 rounded-full bg-[#082b86] p-0 text-white hover:bg-[#06216b] sm:h-16 sm:w-16">
                 <Search className="h-7 w-7" aria-hidden="true" />

@@ -255,7 +255,7 @@ export default function Listings() {
                             setSelectedListing(listing);
                           }
                         }}
-                        className="cursor-pointer text-left"
+                        className="cursor-pointer text-start"
                         role="button"
                         tabIndex={0}
                         aria-label={`View details for ${listing.title}`}
