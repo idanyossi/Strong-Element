@@ -1,25 +1,13 @@
 import React from "react";
 import { Bed, Bath, Maximize, MapPin, Trash2 } from "lucide-react";
+import { he } from "@/locales/he";
 
-const STATUS_LABELS = {
-  for_sale: "למכירה",
-  for_rent: "להשכרה",
-};
-
-const TYPE_LABELS = {
-  apartment: "דירה",
-  house: "בית",
-  villa: "וילה",
-  penthouse: "פנטהאוז",
-  commercial: "מסחרי",
-  land: "קרקע",
-  building: "בניין",
-};
+const { listingCard: t, propertyTypeLabels, statusLabels } = he;
 
 export default function ListingCard({ listing, isAdmin, onDelete }) {
   const handleDelete = (e) => {
     e.stopPropagation();
-    if (window.confirm(`למחוק את "${listing.title}"?`)) onDelete(listing.id);
+    if (window.confirm(t.deleteConfirm(listing.title))) onDelete(listing.id);
   };
 
   return (
@@ -35,27 +23,27 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
         />
         <div className="absolute right-3 top-3 flex gap-2">
           <span className="rounded-md bg-white px-3 py-1.5 text-[11px] font-extrabold text-[#082b86]">
-            {STATUS_LABELS[listing.status] || listing.status?.replace("_", " ") || "למכירה"}
+            {statusLabels[listing.status] || listing.status?.replace("_", " ") || t.forSale}
           </span>
           {listing.is_featured && (
             <span className="rounded-md bg-[#082b86] px-3 py-1.5 text-[11px] font-extrabold text-white">
-              נבחר
+              {t.featured}
             </span>
           )}
         </div>
         <div className="absolute left-3 top-3 flex items-center gap-2">
           {isAdmin && (
-          <button
-            onClick={handleDelete}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
-            type="button"
-            aria-label={`מחיקת נכס ${listing.title}`}
-          >
-            <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
-          </button>
+            <button
+              onClick={handleDelete}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
+              type="button"
+              aria-label={t.deleteAria(listing.title)}
+            >
+              <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+            </button>
           )}
           <span className="rounded-md bg-white px-3 py-1.5 text-xs font-extrabold capitalize text-[#082b86]">
-            {TYPE_LABELS[listing.property_type] || listing.property_type?.replace("_", " ")}
+            {propertyTypeLabels[listing.property_type] || listing.property_type?.replace("_", " ")}
           </span>
         </div>
       </div>
@@ -76,17 +64,17 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
         <div className="mt-4 flex items-center gap-4 text-xs font-bold text-slate-600">
           {listing.bedrooms != null && (
             <span className="flex items-center gap-1">
-              <Bed className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bedrooms} חדרים
+              <Bed className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bedrooms} {t.bedroomsSuffix}
             </span>
           )}
           {listing.bathrooms != null && (
             <span className="flex items-center gap-1">
-              <Bath className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bathrooms} חדרי רחצה
+              <Bath className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bathrooms} {t.bathroomsSuffix}
             </span>
           )}
           {listing.area_sqft != null && (
             <span className="flex items-center gap-1">
-              <Maximize className="w-3.5 h-3.5" aria-hidden="true" /> {listing.area_sqft} מ"ר
+              <Maximize className="w-3.5 h-3.5" aria-hidden="true" /> {listing.area_sqft} {t.sqm}
             </span>
           )}
         </div>

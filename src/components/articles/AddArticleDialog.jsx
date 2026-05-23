@@ -20,14 +20,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus, Loader2 } from "lucide-react";
+import { he } from "@/locales/he";
 
-const CATEGORIES = [
-  { value: "market_insights", label: "Market Insights" },
-  { value: "investment_tips", label: "Investment Tips" },
-  { value: "neighborhood_guides", label: "Neighborhood Guides" },
-  { value: "company_news", label: "Company News" },
-  { value: "guides", label: "Guides" },
-];
+const { articleForm: t } = he;
 
 const initialForm = {
   title: "",
@@ -64,18 +59,18 @@ export default function AddArticleDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-[#C9A84C] hover:bg-[#D4B96A] text-[#0A1628] rounded-none h-11 font-semibold">
-          <Plus className="ms-2 h-4 w-4" /> New Article
+          <Plus className="ms-2 h-4 w-4" /> {t.addButton}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto rounded-none">
         <DialogHeader>
           <DialogTitle className="text-[#0A1628] text-xl font-bold">
-            New Article
+            {t.dialogTitle}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-5 mt-4">
           <div>
-            <Label>Title *</Label>
+            <Label>{t.titleLabel}</Label>
             <Input
               value={form.title}
               onChange={(e) => update("title", e.target.value)}
@@ -84,16 +79,16 @@ export default function AddArticleDialog() {
             />
           </div>
           <div>
-            <Label>Summary</Label>
+            <Label>{t.summaryLabel}</Label>
             <Textarea
               value={form.summary}
               onChange={(e) => update("summary", e.target.value)}
               className="rounded-none mt-1 h-20"
-              placeholder="Brief summary for the article card..."
+              placeholder={t.summaryPlaceholder}
             />
           </div>
           <div>
-            <Label>Content * (Markdown supported)</Label>
+            <Label>{t.contentLabel}</Label>
             <Textarea
               value={form.content}
               onChange={(e) => update("content", e.target.value)}
@@ -103,16 +98,13 @@ export default function AddArticleDialog() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Category</Label>
-              <Select
-                value={form.category}
-                onValueChange={(v) => update("category", v)}
-              >
+              <Label>{t.categoryLabel}</Label>
+              <Select value={form.category} onValueChange={(v) => update("category", v)}>
                 <SelectTrigger className="rounded-none mt-1">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {CATEGORIES.map((c) => (
+                  {t.categories.map((c) => (
                     <SelectItem key={c.value} value={c.value}>
                       {c.label}
                     </SelectItem>
@@ -121,7 +113,7 @@ export default function AddArticleDialog() {
               </Select>
             </div>
             <div>
-              <Label>Author Name</Label>
+              <Label>{t.authorLabel}</Label>
               <Input
                 value={form.author_name}
                 onChange={(e) => update("author_name", e.target.value)}
@@ -130,7 +122,7 @@ export default function AddArticleDialog() {
             </div>
           </div>
           <div>
-            <Label>Cover Image URL</Label>
+            <Label>{t.imageUrlLabel}</Label>
             <Input
               value={form.cover_image_url}
               onChange={(e) => update("cover_image_url", e.target.value)}
@@ -145,17 +137,15 @@ export default function AddArticleDialog() {
               onClick={() => setOpen(false)}
               className="rounded-none"
             >
-              Cancel
+              {t.cancelButton}
             </Button>
             <Button
               type="submit"
               disabled={createMutation.isPending}
               className="bg-[#0A1628] hover:bg-[#1B2D4F] rounded-none"
             >
-              {createMutation.isPending && (
-                <Loader2 className="ms-2 h-4 w-4 animate-spin" />
-              )}
-              Publish Article
+              {createMutation.isPending && <Loader2 className="ms-2 h-4 w-4 animate-spin" />}
+              {t.submitButton}
             </Button>
           </div>
         </form>

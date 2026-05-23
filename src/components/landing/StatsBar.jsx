@@ -1,12 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { he } from "@/locales/he";
 
-const stats = [
-  { value: "500+", label: "נכסים שנמכרו" },
-  { value: "98%", label: "שביעות רצון לקוחות" },
-  { value: "15+", label: "שנות ניסיון" },
-  { value: "$2B+", label: "היקף עסקאות" },
-];
+const { stats } = he;
 
 export default function StatsBar() {
   return (

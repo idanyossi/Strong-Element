@@ -5,14 +5,9 @@ import { useAuth } from "@/lib/AuthContext";
 import { UserRound } from "lucide-react";
 import Footer from "./components/shared/Footer";
 import LoginModal from "./components/shared/LoginModal";
+import { he } from "@/locales/he";
 
-const navLinks = [
-  { label: "בית", page: "Home" },
-  { label: "נכסים", page: "Listings" },
-  { label: "אודות", page: "About" },
-  { label: "הצוות", page: "Agents" },
-  { label: "מאמרים", page: "Articles" },
-];
+const { brand, common, layout, routes } = he;
 
 export default function Layout({ children, currentPageName }) {
   const [scrolled, setScrolled] = useState(false);
@@ -34,7 +29,7 @@ export default function Layout({ children, currentPageName }) {
   return (
     <div className="min-h-screen flex flex-col">
       <a href="#main-content" className="skip-link">
-        דלג לתוכן הראשי
+        {layout.skipToMain}
       </a>
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${headerBg}`}>
         <div className="px-5 py-2 sm:px-7">
@@ -42,21 +37,21 @@ export default function Layout({ children, currentPageName }) {
             <Link
               to={createPageUrl("Home")}
               className="flex items-center lg:absolute lg:right-3"
-              aria-label="דף הבית של Strong Element"
+              aria-label={layout.homeAria}
             >
               <span className="text-2xl font-black uppercase tracking-[-0.06em] text-white lg:text-[34px]">
-                STRONG<span>ELEMENT</span><span>.</span>
+                {brand.name}
               </span>
               <span className="me-3 hidden text-[11px] font-extrabold uppercase tracking-wide text-white/70 sm:inline">
-                since 1985
+                {brand.since}
               </span>
             </Link>
 
             <nav
               className="hidden items-center gap-8 lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:-translate-x-1/2 lg:-translate-y-1/2"
-              aria-label="ניווט ראשי"
+              aria-label={layout.mainNavAria}
             >
-              {navLinks.slice(1).reverse().map((link) => (
+              {routes.navLinks.slice(1).reverse().map((link) => (
                 <Link
                   key={link.page}
                   to={createPageUrl(link.page)}
@@ -77,14 +72,14 @@ export default function Layout({ children, currentPageName }) {
                 to={createPageUrl("Listings")}
                 className="flex h-11 items-center rounded-full bg-white px-6 text-sm font-extrabold text-[#082b86]"
               >
-                כל הנכסים
+                {common.allListings}
               </Link>
               {user ? (
                 <button
                   onClick={logout}
                   className="serhant-pill flex h-11 w-11 items-center justify-center"
                   type="button"
-                  aria-label="התנתקות"
+                  aria-label={common.signOut}
                 >
                   <UserRound className="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -93,7 +88,7 @@ export default function Layout({ children, currentPageName }) {
                   onClick={() => setShowLogin(true)}
                   className="serhant-pill flex h-11 w-11 items-center justify-center"
                   type="button"
-                  aria-label="התחברות"
+                  aria-label={common.signIn}
                 >
                   <UserRound className="h-5 w-5" aria-hidden="true" />
                 </button>

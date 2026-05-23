@@ -7,14 +7,9 @@ import { motion } from "framer-motion";
 import { ArrowLeft, BookOpen, Calendar, Trash2, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import AddArticleDialog from "../components/articles/AddArticleDialog";
+import { he } from "@/locales/he";
 
-const CATEGORY_LABELS = {
-  market_insights: "תובנות שוק",
-  investment_tips: "טיפים להשקעה",
-  neighborhood_guides: "מדריכי שכונות",
-  company_news: "חדשות החברה",
-  guides: "מדריכים",
-};
+const { articles: t } = he;
 
 export default function Articles() {
   const { isAdmin } = useAuth();
@@ -37,18 +32,23 @@ export default function Articles() {
       ? articles
       : articles.filter((a) => a.category === selectedCategory);
 
+  const categories = [
+    { value: "all", label: t.allCategory },
+    ...Object.entries(t.categoryLabels).map(([k, v]) => ({ value: k, label: v })),
+  ];
+
   return (
     <div className="bg-[#f4f4f4] pt-24">
       <section className="px-5 pb-8 pt-8 sm:px-8 lg:pt-14">
         <div className="mx-auto max-w-[1760px] rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
           <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
             <div className="max-w-4xl">
-              <p className="mb-4 text-sm font-black text-white/75">תובנות</p>
+              <p className="mb-4 text-sm font-black text-white/75">{t.eyebrow}</p>
               <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-                מאמרים ותובנות
+                {t.title}
               </h1>
               <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/75">
-                ידע שוק, אסטרטגיות השקעה ונקודת מבט מקצועית על עולם הנדל"ן.
+                {t.body}
               </p>
             </div>
             {isAdmin && <AddArticleDialog />}
@@ -59,13 +59,7 @@ export default function Articles() {
       <div className="sticky top-20 z-30 px-5 py-4 sm:px-8">
         <div className="mx-auto max-w-[1760px] overflow-x-auto rounded-full bg-white p-2 shadow-sm">
           <div className="flex gap-2">
-            {[
-              { value: "all", label: "הכל" },
-              ...Object.entries(CATEGORY_LABELS).map(([k, v]) => ({
-                value: k,
-                label: v,
-              })),
-            ].map((cat) => (
+            {categories.map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
@@ -88,7 +82,7 @@ export default function Articles() {
         <div className="mx-auto max-w-[1760px]">
           {isLoading ? (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" role="status" aria-live="polite">
-              <span className="sr-only">טוען מאמרים</span>
+              <span className="sr-only">{t.loading}</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="overflow-hidden rounded-[24px] bg-white">
                   <Skeleton className="aspect-[16/10] w-full rounded-none" />
@@ -103,10 +97,8 @@ export default function Articles() {
           ) : filtered.length === 0 ? (
             <div className="rounded-[28px] bg-white py-32 text-center">
               <BookOpen className="mx-auto mb-4 h-12 w-12 text-[#082b86]" aria-hidden="true" />
-              <p className="text-xl font-black text-[#082b86]">אין מאמרים עדיין</p>
-              <p className="mt-1 font-medium text-slate-500">
-                מאמרים חדשים יעלו בקרוב.
-              </p>
+              <p className="text-xl font-black text-[#082b86]">{t.emptyTitle}</p>
+              <p className="mt-1 font-medium text-slate-500">{t.emptyBody}</p>
             </div>
           ) : (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -118,9 +110,7 @@ export default function Articles() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.05 }}
                   className="group cursor-pointer overflow-hidden rounded-[24px] bg-white"
-                  onClick={() =>
-                    setExpandedId(expandedId === article.id ? null : article.id)
-                  }
+                  onClick={() => setExpandedId(expandedId === article.id ? null : article.id)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
@@ -130,7 +120,11 @@ export default function Articles() {
                   role="button"
                   tabIndex={0}
                   aria-expanded={expandedId === article.id}
-                  aria-label={`${expandedId === article.id ? "סגירת" : "פתיחת"} מאמר ${article.title}`}
+                  aria-label={
+                    expandedId === article.id
+                      ? t.closeAria(article.title)
+                      : t.openAria(article.title)
+                  }
                 >
                   <div className="relative aspect-[16/10] overflow-hidden rounded-[24px]">
                     <img
@@ -145,19 +139,19 @@ export default function Articles() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (window.confirm(`למחוק את "${article.title}"?`))
+                          if (window.confirm(t.deleteConfirm(article.title)))
                             deleteMutation.mutate(article.id);
                         }}
                         className="absolute left-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
                         type="button"
-                        aria-label={`מחיקת מאמר ${article.title}`}
+                        aria-label={t.deleteAria(article.title)}
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     )}
                     <div className="absolute right-4 top-4">
                       <span className="rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
-                        {CATEGORY_LABELS[article.category] || article.category}
+                        {t.categoryLabels[article.category] || article.category}
                       </span>
                     </div>
                   </div>
@@ -185,7 +179,7 @@ export default function Articles() {
                       </p>
                     )}
                     <div className="mt-4 flex items-center text-sm font-extrabold text-[#082b86]">
-                      {expandedId === article.id ? "סגירת המאמר" : "לקריאת המאמר"}{" "}
+                      {expandedId === article.id ? t.collapse : t.readMore}{" "}
                       <ArrowLeft className="me-1 h-4 w-4" aria-hidden="true" />
                     </div>
                   </div>

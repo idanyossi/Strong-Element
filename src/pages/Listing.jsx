@@ -19,6 +19,9 @@ import ListingFilters from "../components/listings/ListingFilters";
 import ListingCard from "../components/listings/ListingCard";
 import ListingModal from "../components/listings/ListingModal";
 import AddListingDialog from "../components/listings/AddListingDialog";
+import { he } from "@/locales/he";
+
+const { listings: t } = he;
 
 const ITEMS_PER_PAGE = 12;
 
@@ -127,12 +130,12 @@ export default function Listings() {
       <section className="px-5 pb-8 pt-8 sm:px-8 lg:pt-14">
         <div className="mx-auto flex max-w-[1760px] flex-col items-start justify-between gap-8 rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:flex-row sm:items-end sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
           <div>
-            <p className="mb-4 text-sm font-black text-white/75">נכסים</p>
+            <p className="mb-4 text-sm font-black text-white/75">{t.eyebrow}</p>
             <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-              כל הנכסים
+              {t.title}
             </h1>
             <p className="mt-5 text-lg font-bold text-white/75">
-              נמצאו {filteredListings.length} נכסים
+              {t.found(filteredListings.length)}
             </p>
           </div>
           {isAdmin && <AddListingDialog />}
@@ -149,19 +152,19 @@ export default function Listings() {
           aria-controls="mobile-listing-filters"
         >
           <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
-          {showMobileFilters ? "הסתר סינון" : "הצג סינון"}
+          {showMobileFilters ? t.hideFilters : t.showFilters}
         </button>
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger
             className="h-10 w-40 rounded-full border-slate-200 text-xs"
-            aria-label="מיון נכסים"
+            aria-label={t.sortAria}
           >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">החדשים ביותר</SelectItem>
-            <SelectItem value="price_asc">מחיר: מהנמוך לגבוה</SelectItem>
-            <SelectItem value="price_desc">מחיר: מהגבוה לנמוך</SelectItem>
+            <SelectItem value="newest">{t.sortNewest}</SelectItem>
+            <SelectItem value="price_asc">{t.sortPriceAsc}</SelectItem>
+            <SelectItem value="price_desc">{t.sortPriceDesc}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -191,23 +194,23 @@ export default function Listings() {
               {/* Desktop sort bar */}
               <div className="hidden lg:flex items-center justify-between mb-6">
                 <p className="text-sm font-bold text-slate-500">
-                  מציג {(page - 1) * ITEMS_PER_PAGE + 1}-
-                  {Math.min(page * ITEMS_PER_PAGE, filteredListings.length)} מתוך{" "}
-                  {filteredListings.length}
+                  {t.showing(
+                    (page - 1) * ITEMS_PER_PAGE + 1,
+                    Math.min(page * ITEMS_PER_PAGE, filteredListings.length),
+                    filteredListings.length,
+                  )}
                 </p>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger
                     className="h-11 w-52 rounded-full border-slate-200"
-                    aria-label="מיון נכסים"
+                    aria-label={t.sortAria}
                   >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="newest">החדשים ביותר</SelectItem>
-                    <SelectItem value="price_asc">מחיר: מהנמוך לגבוה</SelectItem>
-                    <SelectItem value="price_desc">
-                      מחיר: מהגבוה לנמוך
-                    </SelectItem>
+                    <SelectItem value="newest">{t.sortNewest}</SelectItem>
+                    <SelectItem value="price_asc">{t.sortPriceAsc}</SelectItem>
+                    <SelectItem value="price_desc">{t.sortPriceDesc}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -215,12 +218,12 @@ export default function Listings() {
               {isLoading ? (
                 <div className="flex items-center justify-center py-32" role="status" aria-live="polite">
                   <Loader2 className="w-6 h-6 animate-spin text-slate-400" aria-hidden="true" />
-                  <span className="sr-only">טוען נכסים</span>
+                  <span className="sr-only">{t.loading}</span>
                 </div>
               ) : paginatedListings.length === 0 ? (
                 <div className="text-center py-32">
                   <p className="text-slate-400 text-lg">
-                    לא נמצאו נכסים התואמים את הסינון
+                    {t.empty}
                   </p>
                   <button
                     onClick={() =>
@@ -237,7 +240,7 @@ export default function Listings() {
                     className="mt-4 rounded-full bg-[#082b86] px-5 py-3 text-sm font-extrabold text-white hover:bg-[#06216b]"
                     type="button"
                   >
-                    ניקוי כל הסינונים
+                    {t.clearAll}
                   </button>
                 </div>
               ) : (
@@ -256,7 +259,7 @@ export default function Listings() {
                         className="cursor-pointer text-start"
                         role="button"
                         tabIndex={0}
-                        aria-label={`צפייה בפרטי הנכס ${listing.title}`}
+                        aria-label={t.viewDetailsAria(listing.title)}
                       >
                         <ListingCard
                           listing={listing}
@@ -276,7 +279,7 @@ export default function Listings() {
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                         disabled={page === 1}
                         className="h-11 w-11 rounded-full border-slate-200 bg-white"
-                        aria-label="לעמוד הנכסים הקודם"
+                        aria-label={t.previousPageAria}
                       >
                         <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                       </Button>
@@ -302,7 +305,7 @@ export default function Listings() {
                               key={p}
                               variant={page === p ? "default" : "outline"}
                               onClick={() => setPage(p)}
-                              aria-label={`מעבר לעמוד נכסים ${p}`}
+                              aria-label={t.pageAria(p)}
                               aria-current={page === p ? "page" : undefined}
                               className={`rounded-none w-10 h-10 ${
                                 page === p
@@ -322,7 +325,7 @@ export default function Listings() {
                         }
                         disabled={page === totalPages}
                         className="h-11 w-11 rounded-full border-slate-200 bg-white"
-                        aria-label="לעמוד הנכסים הבא"
+                        aria-label={t.nextPageAria}
                       >
                         <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                       </Button>

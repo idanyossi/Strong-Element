@@ -1,6 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
+import { he } from "@/locales/he";
+
+const { notFound: t } = he.systemPages;
 
 export default function PageNotFound({}) {
   const location = useLocation();
@@ -22,25 +25,20 @@ export default function PageNotFound({}) {
     <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
       <div className="max-w-md w-full">
         <div className="text-center space-y-6">
-          {/* 404 Error Code */}
           <div className="space-y-2">
             <h1 className="text-7xl font-light text-slate-300">404</h1>
             <div className="h-0.5 w-16 bg-slate-200 mx-auto"></div>
           </div>
 
-          {/* Main Message */}
           <div className="space-y-3">
             <h2 className="text-2xl font-medium text-slate-800">
-              Page Not Found
+              {t.title}
             </h2>
             <p className="text-slate-600 leading-relaxed">
-              The page{" "}
-              <span className="font-medium text-slate-700">"{pageName}"</span>{" "}
-              could not be found in this application.
+              {t.message(pageName)}
             </p>
           </div>
 
-          {/* Admin Note */}
           {isFetched &&
             authData.isAuthenticated &&
             authData.user?.role === "admin" && (
@@ -51,18 +49,16 @@ export default function PageNotFound({}) {
                   </div>
                   <div className="text-left space-y-1">
                     <p className="text-sm font-medium text-slate-700">
-                      Admin Note
+                      {t.adminNoteTitle}
                     </p>
                     <p className="text-sm text-slate-600 leading-relaxed">
-                      This could mean that the AI hasn't implemented this page
-                      yet. Ask it to implement it in the chat.
+                      {t.adminNoteBody}
                     </p>
                   </div>
                 </div>
               </div>
             )}
 
-          {/* Action Button */}
           <div className="pt-6">
             <button
               onClick={() => (window.location.href = "/")}
@@ -81,7 +77,7 @@ export default function PageNotFound({}) {
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                 />
               </svg>
-              Go Home
+              {t.goHome}
             </button>
           </div>
         </div>

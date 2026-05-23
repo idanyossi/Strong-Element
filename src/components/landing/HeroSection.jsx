@@ -4,13 +4,16 @@ import { createPageUrl } from "@/utils";
 import { ArrowLeft, LocateFixed, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { he } from "@/locales/he";
+
+const { hero } = he;
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-[760px] overflow-hidden bg-black text-white lg:min-h-[92vh]">
       <img
         src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=1900&q=85"
-        alt="Modern real estate presentation"
+        alt={hero.imageAlt}
         className="absolute inset-0 h-full w-full object-cover opacity-75"
       />
       <div className="absolute inset-0 bg-black/45" />
@@ -24,32 +27,28 @@ export default function HeroSection() {
           className="w-full"
         >
           <p className="mb-5 text-sm font-black uppercase tracking-[0.2em] text-white/80">
-            PREMIUM REAL ESTATE
+            {hero.eyebrow}
           </p>
           <h1 className="mx-auto max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[76px]">
-            Build Your Strongest Investment
+            {hero.title}
           </h1>
 
           <div className="mx-auto mt-7 max-w-3xl space-y-5 text-base font-extrabold leading-relaxed text-white sm:text-lg">
             <blockquote>
-              "האנשים שמשוגעים מספיק כדי לחשוב שהם יכולים לשנות את העולם, הם
-              אלו שמשנים אותו."
-              <span className="block text-sm text-white/75">(Steven Paul Jobs)</span>
+              {hero.quote}
+              <span className="block text-sm text-white/75">{hero.quoteAuthor}</span>
             </blockquote>
-            <p>
-              ניסיון, מומחיות משפטית, חשיבה שיווקית אגרסיבית והבנה עמוקה בשוק
-              הנדל"ן. אנחנו לא רק מוכרים, אנחנו בונים עבורך את העסקה הבאה.
-            </p>
+            <p>{hero.body}</p>
           </div>
 
           <div className="mx-auto mt-9 flex max-w-[740px] items-center rounded-full bg-white p-2 shadow-2xl">
             <div className="flex min-h-16 flex-1 items-center gap-3 px-6 text-start text-slate-400">
               <span className="text-sm font-medium sm:text-base">
-                חיפוש נכסים, אזורים ואנשי מקצוע של Strong Element...
+                {hero.searchPlaceholder}
               </span>
             </div>
             <LocateFixed className="ms-4 hidden h-5 w-5 text-slate-500 sm:block" aria-hidden="true" />
-            <Link to={createPageUrl("Listings")} aria-label="Explore properties">
+            <Link to={createPageUrl("Listings")}>
               <Button className="h-14 w-14 rounded-full bg-[#082b86] p-0 text-white hover:bg-[#06216b] sm:h-16 sm:w-16">
                 <Search className="h-7 w-7" aria-hidden="true" />
               </Button>
@@ -59,7 +58,7 @@ export default function HeroSection() {
           <div className="mt-7 flex justify-center gap-3">
             <Link to={createPageUrl("Listings")}>
               <Button className="h-12 rounded-full bg-white px-7 text-sm font-extrabold text-[#082b86] hover:bg-slate-100">
-                לתיאום פגישת אסטרטגיה לחץ כאן
+                {hero.ctaButton}
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               </Button>
             </Link>
@@ -68,7 +67,7 @@ export default function HeroSection() {
                 variant="outline"
                 className="h-12 rounded-full border-white/40 bg-white/10 px-7 text-sm font-extrabold text-white backdrop-blur-md hover:bg-white hover:text-[#082b86]"
               >
-                אודות החברה
+                {hero.aboutButton}
               </Button>
             </Link>
           </div>

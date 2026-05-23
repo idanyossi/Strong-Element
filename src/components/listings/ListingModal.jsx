@@ -1,20 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { Bed, Bath, Maximize, MapPin, X } from "lucide-react";
+import { he } from "@/locales/he";
 
-const STATUS_LABELS = {
-  for_sale: "למכירה",
-  for_rent: "להשכרה",
-};
-
-const TYPE_LABELS = {
-  apartment: "דירה",
-  house: "בית",
-  villa: "וילה",
-  penthouse: "פנטהאוז",
-  commercial: "מסחרי",
-  land: "קרקע",
-  building: "בניין",
-};
+const { listingModal: t, propertyTypeLabels, statusLabels } = he;
 
 export default function ListingModal({ listing, onClose }) {
   const closeButtonRef = useRef(null);
@@ -46,7 +34,6 @@ export default function ListingModal({ listing, onClose }) {
         aria-modal="true"
         aria-labelledby="listing-dialog-title"
       >
-        {/* Image */}
         <div className="relative aspect-[16/9] overflow-hidden">
           <img
             src={listing.image_url || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80"}
@@ -58,23 +45,22 @@ export default function ListingModal({ listing, onClose }) {
             onClick={onClose}
             className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center bg-black/50 text-white transition-colors hover:bg-black/70"
             type="button"
-            aria-label="סגירת פרטי הנכס"
+            aria-label={t.closeAria}
           >
             <X className="w-5 h-5" aria-hidden="true" />
           </button>
           <div className="absolute right-3 top-3 flex gap-2">
             <span className="bg-[#0A1628]/90 text-white text-[10px] font-semibold px-3 py-1 tracking-wider uppercase">
-              {STATUS_LABELS[listing.status] || listing.status?.replace("_", " ") || "למכירה"}
+              {statusLabels[listing.status] || listing.status?.replace("_", " ") || t.forSale}
             </span>
             {listing.is_featured && (
               <span className="bg-[#C9A84C] text-[#0A1628] text-[10px] font-semibold px-3 py-1 tracking-wider uppercase">
-                נבחר
+                {t.featured}
               </span>
             )}
           </div>
         </div>
 
-        {/* Content */}
         <div className="p-6">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -86,7 +72,7 @@ export default function ListingModal({ listing, onClose }) {
               </h2>
             </div>
             <span className="bg-slate-100 text-slate-600 text-xs px-3 py-1 font-medium capitalize whitespace-nowrap">
-              {TYPE_LABELS[listing.property_type] || listing.property_type?.replace("_", " ")}
+              {propertyTypeLabels[listing.property_type] || listing.property_type?.replace("_", " ")}
             </span>
           </div>
 
@@ -102,34 +88,32 @@ export default function ListingModal({ listing, onClose }) {
             <p className="mt-1 text-slate-400 text-sm">{listing.address}</p>
           )}
 
-          {/* Stats */}
           <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-6 text-slate-600 text-sm">
             {listing.bedrooms != null && (
               <span className="flex items-center gap-1.5">
-                <Bed className="w-4 h-4" aria-hidden="true" /> {listing.bedrooms} חדרים
+                <Bed className="w-4 h-4" aria-hidden="true" /> {listing.bedrooms} {t.bedroomsSuffix}
               </span>
             )}
             {listing.bathrooms != null && (
               <span className="flex items-center gap-1.5">
-                <Bath className="w-4 h-4" aria-hidden="true" /> {listing.bathrooms} חדרי רחצה
+                <Bath className="w-4 h-4" aria-hidden="true" /> {listing.bathrooms} {t.bathroomsSuffix}
               </span>
             )}
             {listing.area_sqft != null && (
               <span className="flex items-center gap-1.5">
-                <Maximize className="w-4 h-4" aria-hidden="true" /> {listing.area_sqft} מ"ר
+                <Maximize className="w-4 h-4" aria-hidden="true" /> {listing.area_sqft} {t.sqm}
               </span>
             )}
           </div>
 
-          {/* Building details */}
           {listing.property_type === "building" && (listing.total_apartments || listing.apartment_breakdown?.length > 0) && (
             <div className="mt-5">
               <h3 className="text-sm font-semibold text-[#0A1628] uppercase tracking-wider mb-3">
-                פרטי בניין
+                {t.buildingDetails}
               </h3>
               {listing.total_apartments && (
                 <p className="text-slate-600 text-sm mb-3">
-                  <span className="font-medium">סה"כ דירות:</span> {listing.total_apartments}
+                  <span className="font-medium">{t.totalApartments}</span> {listing.total_apartments}
                 </p>
               )}
               {listing.apartment_breakdown?.length > 0 && (
@@ -137,7 +121,7 @@ export default function ListingModal({ listing, onClose }) {
                   {listing.apartment_breakdown.map((b) => (
                     <div key={b.rooms} className="bg-slate-50 px-3 py-2 text-center">
                       <p className="text-lg font-bold text-[#0A1628]">{b.count}</p>
-                      <p className="text-xs text-slate-500">{b.rooms} חדרים</p>
+                      <p className="text-xs text-slate-500">{b.rooms} {t.roomsSuffix}</p>
                     </div>
                   ))}
                 </div>
@@ -145,11 +129,10 @@ export default function ListingModal({ listing, onClose }) {
             </div>
           )}
 
-          {/* Description */}
           {listing.description && (
             <div className="mt-5">
               <h3 className="text-sm font-semibold text-[#0A1628] uppercase tracking-wider mb-2">
-                תיאור
+                {t.descriptionHeading}
               </h3>
               <p className="text-slate-500 text-sm leading-relaxed whitespace-pre-line">
                 {listing.description}

@@ -6,6 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Bath, Bed, Maximize } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
+import { he } from "@/locales/he";
+
+const { featuredListings: t, statusLabels } = he;
 
 export default function FeaturedListings() {
   const { data: listings = [], isLoading } = useQuery({
@@ -13,17 +16,15 @@ export default function FeaturedListings() {
     queryFn: () => api.listings.featured(),
   });
 
-  const displayListings = listings.length > 0 ? listings : [];
-
   return (
     <section className="bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-[1760px] px-5 sm:px-8">
         <div className="mb-12 max-w-2xl">
           <h2 className="text-5xl font-black leading-none tracking-[-0.055em] text-[#082b86] sm:text-6xl">
-            נכסים נבחרים
+            {t.title}
           </h2>
           <p className="mt-5 text-lg font-medium leading-relaxed text-slate-600">
-            הצצה לנכסים, דירות, פנטהאוזים והזדמנויות נדל"ן שנבחרו בקפידה.
+            {t.body}
           </p>
         </div>
 
@@ -40,13 +41,13 @@ export default function FeaturedListings() {
               </div>
             ))}
           </div>
-        ) : displayListings.length === 0 ? (
+        ) : listings.length === 0 ? (
           <div className="rounded-[18px] bg-[#f4f4f4] py-20 text-center text-slate-500">
-            <p className="text-lg font-bold">נכסים נבחרים יעלו בקרוב</p>
+            <p className="text-lg font-bold">{t.empty}</p>
           </div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {displayListings.map((listing, i) => (
+            {listings.map((listing, i) => (
               <motion.div
                 key={listing.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -65,7 +66,7 @@ export default function FeaturedListings() {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute right-4 top-4 rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
-                    {listing.status?.replace("for_sale", "למכירה").replace("for_rent", "להשכרה").replace("_", " ") || "למכירה"}
+                    {statusLabels[listing.status] || listing.status?.replace("_", " ")}
                   </div>
                 </div>
                 <div className="px-1 py-5">
@@ -92,7 +93,7 @@ export default function FeaturedListings() {
                     )}
                     {listing.area_sqft && (
                       <span className="flex items-center gap-1.5">
-                        <Maximize className="h-4 w-4" aria-hidden="true" /> {listing.area_sqft} מ"ר
+                        <Maximize className="h-4 w-4" aria-hidden="true" /> {listing.area_sqft} {he.common.sqm}
                       </span>
                     )}
                   </div>
@@ -106,7 +107,7 @@ export default function FeaturedListings() {
           to={createPageUrl("Listings")}
           className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#082b86] px-7 py-4 text-sm font-extrabold text-white hover:bg-[#06216b]"
         >
-          לכל הנכסים
+          {t.viewAll}
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>
