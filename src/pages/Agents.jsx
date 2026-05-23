@@ -5,7 +5,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Award, Linkedin, Mail, Phone, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
-import AddAgentDialog from "@/components/agents/AddAgentDialog";
 import { he } from "@/locales/he";
 
 const { agents: t } = he;
@@ -38,7 +37,6 @@ export default function Agents() {
                 {t.body}
               </p>
             </div>
-            {isAdmin && <AddAgentDialog />}
           </div>
         </div>
       </section>

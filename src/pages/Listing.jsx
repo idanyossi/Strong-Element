@@ -18,7 +18,6 @@ import {
 import ListingFilters from "../components/listings/ListingFilters";
 import ListingCard from "../components/listings/ListingCard";
 import ListingModal from "../components/listings/ListingModal";
-import AddListingDialog from "../components/listings/AddListingDialog";
 import { he } from "@/locales/he";
 
 const { listings: t } = he;
@@ -138,7 +137,6 @@ export default function Listings() {
               {t.found(filteredListings.length)}
             </p>
           </div>
-          {isAdmin && <AddListingDialog />}
         </div>
       </section>
 

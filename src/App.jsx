@@ -4,6 +4,7 @@ import { queryClientInstance } from "@/lib/query-client";
 import { pagesConfig } from "./pages.config";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import PageNotFound from "./lib/PageNotFound";
+import Admin from "./pages/Admin";
 import { AuthProvider } from "@/lib/AuthContext";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
@@ -64,6 +65,7 @@ function AppRoutes() {
             }
           />
         ))}
+        <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </AnimatePresence>

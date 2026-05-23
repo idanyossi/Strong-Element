@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { useAuth } from "@/lib/AuthContext";
-import { UserRound } from "lucide-react";
 import Footer from "./components/shared/Footer";
-import LoginModal from "./components/shared/LoginModal";
 import { he } from "@/locales/he";
 
 const { brand, common, layout, routes } = he;
 
 export default function Layout({ children, currentPageName }) {
   const [scrolled, setScrolled] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -74,25 +69,6 @@ export default function Layout({ children, currentPageName }) {
               >
                 {common.allListings}
               </Link>
-              {user ? (
-                <button
-                  onClick={logout}
-                  className="serhant-pill flex h-11 w-11 items-center justify-center"
-                  type="button"
-                  aria-label={common.signOut}
-                >
-                  <UserRound className="h-5 w-5" aria-hidden="true" />
-                </button>
-              ) : (
-                <button
-                  onClick={() => setShowLogin(true)}
-                  className="serhant-pill flex h-11 w-11 items-center justify-center"
-                  type="button"
-                  aria-label={common.signIn}
-                >
-                  <UserRound className="h-5 w-5" aria-hidden="true" />
-                </button>
-              )}
             </div>
           </div>
         </div>
@@ -103,7 +79,6 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       <Footer />
-      <LoginModal open={showLogin} onClose={() => setShowLogin(false)} />
     </div>
   );
 }

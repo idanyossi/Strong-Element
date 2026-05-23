@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { ArrowLeft, BookOpen, Calendar, Trash2, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import AddArticleDialog from "../components/articles/AddArticleDialog";
 import { he } from "@/locales/he";
 
 const { articles: t } = he;
@@ -51,7 +50,6 @@ export default function Articles() {
                 {t.body}
               </p>
             </div>
-            {isAdmin && <AddArticleDialog />}
           </div>
         </div>
       </section>
