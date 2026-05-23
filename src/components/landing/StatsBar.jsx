@@ -1,18 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { he } from "@/locales/he";
 
-const stats = [
-  { value: "500+", label: "Properties Sold" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "15+", label: "Years Experience" },
-  { value: "$2B+", label: "Transaction Volume" },
-];
+const { stats } = he;
 
 export default function StatsBar() {
   return (
-    <section className="bg-white border-y border-slate-100">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+    <section className="bg-[#f4f4f4] pt-16">
+      <div className="mx-auto max-w-[1760px] px-5 sm:px-8">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -20,12 +16,12 @@ export default function StatsBar() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="text-center"
+              className="rounded-2xl bg-white px-6 py-7"
             >
-              <p className="text-3xl lg:text-4xl font-bold text-[#0A1628] tracking-tight">
+              <p className="text-4xl font-black tracking-[-0.05em] text-[#082b86] lg:text-5xl">
                 {stat.value}
               </p>
-              <p className="mt-2 text-slate-400 text-sm font-medium tracking-wide uppercase">
+              <p className="mt-2 text-sm font-extrabold tracking-tight text-slate-600">
                 {stat.label}
               </p>
             </motion.div>

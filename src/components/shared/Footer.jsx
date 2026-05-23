@@ -1,44 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { he } from "@/locales/he";
 
-const navLinks = [
-  { label: "Home", page: "Home" },
-  { label: "Listings", page: "Listings" },
-  { label: "About", page: "About" },
-  { label: "Agents", page: "Agents" },
-  { label: "Articles", page: "Articles" },
-  { label: "Accessibility", page: "Accessibility" },
-];
+const { footer, routes } = he;
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A1628] text-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <p className="text-xl font-bold tracking-tight">
-              STRONG<span className="text-[#C9A84C]">ELEMENT</span>
+    <footer className="bg-[#082b86] text-white">
+      <div className="mx-auto max-w-[1760px] px-5 py-16 sm:px-8 lg:py-20">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr]">
+          <div>
+            <p className="text-4xl font-black uppercase tracking-[-0.06em]">
+              STRONG<span>ELEMENT</span><span>.</span>
             </p>
-            <p className="mt-4 text-slate-400 text-sm leading-relaxed">
-              Premium real estate services built on expertise, integrity, and
-              results.
+            <p className="mt-5 max-w-md text-base font-bold leading-relaxed text-white/75">
+              {footer.summary}
             </p>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-5">
-              Navigation
-            </h4>
-            <ul className="space-y-3">
-              {navLinks.map((link) => (
+          <div className="rounded-[28px] bg-white/10 p-7 backdrop-blur-md">
+            <h4 className="mb-5 text-sm font-black">{footer.navigation}</h4>
+            <ul className="grid grid-cols-2 gap-3">
+              {routes.footerLinks.map((link) => (
                 <li key={link.page}>
                   <Link
                     to={createPageUrl(link.page)}
-                    className="text-slate-300 hover:text-[#C9A84C] transition-colors text-sm"
+                    className="text-sm font-bold text-white/75 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -47,62 +36,37 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
-          {/*  <div>
-            <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-5">
-              Services
-            </h4>
-            <ul className="space-y-3 text-sm text-slate-300">
-              <li>Residential Sales</li>
-              <li>Commercial Properties</li>
-              <li>Property Management</li>
-              <li>Investment Advisory</li>
-              <li>Market Analysis</li>
-            </ul>
-          </div> */}
-
-          {/* Contact */}
-          <div>
-            <h4 className="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-5">
-              Contact
-            </h4>
-            <ul className="space-y-4 text-sm text-slate-300">
+          <div className="rounded-[28px] bg-white/10 p-7 backdrop-blur-md">
+            <h4 className="mb-5 text-sm font-black">{footer.contact}</h4>
+            <ul className="space-y-4 text-sm font-bold text-white/75">
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 text-[#C9A84C] flex-shrink-0" aria-hidden="true" />
+                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
                 <span>
-                  123 Business Avenue
+                  {footer.addressLine1}
                   <br />
-                  New York, NY 10001
+                  {footer.addressLine2}
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#C9A84C] flex-shrink-0" aria-hidden="true" />
-                <a href="tel:+15551234567" className="hover:text-[#C9A84C]">
-                  +1 (555) 123-4567
+                <Phone className="h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
+                <a href={`tel:+972${footer.phone.replace(/^0/, "")}`} className="hover:text-white">
+                  {footer.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#C9A84C] flex-shrink-0" aria-hidden="true" />
-                <a href="mailto:info@strongelement.com" className="hover:text-[#C9A84C]">
-                  info@strongelement.com
+                <Mail className="h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
+                <a href={`mailto:${footer.email}`} className="hover:text-white">
+                  {footer.email}
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-xs tracking-wide">
-            © {new Date().getFullYear()} Strong Element. All rights reserved.
+        <div className="mt-12 border-t border-white/15 pt-7">
+          <p className="text-xs font-bold text-white/55">
+            © {new Date().getFullYear()} Strong Element Ltd. {footer.copyright}
           </p>
-          {/* <div className="flex gap-6 text-xs text-slate-500">
-            <span className="hover:text-slate-300 cursor-pointer transition-colors">
-              Privacy Policy
-            </span>
-            <span className="hover:text-slate-300 cursor-pointer transition-colors">
-              Terms of Service
-            </span>
-          </div> */}
         </div>
       </div>
     </footer>

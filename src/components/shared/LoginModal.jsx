@@ -10,6 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react';
+import { he } from '@/locales/he';
+
+const { login: t } = he;
 
 export default function LoginModal({ open, onClose }) {
   const [username, setUsername] = useState('');
@@ -28,7 +31,7 @@ export default function LoginModal({ open, onClose }) {
       setUsername('');
       setPassword('');
     } catch {
-      setError('Invalid username or password');
+      setError(t.invalid);
     } finally {
       setIsLoading(false);
     }
@@ -47,11 +50,11 @@ export default function LoginModal({ open, onClose }) {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-sm rounded-none">
         <DialogHeader>
-          <DialogTitle className="text-[#0A1628] text-xl font-bold">Sign In</DialogTitle>
+          <DialogTitle className="text-[#0A1628] text-xl font-bold">{t.title}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-2">
           <div>
-            <Label>Username</Label>
+            <Label>{t.usernameLabel}</Label>
             <Input
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -61,7 +64,7 @@ export default function LoginModal({ open, onClose }) {
             />
           </div>
           <div>
-            <Label>Password</Label>
+            <Label>{t.passwordLabel}</Label>
             <Input
               type="password"
               value={password}
@@ -77,8 +80,8 @@ export default function LoginModal({ open, onClose }) {
             disabled={isLoading}
             className="w-full bg-[#0A1628] hover:bg-[#1B2D4F] rounded-none"
           >
-            {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-            Sign In
+            {isLoading && <Loader2 className="ms-2 h-4 w-4 animate-spin" />}
+            {t.submit}
           </Button>
         </form>
       </DialogContent>

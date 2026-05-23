@@ -13,13 +13,14 @@ import {
 import {
   SlidersHorizontal,
   ChevronLeft,
-  ChevronRight,
   Loader2,
 } from "lucide-react";
 import ListingFilters from "../components/listings/ListingFilters";
 import ListingCard from "../components/listings/ListingCard";
 import ListingModal from "../components/listings/ListingModal";
-import AddListingDialog from "../components/listings/AddListingDialog";
+import { he } from "@/locales/he";
+
+const { listings: t } = he;
 
 const ITEMS_PER_PAGE = 12;
 
@@ -123,60 +124,45 @@ export default function Listings() {
   }, [filters, sortBy]);
 
   return (
-    <div className="pt-20">
+    <div className="bg-[#f4f4f4] pt-24">
       {/* Header */}
-      <section className="bg-[#0A1628] py-16 lg:py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04] pointer-events-none">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.3) 40px, rgba(255,255,255,0.3) 41px)`,
-            }}
-          />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
+      <section className="px-5 pb-8 pt-8 sm:px-8 lg:pt-14">
+        <div className="mx-auto flex max-w-[1760px] flex-col items-start justify-between gap-8 rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:flex-row sm:items-end sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-12 bg-[#C9A84C]" />
-              <span className="text-[#C9A84C] text-sm font-medium tracking-[0.2em] uppercase">
-                Properties
-              </span>
-            </div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
-              All Listings
+            <p className="mb-4 text-sm font-black text-white/75">{t.eyebrow}</p>
+            <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+              {t.title}
             </h1>
-            <p className="mt-2 text-slate-400">
-              {filteredListings.length}{" "}
-              {filteredListings.length === 1 ? "property" : "properties"} found
+            <p className="mt-5 text-lg font-bold text-white/75">
+              {t.found(filteredListings.length)}
             </p>
           </div>
-          {isAdmin && <AddListingDialog />}
         </div>
       </section>
 
       {/* Mobile filters toggle */}
-      <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between">
+      <div className="mx-5 mb-4 flex items-center justify-between rounded-full bg-white px-4 py-3 sm:mx-8 lg:hidden">
         <button
           onClick={() => setShowMobileFilters(!showMobileFilters)}
-          className="flex items-center gap-2 text-sm font-medium text-[#0A1628]"
+          className="flex items-center gap-2 text-sm font-extrabold text-[#082b86]"
           type="button"
           aria-expanded={showMobileFilters}
           aria-controls="mobile-listing-filters"
         >
           <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
-          {showMobileFilters ? "Hide Filters" : "Show Filters"}
+          {showMobileFilters ? t.hideFilters : t.showFilters}
         </button>
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger
-            className="w-36 rounded-none h-9 text-xs border-slate-200"
-            aria-label="Sort listings"
+            className="h-10 w-40 rounded-full border-slate-200 text-xs"
+            aria-label={t.sortAria}
           >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">Newest First</SelectItem>
-            <SelectItem value="price_asc">Price: Low → High</SelectItem>
-            <SelectItem value="price_desc">Price: High → Low</SelectItem>
+            <SelectItem value="newest">{t.sortNewest}</SelectItem>
+            <SelectItem value="price_asc">{t.sortPriceAsc}</SelectItem>
+            <SelectItem value="price_desc">{t.sortPriceDesc}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -189,8 +175,8 @@ export default function Listings() {
       )}
 
       {/* Main content */}
-      <section className="py-8 lg:py-12 bg-slate-50 min-h-[60vh]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section className="min-h-[60vh] px-5 pb-20 pt-6 sm:px-8 lg:pb-28 lg:pt-8">
+        <div className="mx-auto max-w-[1760px]">
           <div className="flex gap-8">
             {/* Desktop Sidebar */}
             <div className="hidden lg:block w-72 flex-shrink-0">
@@ -205,24 +191,24 @@ export default function Listings() {
             <div className="flex-1">
               {/* Desktop sort bar */}
               <div className="hidden lg:flex items-center justify-between mb-6">
-                <p className="text-sm text-slate-500">
-                  Showing {(page - 1) * ITEMS_PER_PAGE + 1}–
-                  {Math.min(page * ITEMS_PER_PAGE, filteredListings.length)} of{" "}
-                  {filteredListings.length}
+                <p className="text-sm font-bold text-slate-500">
+                  {t.showing(
+                    (page - 1) * ITEMS_PER_PAGE + 1,
+                    Math.min(page * ITEMS_PER_PAGE, filteredListings.length),
+                    filteredListings.length,
+                  )}
                 </p>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger
-                    className="w-44 rounded-none h-10 border-slate-200"
-                    aria-label="Sort listings"
+                    className="h-11 w-52 rounded-full border-slate-200"
+                    aria-label={t.sortAria}
                   >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="newest">Newest First</SelectItem>
-                    <SelectItem value="price_asc">Price: Low → High</SelectItem>
-                    <SelectItem value="price_desc">
-                      Price: High → Low
-                    </SelectItem>
+                    <SelectItem value="newest">{t.sortNewest}</SelectItem>
+                    <SelectItem value="price_asc">{t.sortPriceAsc}</SelectItem>
+                    <SelectItem value="price_desc">{t.sortPriceDesc}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -230,12 +216,12 @@ export default function Listings() {
               {isLoading ? (
                 <div className="flex items-center justify-center py-32" role="status" aria-live="polite">
                   <Loader2 className="w-6 h-6 animate-spin text-slate-400" aria-hidden="true" />
-                  <span className="sr-only">Loading listings</span>
+                  <span className="sr-only">{t.loading}</span>
                 </div>
               ) : paginatedListings.length === 0 ? (
                 <div className="text-center py-32">
                   <p className="text-slate-400 text-lg">
-                    No properties match your criteria
+                    {t.empty}
                   </p>
                   <button
                     onClick={() =>
@@ -249,15 +235,15 @@ export default function Listings() {
                         city: "",
                       })
                     }
-                    className="mt-4 text-[#C9A84C] text-sm font-medium hover:underline"
+                    className="mt-4 rounded-full bg-[#082b86] px-5 py-3 text-sm font-extrabold text-white hover:bg-[#06216b]"
                     type="button"
                   >
-                    Clear all filters
+                    {t.clearAll}
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
                     {paginatedListings.map((listing) => (
                       <div
                         key={listing.id}
@@ -268,10 +254,10 @@ export default function Listings() {
                             setSelectedListing(listing);
                           }
                         }}
-                        className="cursor-pointer text-left"
+                        className="cursor-pointer text-start"
                         role="button"
                         tabIndex={0}
-                        aria-label={`View details for ${listing.title}`}
+                        aria-label={t.viewDetailsAria(listing.title)}
                       >
                         <ListingCard
                           listing={listing}
@@ -290,8 +276,8 @@ export default function Listings() {
                         size="icon"
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                         disabled={page === 1}
-                        className="rounded-none w-10 h-10 border-slate-200"
-                        aria-label="Previous listings page"
+                        className="h-11 w-11 rounded-full border-slate-200 bg-white"
+                        aria-label={t.previousPageAria}
                       >
                         <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                       </Button>
@@ -317,12 +303,12 @@ export default function Listings() {
                               key={p}
                               variant={page === p ? "default" : "outline"}
                               onClick={() => setPage(p)}
-                              aria-label={`Go to listings page ${p}`}
+                              aria-label={t.pageAria(p)}
                               aria-current={page === p ? "page" : undefined}
                               className={`rounded-none w-10 h-10 ${
                                 page === p
-                                  ? "bg-[#0A1628] hover:bg-[#1B2D4F] text-white"
-                                  : "border-slate-200"
+                                  ? "bg-[#082b86] text-white hover:bg-[#06216b]"
+                                  : "border-slate-200 bg-white"
                               }`}
                             >
                               {p}
@@ -336,10 +322,10 @@ export default function Listings() {
                           setPage((p) => Math.min(totalPages, p + 1))
                         }
                         disabled={page === totalPages}
-                        className="rounded-none w-10 h-10 border-slate-200"
-                        aria-label="Next listings page"
+                        className="h-11 w-11 rounded-full border-slate-200 bg-white"
+                        aria-label={t.nextPageAria}
                       >
-                        <ChevronRight className="w-4 h-4" aria-hidden="true" />
+                        <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                       </Button>
                     </div>
                   )}

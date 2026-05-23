@@ -1,9 +1,9 @@
 import React from "react";
 import { he } from "@/locales/he";
 
-const { accessibilityPage: t, legal } = he;
+const { privacyPage: t, legal } = he;
 
-export default function Accessibility() {
+export default function Privacy() {
   return (
     <div className="bg-[#f4f4f4] pt-24">
       <section className="px-5 pb-8 pt-8 sm:px-8 lg:pt-14">
@@ -27,20 +27,20 @@ export default function Accessibility() {
               <h2 className="text-2xl font-black text-[#082b86]">
                 {section.title}
               </h2>
-              {section.body && (
-                <p className="mt-3 font-medium leading-relaxed text-slate-600">
-                  {section.body}
-                </p>
-              )}
-              {section.bullets && (
-                <ul className="mt-4 list-disc space-y-2 pr-6 font-medium leading-relaxed text-slate-600">
-                  {section.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
-              )}
+              <p className="mt-3 font-medium leading-relaxed text-slate-600">
+                {section.text}
+              </p>
             </article>
           ))}
+
+          <article className="rounded-2xl bg-white p-7">
+            <h2 className="text-2xl font-black text-[#082b86]">
+              {t.contactTitle}
+            </h2>
+            <p className="mt-3 font-medium leading-relaxed text-slate-600">
+              {t.contactText}
+            </p>
+          </article>
         </div>
       </section>
     </div>

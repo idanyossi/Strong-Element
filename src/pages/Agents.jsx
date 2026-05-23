@@ -1,11 +1,13 @@
 import React from "react";
 import { api } from "@/api/client";
 import { useAuth } from "@/lib/AuthContext";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Mail, Phone, Linkedin, Award, Trash2 } from "lucide-react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Award, Linkedin, Mail, Phone, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
-import AddAgentDialog from "@/components/agents/AddAgentDialog";
+import { he } from "@/locales/he";
+
+const { agents: t } = he;
 
 export default function Agents() {
   const { isAdmin } = useAuth();
@@ -22,46 +24,39 @@ export default function Agents() {
   });
 
   return (
-    <div className="pt-20">
-      {/* Header */}
-      <section className="bg-[#0A1628] py-24 lg:py-28 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.04] pointer-events-none">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.3) 40px, rgba(255,255,255,0.3) 41px)`,
-            }}
-          />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-[#C9A84C]" />
-              <span className="text-[#C9A84C] text-sm font-medium tracking-[0.2em] uppercase">
-                Our Team
-              </span>
+    <div className="bg-[#f4f4f4] pt-24">
+      <section className="px-5 pb-12 pt-8 sm:px-8 lg:pt-14">
+        <div className="mx-auto max-w-[1760px] rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
+          <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
+            <div className="max-w-4xl">
+              <p className="mb-4 text-sm font-black text-white/75">
+                {t.eyebrow}
+              </p>
+              <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+                {t.title}
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/75">
+                {t.body}
+              </p>
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white tracking-tight">
-              Meet Our Agents
-            </h1>
-            <p className="mt-6 text-slate-400 text-lg leading-relaxed">
-              Our agents combine deep market knowledge with personalized
-              service. Each member of our team is dedicated to delivering
-              exceptional results.
-            </p>
           </div>
-          {isAdmin && <AddAgentDialog />}
         </div>
       </section>
 
-      {/* Agent Grid */}
-      <section className="py-24 lg:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section className="px-5 pb-20 sm:px-8 lg:pb-28">
+        <div className="mx-auto max-w-[1760px]">
           {isLoading ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" role="status" aria-live="polite">
-              <span className="sr-only">Loading agents</span>
+            <div
+              className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+              role="status"
+              aria-live="polite"
+            >
+              <span className="sr-only">{t.loading}</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-white shadow-sm">
+                <div
+                  key={i}
+                  className="overflow-hidden rounded-[24px] bg-white"
+                >
                   <Skeleton className="aspect-[3/4] w-full rounded-none" />
                   <div className="p-6 space-y-3">
                     <Skeleton className="h-5 w-3/4" />
@@ -71,20 +66,19 @@ export default function Agents() {
               ))}
             </div>
           ) : agents.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="w-16 h-16 bg-slate-100 flex items-center justify-center mx-auto mb-6">
-                <Award className="w-8 h-8 text-slate-300" aria-hidden="true" />
+            <div className="rounded-[28px] bg-white py-20 text-center">
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#f4f4f4]">
+                <Award className="h-8 w-8 text-[#082b86]" aria-hidden="true" />
               </div>
-              <h3 className="text-xl font-semibold text-[#0A1628]">
-                Team Coming Soon
+              <h3 className="text-2xl font-black tracking-[-0.04em] text-[#082b86]">
+                {t.emptyTitle}
               </h3>
-              <p className="mt-2 text-slate-400 max-w-md mx-auto">
-                We're putting together our team profiles. Check back soon to
-                meet our expert agents.
+              <p className="mx-auto mt-2 max-w-md font-medium text-slate-500">
+                {t.emptyBody}
               </p>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {agents.map((agent, i) => (
                 <motion.div
                   key={agent.id}
@@ -92,56 +86,53 @@ export default function Agents() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group bg-white shadow-sm hover:shadow-lg transition-shadow"
+                  className="group overflow-hidden rounded-[24px] bg-white"
                 >
-                  <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-[7px] bg-[#082b86]">
                     {isAdmin && (
                       <button
                         onClick={() => {
-                          if (window.confirm(`Delete "${agent.name}"?`))
+                          if (window.confirm(t.deleteConfirm(agent.name)))
                             deleteMutation.mutate(agent.id);
                         }}
-                        className="absolute top-2 right-2 z-10 w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
+                        className="absolute left-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
                         type="button"
-                        aria-label={`Delete agent ${agent.name}`}
+                        aria-label={t.deleteAria(agent.name)}
                       >
-                        <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                        <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     )}
                     {agent.photo_url ? (
                       <img
                         src={agent.photo_url}
                         alt={agent.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-[#0A1628]">
-                        <span className="text-5xl font-bold text-[#C9A84C] opacity-30">
+                      <div className="flex h-full w-full items-center justify-center">
+                        <span className="text-7xl font-black text-white/20">
                           {agent.name?.charAt(0) || "A"}
                         </span>
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    {/* Hover overlay contact */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 group-focus-within:translate-y-0 transition-transform duration-500">
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-5">
                       <div className="flex gap-3">
                         {agent.email && (
                           <a
                             href={`mailto:${agent.email}`}
-                            className="w-10 h-10 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-[#C9A84C] transition-colors"
-                            aria-label={`Email ${agent.name}`}
+                            className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#082b86]"
+                            aria-label={t.emailAria(agent.name)}
                           >
-                            <Mail className="w-4 h-4" aria-hidden="true" />
+                            <Mail className="h-4 w-4" aria-hidden="true" />
                           </a>
                         )}
                         {agent.phone && (
                           <a
                             href={`tel:${agent.phone}`}
-                            className="w-10 h-10 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-[#C9A84C] transition-colors"
-                            aria-label={`Call ${agent.name}`}
+                            className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#082b86]"
+                            aria-label={t.phoneAria(agent.name)}
                           >
-                            <Phone className="w-4 h-4" aria-hidden="true" />
+                            <Phone className="h-4 w-4" aria-hidden="true" />
                           </a>
                         )}
                         {agent.linkedin_url && (
@@ -149,27 +140,27 @@ export default function Agents() {
                             href={agent.linkedin_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-10 h-10 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-[#C9A84C] transition-colors"
-                            aria-label={`Open ${agent.name}'s LinkedIn profile`}
+                            className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#082b86]"
+                            aria-label={t.linkedinAria(agent.name)}
                           >
-                            <Linkedin className="w-4 h-4" aria-hidden="true" />
+                            <Linkedin className="h-4 w-4" aria-hidden="true" />
                           </a>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-6">
-                    <h3 className="font-semibold text-[#0A1628] text-lg">
+                  <div className="px-5 py-5">
+                    <h3 className="text-2xl font-black tracking-[-0.04em] text-[#082b86]">
                       {agent.name}
                     </h3>
                     {agent.title && (
-                      <p className="text-[#C9A84C] text-sm font-medium mt-1">
+                      <p className="mt-1 text-sm font-black text-slate-500">
                         {agent.title}
                       </p>
                     )}
                     {agent.bio && (
-                      <p className="mt-3 text-slate-500 text-sm leading-relaxed line-clamp-3">
+                      <p className="mt-3 line-clamp-3 text-sm font-medium leading-relaxed text-slate-600">
                         {agent.bio}
                       </p>
                     )}
@@ -178,7 +169,7 @@ export default function Agents() {
                         {agent.specializations.map((spec) => (
                           <span
                             key={spec}
-                            className="bg-slate-50 text-slate-600 text-xs px-3 py-1 font-medium"
+                            className="rounded-full bg-[#f4f4f4] px-3 py-1 text-xs font-bold text-[#082b86]"
                           >
                             {spec}
                           </span>
@@ -186,8 +177,8 @@ export default function Agents() {
                       </div>
                     )}
                     {agent.years_experience && (
-                      <p className="mt-4 text-xs text-slate-400 font-medium tracking-wide uppercase">
-                        {agent.years_experience} Years Experience
+                      <p className="mt-4 text-xs font-black text-slate-400">
+                        {agent.years_experience} {t.experienceSuffix}
                       </p>
                     )}
                   </div>

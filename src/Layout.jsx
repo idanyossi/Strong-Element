@@ -1,26 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { useAuth } from "@/lib/AuthContext";
-import { Menu, X } from "lucide-react";
 import Footer from "./components/shared/Footer";
-import LoginModal from "./components/shared/LoginModal";
+import { he } from "@/locales/he";
 
-const navLinks = [
-  { label: "Home", page: "Home" },
-  { label: "Listings", page: "Listings" },
-  { label: "About", page: "About" },
-  { label: "Agents", page: "Agents" },
-  { label: "Articles", page: "Articles" },
-];
-
-const mobileNavId = "mobile-navigation";
+const { brand, common, layout, routes } = he;
 
 export default function Layout({ children, currentPageName }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -28,46 +15,46 @@ export default function Layout({ children, currentPageName }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [currentPageName]);
-
   const isHome = currentPageName === "Home";
   const headerBg =
     scrolled || !isHome
-      ? "bg-[#0A1628]/95 backdrop-blur-md shadow-lg"
+      ? "bg-[#082b86] shadow-lg"
       : "bg-transparent";
 
   return (
     <div className="min-h-screen flex flex-col">
       <a href="#main-content" className="skip-link">
-        Skip to main content
+        {layout.skipToMain}
       </a>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${headerBg}`}>
+        <div className="px-5 py-2 sm:px-7">
+          <div className="relative flex h-16 items-center justify-center gap-5 rounded-full px-3 text-white lg:h-[76px]">
             <Link
               to={createPageUrl("Home")}
-              className="flex items-center"
-              aria-label="Strong Element home"
+              className="flex items-center lg:absolute lg:right-3"
+              aria-label={layout.homeAria}
             >
-              <span className="text-lg font-bold text-white tracking-tight">
-                STRONG<span className="text-[#C9A84C]">ELEMENT</span>
+              <span className="text-2xl font-black uppercase tracking-[-0.06em] text-white lg:text-[34px]">
+                {brand.name}
+              </span>
+              <span className="me-3 hidden text-[11px] font-extrabold uppercase tracking-wide text-white/70 sm:inline">
+                {brand.since}
               </span>
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-              {navLinks.map((link) => (
+            <nav
+              className="hidden items-center gap-8 lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:-translate-x-1/2 lg:-translate-y-1/2"
+              aria-label={layout.mainNavAria}
+            >
+              {routes.navLinks.slice(1).reverse().map((link) => (
                 <Link
                   key={link.page}
                   to={createPageUrl(link.page)}
                   aria-current={currentPageName === link.page ? "page" : undefined}
-                  className={`px-4 py-2 text-sm font-medium transition-colors ${
+                  className={`text-[15px] font-extrabold text-white transition-opacity hover:opacity-75 ${
                     currentPageName === link.page
-                      ? "text-[#C9A84C] underline underline-offset-8"
-                      : "text-slate-300 hover:text-white"
+                      ? "underline underline-offset-8"
+                      : ""
                   }`}
                 >
                   {link.label}
@@ -75,80 +62,16 @@ export default function Layout({ children, currentPageName }) {
               ))}
             </nav>
 
-            <div className="flex items-center gap-4">
-              {user ? (
-                <button
-                  onClick={logout}
-                  className="hidden lg:inline-flex text-sm text-slate-400 hover:text-white transition-colors"
-                  type="button"
-                >
-                  Sign Out
-                </button>
-              ) : (
-                <button
-                  onClick={() => setShowLogin(true)}
-                  className="hidden lg:inline-flex text-sm text-slate-400 hover:text-white transition-colors"
-                  type="button"
-                >
-                  Sign In
-                </button>
-              )}
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden text-white p-2"
-                type="button"
-                aria-controls={mobileNavId}
-                aria-expanded={mobileOpen}
-                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            <div className="hidden items-center gap-3 lg:absolute lg:left-3 lg:flex">
+              <Link
+                to={createPageUrl("Listings")}
+                className="flex h-11 items-center rounded-full bg-white px-6 text-sm font-extrabold text-[#082b86]"
               >
-                {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
-              </button>
+                {common.allListings}
+              </Link>
             </div>
           </div>
         </div>
-
-        {mobileOpen && (
-          <div className="lg:hidden bg-[#0A1628] border-t border-white/10" id={mobileNavId}>
-            <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.page}
-                  to={createPageUrl(link.page)}
-                  aria-current={currentPageName === link.page ? "page" : undefined}
-                  className={`px-4 py-3 text-sm font-medium transition-colors ${
-                    currentPageName === link.page
-                      ? "text-[#C9A84C] underline underline-offset-8"
-                      : "text-slate-300 hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="mt-2 pt-3 border-t border-white/10">
-                {user ? (
-                  <button
-                    onClick={logout}
-                    className="px-4 py-3 text-sm text-slate-400"
-                    type="button"
-                  >
-                    Sign Out
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setMobileOpen(false);
-                      setShowLogin(true);
-                    }}
-                    className="px-4 py-3 text-sm text-slate-400"
-                    type="button"
-                  >
-                    Sign In
-                  </button>
-                )}
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
 
       <main id="main-content" className="flex-1" tabIndex={-1}>
@@ -156,7 +79,6 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       <Footer />
-      <LoginModal open={showLogin} onClose={() => setShowLogin(false)} />
     </div>
   );
 }

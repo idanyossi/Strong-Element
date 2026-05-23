@@ -1,4 +1,7 @@
 import React from "react";
+import { he } from "@/locales/he";
+
+const { userNotRegistered: t } = he.systemPages;
 
 const UserNotRegisteredError = () => {
   return (
@@ -21,18 +24,17 @@ const UserNotRegisteredError = () => {
             </svg>
           </div>
           <h1 className="text-3xl font-bold text-slate-900 mb-4">
-            Access Restricted
+            {t.title}
           </h1>
           <p className="text-slate-600 mb-8">
-            You are not registered to use this application. Please contact the
-            app administrator to request access.
+            {t.body}
           </p>
           <div className="p-4 bg-slate-50 rounded-md text-sm text-slate-600">
-            <p>If you believe this is an error, you can:</p>
+            <p>{t.ifError}</p>
             <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>Verify you are logged in with the correct account</li>
-              <li>Contact the app administrator for access</li>
-              <li>Try logging out and back in again</li>
+              {t.steps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
             </ul>
           </div>
         </div>

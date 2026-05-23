@@ -21,6 +21,12 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Plus, Loader2 } from "lucide-react";
+import { he } from "@/locales/he";
+
+const { listingForm: t, propertyTypeLabels, statusLabels } = he;
+
+const PROPERTY_TYPES = ["apartment", "house", "villa", "penthouse", "commercial", "land", "building"];
+const ROOM_OPTIONS = ["1", "2", "3", "4", "5", "6+"];
 
 const initialForm = {
   title: "",
@@ -39,8 +45,6 @@ const initialForm = {
   total_apartments: "",
   apartment_breakdown: [],
 };
-
-const ROOM_OPTIONS = ["1", "2", "3", "4", "5", "6+"];
 
 export default function AddListingDialog() {
   const [open, setOpen] = useState(false);
@@ -74,15 +78,9 @@ export default function AddListingDialog() {
 
   const updateBreakdown = (rooms, count) => {
     setForm((prev) => {
-      const existing = prev.apartment_breakdown.filter(
-        (b) => b.rooms !== rooms,
-      );
-      if (count === "" || count === "0")
-        return { ...prev, apartment_breakdown: existing };
-      return {
-        ...prev,
-        apartment_breakdown: [...existing, { rooms, count: Number(count) }],
-      };
+      const existing = prev.apartment_breakdown.filter((b) => b.rooms !== rooms);
+      if (count === "" || count === "0") return { ...prev, apartment_breakdown: existing };
+      return { ...prev, apartment_breakdown: [...existing, { rooms, count: Number(count) }] };
     });
   };
 
@@ -95,18 +93,18 @@ export default function AddListingDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-[#C9A84C] hover:bg-[#D4B96A] text-[#0A1628] rounded-none h-11 font-semibold">
-          <Plus className="w-4 h-4 mr-2" /> Add Listing
+          <Plus className="ms-2 h-4 w-4" /> {t.addButton}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto rounded-none">
         <DialogHeader>
           <DialogTitle className="text-[#0A1628] text-xl font-bold">
-            New Property Listing
+            {t.dialogTitle}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-5 mt-4">
           <div>
-            <Label>Title *</Label>
+            <Label>{t.titleLabel}</Label>
             <Input
               value={form.title}
               onChange={(e) => update("title", e.target.value)}
@@ -115,7 +113,7 @@ export default function AddListingDialog() {
             />
           </div>
           <div>
-            <Label>Description</Label>
+            <Label>{t.descriptionLabel}</Label>
             <Textarea
               value={form.description}
               onChange={(e) => update("description", e.target.value)}
@@ -124,7 +122,7 @@ export default function AddListingDialog() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Price *</Label>
+              <Label>{t.priceLabel}</Label>
               <Input
                 type="number"
                 value={form.price}
@@ -134,26 +132,15 @@ export default function AddListingDialog() {
               />
             </div>
             <div>
-              <Label>Property Type</Label>
-              <Select
-                value={form.property_type}
-                onValueChange={(v) => update("property_type", v)}
-              >
+              <Label>{t.propertyTypeLabel}</Label>
+              <Select value={form.property_type} onValueChange={(v) => update("property_type", v)}>
                 <SelectTrigger className="rounded-none mt-1">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {[
-                    "apartment",
-                    "house",
-                    "villa",
-                    "penthouse",
-                    "commercial",
-                    "land",
-                    "building",
-                  ].map((t) => (
-                    <SelectItem key={t} value={t} className="capitalize">
-                      {t}
+                  {PROPERTY_TYPES.map((type) => (
+                    <SelectItem key={type} value={type} className="capitalize">
+                      {propertyTypeLabels[type] || type}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -163,7 +150,7 @@ export default function AddListingDialog() {
           {form.property_type !== "building" && (
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <Label>Bedrooms</Label>
+                <Label>{t.bedroomsLabel}</Label>
                 <Input
                   type="number"
                   value={form.bedrooms}
@@ -172,7 +159,7 @@ export default function AddListingDialog() {
                 />
               </div>
               <div>
-                <Label>Bathrooms</Label>
+                <Label>{t.bathroomsLabel}</Label>
                 <Input
                   type="number"
                   value={form.bathrooms}
@@ -181,7 +168,7 @@ export default function AddListingDialog() {
                 />
               </div>
               <div>
-                <Label>Area (sqft)</Label>
+                <Label>{t.areaLabel}</Label>
                 <Input
                   type="number"
                   value={form.area_sqft}
@@ -194,27 +181,25 @@ export default function AddListingDialog() {
           {form.property_type === "building" && (
             <div className="border border-slate-200 p-4 space-y-4">
               <h3 className="text-sm font-semibold text-[#0A1628] uppercase tracking-wider">
-                Building Details
+                {t.buildingDetailsHeading}
               </h3>
               <div>
-                <Label>Total Apartments</Label>
+                <Label>{t.totalApartmentsLabel}</Label>
                 <Input
                   type="number"
                   value={form.total_apartments}
                   onChange={(e) => update("total_apartments", e.target.value)}
-                  placeholder="e.g. 24"
+                  placeholder={t.totalApartmentsPlaceholder}
                   className="rounded-none mt-1"
                 />
               </div>
               <div>
-                <Label className="mb-2 block">
-                  Apartment Breakdown (by rooms)
-                </Label>
+                <Label className="mb-2 block">{t.breakdownLabel}</Label>
                 <div className="grid grid-cols-3 gap-3">
                   {ROOM_OPTIONS.map((rooms) => (
                     <div key={rooms}>
                       <label className="text-xs text-slate-500 mb-1 block">
-                        {rooms} - room
+                        {rooms} {t.roomsSuffix}
                       </label>
                       <Input
                         type="number"
@@ -229,10 +214,9 @@ export default function AddListingDialog() {
               </div>
             </div>
           )}
-
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>City</Label>
+              <Label>{t.cityLabel}</Label>
               <Input
                 value={form.city}
                 onChange={(e) => update("city", e.target.value)}
@@ -240,7 +224,7 @@ export default function AddListingDialog() {
               />
             </div>
             <div>
-              <Label>Neighborhood</Label>
+              <Label>{t.neighborhoodLabel}</Label>
               <Input
                 value={form.neighborhood}
                 onChange={(e) => update("neighborhood", e.target.value)}
@@ -249,22 +233,19 @@ export default function AddListingDialog() {
             </div>
           </div>
           <div>
-            <Label>Status</Label>
-            <Select
-              value={form.status}
-              onValueChange={(v) => update("status", v)}
-            >
+            <Label>{t.statusLabel}</Label>
+            <Select value={form.status} onValueChange={(v) => update("status", v)}>
               <SelectTrigger className="rounded-none mt-1">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="for_sale">For Sale</SelectItem>
-                <SelectItem value="for_rent">For Rent</SelectItem>
+                <SelectItem value="for_sale">{statusLabels.for_sale}</SelectItem>
+                <SelectItem value="for_rent">{statusLabels.for_rent}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Image URL</Label>
+            <Label>{t.imageUrlLabel}</Label>
             <Input
               value={form.image_url}
               onChange={(e) => update("image_url", e.target.value)}
@@ -277,7 +258,7 @@ export default function AddListingDialog() {
               checked={form.is_featured}
               onCheckedChange={(v) => update("is_featured", v)}
             />
-            <Label>Featured Property</Label>
+            <Label>{t.featuredLabel}</Label>
           </div>
           <div className="flex justify-end gap-3 pt-4">
             <Button
@@ -286,17 +267,15 @@ export default function AddListingDialog() {
               onClick={() => setOpen(false)}
               className="rounded-none"
             >
-              Cancel
+              {t.cancelButton}
             </Button>
             <Button
               type="submit"
               disabled={createMutation.isPending}
               className="bg-[#0A1628] hover:bg-[#1B2D4F] rounded-none"
             >
-              {createMutation.isPending && (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              )}
-              Create Listing
+              {createMutation.isPending && <Loader2 className="ms-2 h-4 w-4 animate-spin" />}
+              {t.submitButton}
             </Button>
           </div>
         </form>
