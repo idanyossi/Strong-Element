@@ -12,19 +12,19 @@ import {
 import { Search, X } from "lucide-react";
 
 const PROPERTY_TYPES = [
-  { value: "all", label: "All Types" },
-  { value: "apartment", label: "Apartment" },
-  { value: "house", label: "House" },
-  { value: "villa", label: "Villa" },
-  { value: "penthouse", label: "Penthouse" },
-  { value: "commercial", label: "Commercial" },
-  { value: "land", label: "Land" },
+  { value: "all", label: "כל הסוגים" },
+  { value: "apartment", label: "דירה" },
+  { value: "house", label: "בית" },
+  { value: "villa", label: "וילה" },
+  { value: "penthouse", label: "פנטהאוז" },
+  { value: "commercial", label: "מסחרי" },
+  { value: "land", label: "קרקע" },
 ];
 
 const STATUS_OPTIONS = [
-  { value: "all", label: "All Status" },
-  { value: "for_sale", label: "For Sale" },
-  { value: "for_rent", label: "For Rent" },
+  { value: "all", label: "כל הסטטוסים" },
+  { value: "for_sale", label: "למכירה" },
+  { value: "for_rent", label: "להשכרה" },
 ];
 
 export default function ListingFilters({ filters, setFilters, isMobile }) {
@@ -60,11 +60,11 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
     : "sticky top-28 space-y-6 rounded-[24px] bg-white p-6";
 
   return (
-    <aside className={containerClass} aria-label={isMobile ? "Mobile listing filters" : "Listing filters"}>
+    <aside className={containerClass} aria-label={isMobile ? "סינון נכסים במובייל" : "סינון נכסים"}>
       {!isMobile && (
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-black text-[#082b86]">
-            Filters
+            סינון
           </h3>
           {hasActiveFilters && (
             <button
@@ -72,7 +72,7 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
               className="flex items-center gap-1 text-xs font-extrabold text-[#082b86]"
               type="button"
             >
-              <X className="w-3 h-3" aria-hidden="true" /> Clear
+              <X className="w-3 h-3" aria-hidden="true" /> ניקוי
             </button>
           )}
         </div>
@@ -81,13 +81,13 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
       {/* Search */}
       <div className={isMobile ? "" : ""}>
         <Label htmlFor={`search-${suffix}`} className="sr-only">
-          Search properties
+          חיפוש נכסים
         </Label>
         <div className="relative">
           <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <Input
             id={`search-${suffix}`}
-            placeholder="Search properties..."
+            placeholder="חיפוש נכסים..."
             value={filters.search}
             onChange={(e) => updateFilter("search", e.target.value)}
             className="h-12 rounded-full border-slate-200 pr-10"
@@ -102,14 +102,14 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
             htmlFor={`property-type-${suffix}`}
             className={isMobile ? "sr-only" : "mb-2 block text-xs font-black text-slate-500"}
           >
-            Property Type
+            סוג נכס
           </Label>
           <Select
             value={filters.property_type}
             onValueChange={(v) => updateFilter("property_type", v)}
           >
             <SelectTrigger id={`property-type-${suffix}`} className="h-12 rounded-full border-slate-200">
-              <SelectValue placeholder="Type" />
+              <SelectValue placeholder="סוג" />
             </SelectTrigger>
             <SelectContent>
               {PROPERTY_TYPES.map((t) => (
@@ -127,14 +127,14 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
             htmlFor={`status-${suffix}`}
             className={isMobile ? "sr-only" : "mb-2 block text-xs font-black text-slate-500"}
           >
-            Status
+            סטטוס
           </Label>
           <Select
             value={filters.status}
             onValueChange={(v) => updateFilter("status", v)}
           >
             <SelectTrigger id={`status-${suffix}`} className="h-12 rounded-full border-slate-200">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder="סטטוס" />
             </SelectTrigger>
             <SelectContent>
               {STATUS_OPTIONS.map((s) => (
@@ -152,17 +152,17 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
             htmlFor={`bedrooms-${suffix}`}
             className={isMobile ? "sr-only" : "mb-2 block text-xs font-black text-slate-500"}
           >
-            Bedrooms
+            חדרים
           </Label>
           <Select
             value={filters.bedrooms}
             onValueChange={(v) => updateFilter("bedrooms", v)}
           >
             <SelectTrigger id={`bedrooms-${suffix}`} className="h-12 rounded-full border-slate-200">
-              <SelectValue placeholder="Bedrooms" />
+              <SelectValue placeholder="חדרים" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Any</SelectItem>
+              <SelectItem value="all">כל מספר</SelectItem>
               <SelectItem value="1">1+</SelectItem>
               <SelectItem value="2">2+</SelectItem>
               <SelectItem value="3">3+</SelectItem>
@@ -178,11 +178,11 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
             htmlFor={`city-${suffix}`}
             className={isMobile ? "sr-only" : "mb-2 block text-xs font-black text-slate-500"}
           >
-            City
+            עיר
           </Label>
           <Input
             id={`city-${suffix}`}
-            placeholder="City"
+            placeholder="עיר"
             value={filters.city}
             onChange={(e) => updateFilter("city", e.target.value)}
             className="h-12 rounded-full border-slate-200"
@@ -192,29 +192,29 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
         {/* Price Range */}
         <div className={isMobile ? "col-span-2" : ""}>
           <Label className={isMobile ? "sr-only" : "mb-2 block text-xs font-black text-slate-500"}>
-            Price Range
+            טווח מחיר
           </Label>
           <div className="flex gap-2">
             <Label htmlFor={`min-price-${suffix}`} className="sr-only">
-              Minimum price
+              מחיר מינימלי
             </Label>
             <Input
               id={`min-price-${suffix}`}
               type="number"
               inputMode="numeric"
-              placeholder="Min"
+              placeholder="מינימום"
               value={filters.min_price}
               onChange={(e) => updateFilter("min_price", e.target.value)}
               className="h-12 rounded-full border-slate-200"
             />
             <Label htmlFor={`max-price-${suffix}`} className="sr-only">
-              Maximum price
+              מחיר מקסימלי
             </Label>
             <Input
               id={`max-price-${suffix}`}
               type="number"
               inputMode="numeric"
-              placeholder="Max"
+              placeholder="מקסימום"
               value={filters.max_price}
               onChange={(e) => updateFilter("max_price", e.target.value)}
               className="h-12 rounded-full border-slate-200"
@@ -229,7 +229,7 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
           variant="ghost"
           className="w-full rounded-full text-xs font-extrabold text-[#082b86]"
         >
-          <X className="ms-1 h-3 w-3" aria-hidden="true" /> Clear All Filters
+          <X className="ms-1 h-3 w-3" aria-hidden="true" /> ניקוי כל הסינונים
         </Button>
       )}
     </aside>

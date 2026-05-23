@@ -20,11 +20,10 @@ export default function FeaturedListings() {
       <div className="mx-auto max-w-[1760px] px-5 sm:px-8">
         <div className="mb-12 max-w-2xl">
           <h2 className="text-5xl font-black leading-none tracking-[-0.055em] text-[#082b86] sm:text-6xl">
-            Selected Properties
+            נכסים נבחרים
           </h2>
           <p className="mt-5 text-lg font-medium leading-relaxed text-slate-600">
-            Check out some of our most exclusive houses, apartments, townhomes,
-            penthouses, and more.
+            הצצה לנכסים, דירות, פנטהאוזים והזדמנויות נדל"ן שנבחרו בקפידה.
           </p>
         </div>
 
@@ -43,7 +42,7 @@ export default function FeaturedListings() {
           </div>
         ) : displayListings.length === 0 ? (
           <div className="rounded-[18px] bg-[#f4f4f4] py-20 text-center text-slate-500">
-            <p className="text-lg font-bold">Featured properties coming soon</p>
+            <p className="text-lg font-bold">נכסים נבחרים יעלו בקרוב</p>
           </div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -66,7 +65,7 @@ export default function FeaturedListings() {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute right-4 top-4 rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
-                    {listing.status?.replace("_", " ") || "For Sale"}
+                    {listing.status?.replace("for_sale", "למכירה").replace("for_rent", "להשכרה").replace("_", " ") || "למכירה"}
                   </div>
                 </div>
                 <div className="px-1 py-5">
@@ -93,7 +92,7 @@ export default function FeaturedListings() {
                     )}
                     {listing.area_sqft && (
                       <span className="flex items-center gap-1.5">
-                        <Maximize className="h-4 w-4" aria-hidden="true" /> {listing.area_sqft} sqft
+                        <Maximize className="h-4 w-4" aria-hidden="true" /> {listing.area_sqft} מ"ר
                       </span>
                     )}
                   </div>
@@ -107,7 +106,7 @@ export default function FeaturedListings() {
           to={createPageUrl("Listings")}
           className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#082b86] px-7 py-4 text-sm font-extrabold text-white hover:bg-[#06216b]"
         >
-          View All Listings
+          לכל הנכסים
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>

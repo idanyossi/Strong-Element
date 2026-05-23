@@ -2,10 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "500+", label: "Properties Sold" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "15+", label: "Years Experience" },
-  { value: "$2B+", label: "Transaction Volume" },
+  { value: "500+", label: "נכסים שנמכרו" },
+  { value: "98%", label: "שביעות רצון לקוחות" },
+  { value: "15+", label: "שנות ניסיון" },
+  { value: "$2B+", label: "היקף עסקאות" },
 ];
 
 export default function StatsBar() {

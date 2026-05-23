@@ -27,14 +27,13 @@ export default function Agents() {
         <div className="mx-auto max-w-[1760px] rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
           <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
             <div className="max-w-4xl">
-              <p className="mb-4 text-sm font-black text-white/75">Our Team</p>
+              <p className="mb-4 text-sm font-black text-white/75">הצוות</p>
               <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-                Meet Our Agents
+                הכירו את הצוות
               </h1>
               <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/75">
-                Our agents combine deep market knowledge with personalized
-                service. Each member of our team is dedicated to delivering
-                exceptional results.
+                הצוות שלנו משלב היכרות עמוקה עם השוק, חשיבה משפטית ויכולת
+                לייצר עסקאות מדויקות עבור לקוחות החברה.
               </p>
             </div>
             {isAdmin && <AddAgentDialog />}
@@ -46,7 +45,7 @@ export default function Agents() {
         <div className="mx-auto max-w-[1760px]">
           {isLoading ? (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" role="status" aria-live="polite">
-              <span className="sr-only">Loading agents</span>
+              <span className="sr-only">טוען צוות</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="overflow-hidden rounded-[24px] bg-white">
                   <Skeleton className="aspect-[3/4] w-full rounded-none" />
@@ -63,11 +62,11 @@ export default function Agents() {
                 <Award className="h-8 w-8 text-[#082b86]" aria-hidden="true" />
               </div>
               <h3 className="text-2xl font-black tracking-[-0.04em] text-[#082b86]">
-                Team Coming Soon
+                הצוות יעלה בקרוב
               </h3>
               <p className="mx-auto mt-2 max-w-md font-medium text-slate-500">
-                We're putting together our team profiles. Check back soon to
-                meet our expert agents.
+                אנחנו מכינים את פרופילי הצוות. בקרוב תוכלו להכיר את אנשי
+                המקצוע שמובילים את העסקאות שלנו.
               </p>
             </div>
           ) : (
@@ -85,12 +84,12 @@ export default function Agents() {
                     {isAdmin && (
                       <button
                         onClick={() => {
-                          if (window.confirm(`Delete "${agent.name}"?`))
+                          if (window.confirm(`למחוק את "${agent.name}"?`))
                             deleteMutation.mutate(agent.id);
                         }}
                         className="absolute left-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
                         type="button"
-                        aria-label={`Delete agent ${agent.name}`}
+                        aria-label={`מחיקת איש צוות ${agent.name}`}
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
@@ -114,7 +113,7 @@ export default function Agents() {
                           <a
                             href={`mailto:${agent.email}`}
                             className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#082b86]"
-                            aria-label={`Email ${agent.name}`}
+                            aria-label={`שליחת אימייל אל ${agent.name}`}
                           >
                             <Mail className="h-4 w-4" aria-hidden="true" />
                           </a>
@@ -123,7 +122,7 @@ export default function Agents() {
                           <a
                             href={`tel:${agent.phone}`}
                             className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#082b86]"
-                            aria-label={`Call ${agent.name}`}
+                            aria-label={`התקשרות אל ${agent.name}`}
                           >
                             <Phone className="h-4 w-4" aria-hidden="true" />
                           </a>
@@ -134,7 +133,7 @@ export default function Agents() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#082b86]"
-                            aria-label={`Open ${agent.name}'s LinkedIn profile`}
+                            aria-label={`פתיחת פרופיל LinkedIn של ${agent.name}`}
                           >
                             <Linkedin className="h-4 w-4" aria-hidden="true" />
                           </a>
@@ -171,7 +170,7 @@ export default function Agents() {
                     )}
                     {agent.years_experience && (
                       <p className="mt-4 text-xs font-black text-slate-400">
-                        {agent.years_experience} Years Experience
+                        {agent.years_experience} שנות ניסיון
                       </p>
                     )}
                   </div>

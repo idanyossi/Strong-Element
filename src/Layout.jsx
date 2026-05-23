@@ -34,15 +34,15 @@ export default function Layout({ children, currentPageName }) {
   return (
     <div className="min-h-screen flex flex-col">
       <a href="#main-content" className="skip-link">
-        Skip to main content
+        דלג לתוכן הראשי
       </a>
       <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${headerBg}`}>
         <div className="px-5 py-2 sm:px-7">
-          <div className="flex h-16 items-center justify-between gap-5 rounded-full px-3 text-white lg:h-[76px]">
+          <div className="relative flex h-16 items-center justify-center gap-5 rounded-full px-3 text-white lg:h-[76px]">
             <Link
               to={createPageUrl("Home")}
-              className="flex items-center"
-              aria-label="Strong Element home"
+              className="flex items-center lg:absolute lg:right-3"
+              aria-label="דף הבית של Strong Element"
             >
               <span className="text-2xl font-black uppercase tracking-[-0.06em] text-white lg:text-[34px]">
                 STRONG<span>ELEMENT</span><span>.</span>
@@ -52,7 +52,10 @@ export default function Layout({ children, currentPageName }) {
               </span>
             </Link>
 
-            <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
+            <nav
+              className="hidden items-center gap-8 lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:-translate-x-1/2 lg:-translate-y-1/2"
+              aria-label="ניווט ראשי"
+            >
               {navLinks.slice(1).reverse().map((link) => (
                 <Link
                   key={link.page}
@@ -69,7 +72,7 @@ export default function Layout({ children, currentPageName }) {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-3 lg:flex">
+            <div className="hidden items-center gap-3 lg:absolute lg:left-3 lg:flex">
               <Link
                 to={createPageUrl("Listings")}
                 className="flex h-11 items-center rounded-full bg-white px-6 text-sm font-extrabold text-[#082b86]"
@@ -81,7 +84,7 @@ export default function Layout({ children, currentPageName }) {
                   onClick={logout}
                   className="serhant-pill flex h-11 w-11 items-center justify-center"
                   type="button"
-                  aria-label="Sign out"
+                  aria-label="התנתקות"
                 >
                   <UserRound className="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -90,7 +93,7 @@ export default function Layout({ children, currentPageName }) {
                   onClick={() => setShowLogin(true)}
                   className="serhant-pill flex h-11 w-11 items-center justify-center"
                   type="button"
-                  aria-label="Sign in"
+                  aria-label="התחברות"
                 >
                   <UserRound className="h-5 w-5" aria-hidden="true" />
                 </button>

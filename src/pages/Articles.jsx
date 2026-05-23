@@ -9,11 +9,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import AddArticleDialog from "../components/articles/AddArticleDialog";
 
 const CATEGORY_LABELS = {
-  market_insights: "Market Insights",
-  investment_tips: "Investment Tips",
-  neighborhood_guides: "Neighborhood Guides",
-  company_news: "Company News",
-  guides: "Guides",
+  market_insights: "תובנות שוק",
+  investment_tips: "טיפים להשקעה",
+  neighborhood_guides: "מדריכי שכונות",
+  company_news: "חדשות החברה",
+  guides: "מדריכים",
 };
 
 export default function Articles() {
@@ -43,13 +43,12 @@ export default function Articles() {
         <div className="mx-auto max-w-[1760px] rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
           <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
             <div className="max-w-4xl">
-              <p className="mb-4 text-sm font-black text-white/75">Insights</p>
+              <p className="mb-4 text-sm font-black text-white/75">תובנות</p>
               <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-                Articles & Insights
+                מאמרים ותובנות
               </h1>
               <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/75">
-                Market intelligence, investment strategies, and expert
-                perspectives.
+                ידע שוק, אסטרטגיות השקעה ונקודת מבט מקצועית על עולם הנדל"ן.
               </p>
             </div>
             {isAdmin && <AddArticleDialog />}
@@ -61,7 +60,7 @@ export default function Articles() {
         <div className="mx-auto max-w-[1760px] overflow-x-auto rounded-full bg-white p-2 shadow-sm">
           <div className="flex gap-2">
             {[
-              { value: "all", label: "All" },
+              { value: "all", label: "הכל" },
               ...Object.entries(CATEGORY_LABELS).map(([k, v]) => ({
                 value: k,
                 label: v,
@@ -89,7 +88,7 @@ export default function Articles() {
         <div className="mx-auto max-w-[1760px]">
           {isLoading ? (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" role="status" aria-live="polite">
-              <span className="sr-only">Loading articles</span>
+              <span className="sr-only">טוען מאמרים</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="overflow-hidden rounded-[24px] bg-white">
                   <Skeleton className="aspect-[16/10] w-full rounded-none" />
@@ -104,9 +103,9 @@ export default function Articles() {
           ) : filtered.length === 0 ? (
             <div className="rounded-[28px] bg-white py-32 text-center">
               <BookOpen className="mx-auto mb-4 h-12 w-12 text-[#082b86]" aria-hidden="true" />
-              <p className="text-xl font-black text-[#082b86]">No articles yet</p>
+              <p className="text-xl font-black text-[#082b86]">אין מאמרים עדיין</p>
               <p className="mt-1 font-medium text-slate-500">
-                Check back soon for new insights.
+                מאמרים חדשים יעלו בקרוב.
               </p>
             </div>
           ) : (
@@ -131,7 +130,7 @@ export default function Articles() {
                   role="button"
                   tabIndex={0}
                   aria-expanded={expandedId === article.id}
-                  aria-label={`${expandedId === article.id ? "Collapse" : "Read"} article ${article.title}`}
+                  aria-label={`${expandedId === article.id ? "סגירת" : "פתיחת"} מאמר ${article.title}`}
                 >
                   <div className="relative aspect-[16/10] overflow-hidden rounded-[24px]">
                     <img
@@ -146,12 +145,12 @@ export default function Articles() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (window.confirm(`Delete "${article.title}"?`))
+                          if (window.confirm(`למחוק את "${article.title}"?`))
                             deleteMutation.mutate(article.id);
                         }}
                         className="absolute left-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600/90 text-white transition-colors hover:bg-red-700"
                         type="button"
-                        aria-label={`Delete article ${article.title}`}
+                        aria-label={`מחיקת מאמר ${article.title}`}
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
@@ -186,7 +185,7 @@ export default function Articles() {
                       </p>
                     )}
                     <div className="mt-4 flex items-center text-sm font-extrabold text-[#082b86]">
-                      {expandedId === article.id ? "Collapse Article" : "Read Article"}{" "}
+                      {expandedId === article.id ? "סגירת המאמר" : "לקריאת המאמר"}{" "}
                       <ArrowLeft className="me-1 h-4 w-4" aria-hidden="true" />
                     </div>
                   </div>

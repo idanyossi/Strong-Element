@@ -59,16 +59,16 @@ export default function AddAgentDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-[#C9A84C] hover:bg-[#D4B96A] text-[#0A1628] rounded-none h-11 font-semibold">
-          <Plus className="ms-2 h-4 w-4" /> Add Agent
+          <Plus className="ms-2 h-4 w-4" /> הוספת איש צוות
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto rounded-none">
         <DialogHeader>
-          <DialogTitle className="text-[#0A1628] text-xl font-bold">New Agent</DialogTitle>
+          <DialogTitle className="text-[#0A1628] text-xl font-bold">איש צוות חדש</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           <div>
-            <Label>Full Name *</Label>
+            <Label>שם מלא *</Label>
             <Input
               value={form.name}
               onChange={(e) => update('name', e.target.value)}
@@ -77,16 +77,16 @@ export default function AddAgentDialog() {
             />
           </div>
           <div>
-            <Label>Title / Role</Label>
+            <Label>תפקיד</Label>
             <Input
               value={form.title}
               onChange={(e) => update('title', e.target.value)}
-              placeholder="e.g. Senior Property Consultant"
+              placeholder={'לדוגמה: יועץ נדל"ן בכיר'}
               className="rounded-none mt-1"
             />
           </div>
           <div>
-            <Label>Bio</Label>
+            <Label>ביוגרפיה</Label>
             <Textarea
               value={form.bio}
               onChange={(e) => update('bio', e.target.value)}
@@ -95,7 +95,7 @@ export default function AddAgentDialog() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Email</Label>
+              <Label>אימייל</Label>
               <Input
                 type="email"
                 value={form.email}
@@ -104,7 +104,7 @@ export default function AddAgentDialog() {
               />
             </div>
             <div>
-              <Label>Phone</Label>
+              <Label>טלפון</Label>
               <Input
                 value={form.phone}
                 onChange={(e) => update('phone', e.target.value)}
@@ -113,7 +113,7 @@ export default function AddAgentDialog() {
             </div>
           </div>
           <div>
-            <Label>Photo URL</Label>
+            <Label>קישור לתמונה</Label>
             <Input
               value={form.photo_url}
               onChange={(e) => update('photo_url', e.target.value)}
@@ -122,7 +122,7 @@ export default function AddAgentDialog() {
             />
           </div>
           <div>
-            <Label>LinkedIn URL</Label>
+            <Label>קישור LinkedIn</Label>
             <Input
               value={form.linkedin_url}
               onChange={(e) => update('linkedin_url', e.target.value)}
@@ -131,7 +131,7 @@ export default function AddAgentDialog() {
             />
           </div>
           <div>
-            <Label>Years of Experience</Label>
+            <Label>שנות ניסיון</Label>
             <Input
               type="number"
               value={form.years_experience}
@@ -140,11 +140,11 @@ export default function AddAgentDialog() {
             />
           </div>
           <div>
-            <Label>Specializations (comma-separated)</Label>
+            <Label>התמחויות (מופרדות בפסיקים)</Label>
             <Input
               value={form.specializations}
               onChange={(e) => update('specializations', e.target.value)}
-              placeholder="Luxury Homes, Commercial, Investments"
+              placeholder="דירות יוקרה, מסחרי, השקעות"
               className="rounded-none mt-1"
             />
           </div>
@@ -155,7 +155,7 @@ export default function AddAgentDialog() {
               onClick={() => setOpen(false)}
               className="rounded-none"
             >
-              Cancel
+              ביטול
             </Button>
             <Button
               type="submit"
@@ -165,7 +165,7 @@ export default function AddAgentDialog() {
               {createMutation.isPending && (
                 <Loader2 className="ms-2 h-4 w-4 animate-spin" />
               )}
-              Add Agent
+              הוספת איש צוות
             </Button>
           </div>
         </form>
