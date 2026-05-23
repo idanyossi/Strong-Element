@@ -33,7 +33,10 @@ export default function Articles() {
 
   const categories = [
     { value: "all", label: t.allCategory },
-    ...Object.entries(t.categoryLabels).map(([k, v]) => ({ value: k, label: v })),
+    ...Object.entries(t.categoryLabels).map(([k, v]) => ({
+      value: k,
+      label: v,
+    })),
   ];
 
   return (
@@ -42,7 +45,9 @@ export default function Articles() {
         <div className="mx-auto max-w-[1760px] rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
           <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
             <div className="max-w-4xl">
-              <p className="mb-4 text-sm font-black text-white/75">{t.eyebrow}</p>
+              <p className="mb-4 text-sm font-black text-white/75">
+                {t.eyebrow}
+              </p>
               <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
                 {t.title}
               </h1>
@@ -79,10 +84,17 @@ export default function Articles() {
       <section className="px-5 pb-20 pt-8 sm:px-8 lg:pb-28">
         <div className="mx-auto max-w-[1760px]">
           {isLoading ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" role="status" aria-live="polite">
+            <div
+              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+              role="status"
+              aria-live="polite"
+            >
               <span className="sr-only">{t.loading}</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="overflow-hidden rounded-[24px] bg-white">
+                <div
+                  key={i}
+                  className="overflow-hidden rounded-[24px] bg-white"
+                >
                   <Skeleton className="aspect-[16/10] w-full rounded-none" />
                   <div className="p-6 space-y-3">
                     <Skeleton className="h-4 w-24" />
@@ -94,8 +106,13 @@ export default function Articles() {
             </div>
           ) : filtered.length === 0 ? (
             <div className="rounded-[28px] bg-white py-32 text-center">
-              <BookOpen className="mx-auto mb-4 h-12 w-12 text-[#082b86]" aria-hidden="true" />
-              <p className="text-xl font-black text-[#082b86]">{t.emptyTitle}</p>
+              <BookOpen
+                className="mx-auto mb-4 h-12 w-12 text-[#082b86]"
+                aria-hidden="true"
+              />
+              <p className="text-xl font-black text-[#082b86]">
+                {t.emptyTitle}
+              </p>
               <p className="mt-1 font-medium text-slate-500">{t.emptyBody}</p>
             </div>
           ) : (
@@ -108,11 +125,15 @@ export default function Articles() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.05 }}
                   className="group cursor-pointer overflow-hidden rounded-[24px] bg-white"
-                  onClick={() => setExpandedId(expandedId === article.id ? null : article.id)}
+                  onClick={() =>
+                    setExpandedId(expandedId === article.id ? null : article.id)
+                  }
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
-                      setExpandedId(expandedId === article.id ? null : article.id);
+                      setExpandedId(
+                        expandedId === article.id ? null : article.id,
+                      );
                     }
                   }}
                   role="button"
@@ -153,12 +174,15 @@ export default function Articles() {
                       </span>
                     </div>
                   </div>
-                  <div className="px-1 py-5">
+                  <div className="px-5 py-5">
                     <div className="mb-3 flex items-center gap-4 text-xs font-bold text-slate-500">
                       {article.created_date && (
                         <span className="flex items-center gap-1">
                           <Calendar className="h-3 w-3" aria-hidden="true" />
-                          {format(new Date(article.created_date), "MMM d, yyyy")}
+                          {format(
+                            new Date(article.created_date),
+                            "MMM d, yyyy",
+                          )}
                         </span>
                       )}
                       {article.author_name && (

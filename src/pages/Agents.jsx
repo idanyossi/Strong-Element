@@ -29,7 +29,9 @@ export default function Agents() {
         <div className="mx-auto max-w-[1760px] rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
           <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
             <div className="max-w-4xl">
-              <p className="mb-4 text-sm font-black text-white/75">{t.eyebrow}</p>
+              <p className="mb-4 text-sm font-black text-white/75">
+                {t.eyebrow}
+              </p>
               <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
                 {t.title}
               </h1>
@@ -44,10 +46,17 @@ export default function Agents() {
       <section className="px-5 pb-20 sm:px-8 lg:pb-28">
         <div className="mx-auto max-w-[1760px]">
           {isLoading ? (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" role="status" aria-live="polite">
+            <div
+              className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+              role="status"
+              aria-live="polite"
+            >
               <span className="sr-only">{t.loading}</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="overflow-hidden rounded-[24px] bg-white">
+                <div
+                  key={i}
+                  className="overflow-hidden rounded-[24px] bg-white"
+                >
                   <Skeleton className="aspect-[3/4] w-full rounded-none" />
                   <div className="p-6 space-y-3">
                     <Skeleton className="h-5 w-3/4" />
@@ -79,7 +88,7 @@ export default function Agents() {
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                   className="group overflow-hidden rounded-[24px] bg-white"
                 >
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-[24px] bg-[#082b86]">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-[7px] bg-[#082b86]">
                     {isAdmin && (
                       <button
                         onClick={() => {
@@ -141,12 +150,14 @@ export default function Agents() {
                     </div>
                   </div>
 
-                  <div className="px-1 py-5">
+                  <div className="px-5 py-5">
                     <h3 className="text-2xl font-black tracking-[-0.04em] text-[#082b86]">
                       {agent.name}
                     </h3>
                     {agent.title && (
-                      <p className="mt-1 text-sm font-black text-slate-500">{agent.title}</p>
+                      <p className="mt-1 text-sm font-black text-slate-500">
+                        {agent.title}
+                      </p>
                     )}
                     {agent.bio && (
                       <p className="mt-3 line-clamp-3 text-sm font-medium leading-relaxed text-slate-600">
