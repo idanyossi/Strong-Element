@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { useAuth } from "@/lib/AuthContext";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, UserRound, X } from "lucide-react";
 import Footer from "./components/shared/Footer";
 import LoginModal from "./components/shared/LoginModal";
 
@@ -35,7 +35,7 @@ export default function Layout({ children, currentPageName }) {
   const isHome = currentPageName === "Home";
   const headerBg =
     scrolled || !isHome
-      ? "bg-[#0A1628]/95 backdrop-blur-md shadow-lg"
+      ? "bg-[#082b86] shadow-lg"
       : "bg-transparent";
 
   return (
@@ -43,31 +43,29 @@ export default function Layout({ children, currentPageName }) {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+      <header className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${headerBg}`}>
+        <div className="px-5 py-2 sm:px-7">
+          <div className="flex h-16 items-center justify-between gap-5 rounded-full px-3 text-white lg:h-[76px]">
             <Link
               to={createPageUrl("Home")}
               className="flex items-center"
               aria-label="Strong Element home"
             >
-              <span className="text-lg font-bold text-white tracking-tight">
-                STRONG<span className="text-[#C9A84C]">ELEMENT</span>
+              <span className="text-2xl font-black uppercase tracking-[-0.06em] text-white lg:text-[34px]">
+                STRONG<span>ELEMENT</span><span>.</span>
               </span>
             </Link>
 
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-              {navLinks.map((link) => (
+            <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
+              {navLinks.slice(1).map((link) => (
                 <Link
                   key={link.page}
                   to={createPageUrl(link.page)}
                   aria-current={currentPageName === link.page ? "page" : undefined}
-                  className={`px-4 py-2 text-sm font-medium transition-colors ${
+                  className={`text-[15px] font-extrabold text-white transition-opacity hover:opacity-75 ${
                     currentPageName === link.page
-                      ? "text-[#C9A84C] underline underline-offset-8"
-                      : "text-slate-300 hover:text-white"
+                      ? "underline underline-offset-8"
+                      : ""
                   }`}
                 >
                   {link.label}
@@ -75,50 +73,80 @@ export default function Layout({ children, currentPageName }) {
               ))}
             </nav>
 
-            <div className="flex items-center gap-4">
+            <div className="hidden items-center gap-3 lg:flex">
+              <Link
+                to={createPageUrl("Listings")}
+                className="serhant-pill flex h-11 items-center gap-3 px-5 text-sm font-extrabold"
+              >
+                <Search className="h-4 w-4" aria-hidden="true" />
+                STRONG ELEMENT Homes & Agents
+              </Link>
+              <Link
+                to={createPageUrl("Listings")}
+                className="flex h-11 items-center rounded-full bg-white px-6 text-sm font-extrabold text-[#082b86]"
+              >
+                All Homes
+              </Link>
               {user ? (
                 <button
                   onClick={logout}
-                  className="hidden lg:inline-flex text-sm text-slate-400 hover:text-white transition-colors"
+                  className="serhant-pill flex h-11 w-11 items-center justify-center"
                   type="button"
+                  aria-label="Sign out"
                 >
-                  Sign Out
+                  <UserRound className="h-5 w-5" aria-hidden="true" />
                 </button>
               ) : (
                 <button
                   onClick={() => setShowLogin(true)}
-                  className="hidden lg:inline-flex text-sm text-slate-400 hover:text-white transition-colors"
+                  className="serhant-pill flex h-11 w-11 items-center justify-center"
                   type="button"
+                  aria-label="Sign in"
                 >
-                  Sign In
+                  <UserRound className="h-5 w-5" aria-hidden="true" />
                 </button>
               )}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden text-white p-2"
+                className="serhant-pill flex h-11 items-center gap-3 px-6 text-sm font-extrabold"
                 type="button"
                 aria-controls={mobileNavId}
                 aria-expanded={mobileOpen}
                 aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
               >
-                {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+                Menu
+                {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3 lg:hidden">
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="serhant-pill flex h-11 items-center gap-3 px-5 text-sm font-extrabold text-white"
+                type="button"
+                aria-controls={mobileNavId}
+                aria-expanded={mobileOpen}
+                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+              >
+                Menu
+                {mobileOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
               </button>
             </div>
           </div>
         </div>
 
         {mobileOpen && (
-          <div className="lg:hidden bg-[#0A1628] border-t border-white/10" id={mobileNavId}>
-            <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
+          <div className="mx-5 rounded-[28px] bg-[#082b86] shadow-2xl lg:hidden" id={mobileNavId}>
+            <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4" aria-label="Mobile navigation">
               {navLinks.map((link) => (
                 <Link
                   key={link.page}
                   to={createPageUrl(link.page)}
                   aria-current={currentPageName === link.page ? "page" : undefined}
-                  className={`px-4 py-3 text-sm font-medium transition-colors ${
+                  className={`px-4 py-3 text-sm font-extrabold text-white transition-opacity hover:opacity-75 ${
                     currentPageName === link.page
-                      ? "text-[#C9A84C] underline underline-offset-8"
-                      : "text-slate-300 hover:text-white"
+                      ? "underline underline-offset-8"
+                      : ""
                   }`}
                 >
                   {link.label}

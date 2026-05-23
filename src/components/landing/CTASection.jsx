@@ -6,51 +6,42 @@ import { ArrowRight, Phone } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A1628] overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.04]">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.3) 40px, rgba(255,255,255,0.3) 41px)`,
-          }}
-        />
-      </div>
-      <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-[#C9A84C] rounded-full blur-[150px] opacity-10" />
+    <section className="relative overflow-hidden bg-black py-24 text-white lg:py-32">
+      <img
+        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1800&q=85"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover opacity-55"
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-black/55" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="h-px w-12 bg-[#C9A84C]" />
-          <span className="text-[#C9A84C] text-sm font-medium tracking-[0.2em] uppercase">
-            Get Started
-          </span>
-          <div className="h-px w-12 bg-[#C9A84C]" />
-        </div>
+      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center lg:px-8">
+        <p className="mb-4 text-sm font-black">Get Started</p>
 
-        <h2 className="text-3xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+        <h2 className="text-5xl font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl">
           Ready to Find Your
           <br />
           Next Property?
         </h2>
 
-        <p className="mt-6 text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-          Whether you're buying, selling, or investing — our team of expert
+        <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/85">
+          Whether you're buying, selling, or investing - our team of expert
           agents is ready to guide you through every step of the journey.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
           <Link to={createPageUrl("Listings")}>
-            <Button className="bg-[#C9A84C] hover:bg-[#D4B96A] text-[#0A1628] h-14 px-10 text-base font-semibold rounded-none tracking-wide w-full sm:w-auto">
+            <Button className="h-14 w-full rounded-full bg-white px-9 text-sm font-extrabold text-[#082b86] hover:bg-slate-100 sm:w-auto">
               Browse Listings
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Button>
           </Link>
           <Link to={createPageUrl("Agents")}>
             <Button
               variant="outline"
-              className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white h-14 px-10 text-base rounded-none tracking-wide w-full sm:w-auto"
+              className="h-14 w-full rounded-full border-white/35 bg-white/10 px-9 text-sm font-extrabold text-white backdrop-blur-md hover:bg-white hover:text-[#082b86] sm:w-auto"
             >
-              <Phone className="mr-2 w-4 h-4" />
+              <Phone className="h-4 w-4" aria-hidden="true" />
               Contact an Agent
             </Button>
           </Link>

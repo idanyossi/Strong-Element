@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { api } from "@/api/client";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Bed, Bath, Maximize } from "lucide-react";
+import { ArrowRight, Bath, Bed, Maximize } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -16,33 +16,22 @@ export default function FeaturedListings() {
   const displayListings = listings.length > 0 ? listings : [];
 
   return (
-    <section className="py-24 lg:py-32 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-14">
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-[#C9A84C]" />
-              <span className="text-[#C9A84C] text-sm font-medium tracking-[0.2em] uppercase">
-                Featured
-              </span>
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#0A1628] tracking-tight">
-              Selected Properties
-            </h2>
-          </div>
-          <Link
-            to={createPageUrl("Listings")}
-            className="inline-flex items-center text-[#0A1628] font-semibold hover:text-[#C9A84C] transition-colors group"
-          >
-            View All Listings
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+    <section className="bg-white py-20 lg:py-28">
+      <div className="mx-auto max-w-[1760px] px-5 sm:px-8">
+        <div className="mb-12 max-w-2xl">
+          <h2 className="text-5xl font-black leading-none tracking-[-0.055em] text-[#082b86] sm:text-6xl">
+            Selected Properties
+          </h2>
+          <p className="mt-5 text-lg font-medium leading-relaxed text-slate-600">
+            Check out some of our most exclusive houses, apartments, townhomes,
+            penthouses, and more.
+          </p>
         </div>
 
         {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white">
+              <div key={i} className="overflow-hidden rounded-[18px] bg-white">
                 <Skeleton className="aspect-[4/3] w-full rounded-none" />
                 <div className="p-6 space-y-3">
                   <Skeleton className="h-5 w-3/4" />
@@ -53,11 +42,11 @@ export default function FeaturedListings() {
             ))}
           </div>
         ) : displayListings.length === 0 ? (
-          <div className="text-center py-20 text-slate-400">
-            <p className="text-lg">Featured properties coming soon</p>
+          <div className="rounded-[18px] bg-[#f4f4f4] py-20 text-center text-slate-500">
+            <p className="text-lg font-bold">Featured properties coming soon</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {displayListings.map((listing, i) => (
               <motion.div
                 key={listing.id}
@@ -65,47 +54,46 @@ export default function FeaturedListings() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-white shadow-sm hover:shadow-lg transition-shadow group"
+                className="group overflow-hidden rounded-[18px] bg-white"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-slate-200">
                   <img
                     src={
                       listing.image_url ||
-                      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80"
+                      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&q=80"
                     }
                     alt={listing.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 left-4 bg-[#0A1628]/90 text-white text-xs font-medium px-3 py-1.5 tracking-wider uppercase">
+                  <div className="absolute left-4 top-4 rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
                     {listing.status?.replace("_", " ") || "For Sale"}
                   </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-[#C9A84C] font-bold text-xl">
+                <div className="px-1 py-5">
+                  <p className="text-2xl font-black tracking-[-0.04em] text-[#082b86]">
                     ${listing.price?.toLocaleString()}
                   </p>
-                  <h3 className="mt-2 font-semibold text-[#0A1628] text-lg leading-tight">
+                  <h3 className="mt-2 text-xl font-black tracking-[-0.035em] text-[#111]">
                     {listing.title}
                   </h3>
-                  <p className="mt-1 text-slate-400 text-sm">
+                  <p className="mt-1 text-sm font-bold text-slate-500">
                     {listing.neighborhood}
                     {listing.city ? `, ${listing.city}` : ""}
                   </p>
-                  <div className="mt-5 pt-5 border-t border-slate-100 flex items-center gap-5 text-slate-500 text-sm">
+                  <div className="mt-4 flex items-center gap-5 text-sm font-bold text-slate-600">
                     {listing.bedrooms && (
                       <span className="flex items-center gap-1.5">
-                        <Bed className="w-4 h-4" /> {listing.bedrooms}
+                        <Bed className="h-4 w-4" aria-hidden="true" /> {listing.bedrooms}
                       </span>
                     )}
                     {listing.bathrooms && (
                       <span className="flex items-center gap-1.5">
-                        <Bath className="w-4 h-4" /> {listing.bathrooms}
+                        <Bath className="h-4 w-4" aria-hidden="true" /> {listing.bathrooms}
                       </span>
                     )}
                     {listing.area_sqft && (
                       <span className="flex items-center gap-1.5">
-                        <Maximize className="w-4 h-4" /> {listing.area_sqft}{" "}
-                        sqft
+                        <Maximize className="h-4 w-4" aria-hidden="true" /> {listing.area_sqft} sqft
                       </span>
                     )}
                   </div>
@@ -114,6 +102,14 @@ export default function FeaturedListings() {
             ))}
           </div>
         )}
+
+        <Link
+          to={createPageUrl("Listings")}
+          className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#082b86] px-7 py-4 text-sm font-extrabold text-white hover:bg-[#06216b]"
+        >
+          View All Listings
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );
