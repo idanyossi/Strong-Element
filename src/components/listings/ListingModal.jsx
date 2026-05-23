@@ -54,17 +54,17 @@ export default function ListingModal({ listing, onClose }) {
               {statusLabels[listing.status] || listing.status?.replace("_", " ") || t.forSale}
             </span>
             {listing.is_featured && (
-              <span className="bg-[#C9A84C] text-[#0A1628] text-[10px] font-semibold px-3 py-1 tracking-wider uppercase">
+              <span className="bg-white/90 text-[#0A1628] text-[10px] font-semibold px-3 py-1 tracking-wider uppercase">
                 {t.featured}
               </span>
             )}
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-8">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[#C9A84C] font-bold text-2xl">
+              <p className="text-[#082b86] font-bold text-2xl">
                 ${listing.price?.toLocaleString()}
               </p>
               <h2 id="listing-dialog-title" className="mt-1 text-xl font-bold text-[#0A1628] leading-tight">

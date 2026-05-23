@@ -11,8 +11,8 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
   };
 
   return (
-    <div className="group overflow-hidden rounded-[18px] bg-white">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-slate-200">
+    <div className="group overflow-hidden rounded-[7px] bg-white">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[7px] bg-slate-200">
         <img
           src={
             listing.image_url ||
@@ -22,11 +22,13 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute right-3 top-3 flex gap-2">
-          <span className="rounded-md bg-white px-3 py-1.5 text-[11px] font-extrabold text-[#082b86]">
-            {statusLabels[listing.status] || listing.status?.replace("_", " ") || t.forSale}
+          <span className="bg-[#0A1628]/90 text-white text-[10px] font-bold px-3 py-1 tracking-wider uppercase">
+            {statusLabels[listing.status] ||
+              listing.status?.replace("_", " ") ||
+              t.forSale}
           </span>
           {listing.is_featured && (
-            <span className="rounded-md bg-[#082b86] px-3 py-1.5 text-[11px] font-extrabold text-white">
+            <span className="bg-white/90 text-[#0A1628] text-[10px] font-bold px-3 py-1 tracking-wider uppercase">
               {t.featured}
             </span>
           )}
@@ -42,20 +44,21 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
               <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           )}
-          <span className="rounded-md bg-white px-3 py-1.5 text-xs font-extrabold capitalize text-[#082b86]">
-            {propertyTypeLabels[listing.property_type] || listing.property_type?.replace("_", " ")}
+          <span className="bg-white/90 text-[#0A1628] text-[10px] font-bold px-3 py-1 tracking-wider uppercase">
+            {propertyTypeLabels[listing.property_type] ||
+              listing.property_type?.replace("_", " ")}
           </span>
         </div>
       </div>
-      <div className="px-1 py-5">
-        <p className="text-2xl font-black tracking-[-0.04em] text-[#082b86]">
+      <div className="px-4 py-5">
+        <p className="text-2xl font-bold tracking-[-0.04em] text-[#082b86]">
           ${listing.price?.toLocaleString()}
         </p>
-        <h3 className="mt-1.5 line-clamp-1 text-xl font-black tracking-[-0.035em] text-[#111]">
+        <h3 className="mt-1.5 line-clamp-1 text-xl font-bold tracking-[-0.035em] text-[#111]">
           {listing.title}
         </h3>
         {(listing.neighborhood || listing.city) && (
-          <p className="mt-1.5 flex items-center gap-1 text-sm font-bold text-slate-500">
+          <p className="mt-1.5 flex items-center gap-1 text-sm font-medium text-slate-500">
             <MapPin className="w-3 h-3" aria-hidden="true" />
             {listing.neighborhood}
             {listing.city ? `, ${listing.city}` : ""}
@@ -64,17 +67,20 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
         <div className="mt-4 flex items-center gap-4 text-xs font-bold text-slate-600">
           {listing.bedrooms != null && (
             <span className="flex items-center gap-1">
-              <Bed className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bedrooms} {t.bedroomsSuffix}
+              <Bed className="w-3.5 h-3.5" aria-hidden="true" />{" "}
+              {listing.bedrooms} {t.bedroomsSuffix}
             </span>
           )}
           {listing.bathrooms != null && (
             <span className="flex items-center gap-1">
-              <Bath className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bathrooms} {t.bathroomsSuffix}
+              <Bath className="w-3.5 h-3.5" aria-hidden="true" />{" "}
+              {listing.bathrooms} {t.bathroomsSuffix}
             </span>
           )}
           {listing.area_sqft != null && (
             <span className="flex items-center gap-1">
-              <Maximize className="w-3.5 h-3.5" aria-hidden="true" /> {listing.area_sqft} {t.sqm}
+              <Maximize className="w-3.5 h-3.5" aria-hidden="true" />{" "}
+              {listing.area_sqft} {t.sqm}
             </span>
           )}
         </div>

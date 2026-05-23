@@ -54,9 +54,9 @@ export default function FeaturedListings() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group overflow-hidden rounded-[18px] bg-white"
+                className="group overflow-hidden rounded-[7px] bg-white"
               >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-slate-200">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[7px] bg-slate-200">
                   <img
                     src={
                       listing.image_url ||
@@ -66,34 +66,38 @@ export default function FeaturedListings() {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute right-4 top-4 rounded-md bg-white px-4 py-2 text-xs font-extrabold text-[#082b86]">
-                    {statusLabels[listing.status] || listing.status?.replace("_", " ")}
+                    {statusLabels[listing.status] ||
+                      listing.status?.replace("_", " ")}
                   </div>
                 </div>
-                <div className="px-1 py-5">
-                  <p className="text-2xl font-black tracking-[-0.04em] text-[#082b86]">
+                <div className="px-4 py-5">
+                  <p className="text-2xl font-bold tracking-[-0.04em] text-[#082b86]">
                     ${listing.price?.toLocaleString()}
                   </p>
-                  <h3 className="mt-2 text-xl font-black tracking-[-0.035em] text-[#111]">
+                  <h3 className="mt-2 text-xl font-bold tracking-[-0.035em] text-[#111]">
                     {listing.title}
                   </h3>
-                  <p className="mt-1 text-sm font-bold text-slate-500">
+                  <p className="mt-1 text-sm font-medium text-slate-500">
                     {listing.neighborhood}
                     {listing.city ? `, ${listing.city}` : ""}
                   </p>
-                  <div className="mt-4 flex items-center gap-5 text-sm font-bold text-slate-600">
+                  <div className="mt-4 flex items-center gap-5 text-sm font-medium text-slate-600">
                     {listing.bedrooms && (
                       <span className="flex items-center gap-1.5">
-                        <Bed className="h-4 w-4" aria-hidden="true" /> {listing.bedrooms}
+                        <Bed className="h-4 w-4" aria-hidden="true" />{" "}
+                        {listing.bedrooms}
                       </span>
                     )}
                     {listing.bathrooms && (
                       <span className="flex items-center gap-1.5">
-                        <Bath className="h-4 w-4" aria-hidden="true" /> {listing.bathrooms}
+                        <Bath className="h-4 w-4" aria-hidden="true" />{" "}
+                        {listing.bathrooms}
                       </span>
                     )}
                     {listing.area_sqft && (
                       <span className="flex items-center gap-1.5">
-                        <Maximize className="h-4 w-4" aria-hidden="true" /> {listing.area_sqft} {he.common.sqm}
+                        <Maximize className="h-4 w-4" aria-hidden="true" />{" "}
+                        {listing.area_sqft} {he.common.sqm}
                       </span>
                     )}
                   </div>
