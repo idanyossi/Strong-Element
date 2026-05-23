@@ -52,6 +52,7 @@ import About from './pages/About';
 import Agents from './pages/Agents';
 import Listings from './pages/Listing';
 import Articles from './pages/Articles';
+import Accessibility from './pages/Accessibility';
 import __Layout from './Layout.jsx';
 
 
@@ -61,6 +62,7 @@ export const PAGES = {
     "Agents": Agents,
     "Listings": Listings,
     "Articles": Articles,
+    "Accessibility": Accessibility,
 }
 
 export const pagesConfig = {

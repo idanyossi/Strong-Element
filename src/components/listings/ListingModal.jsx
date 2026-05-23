@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Bed, Bath, Maximize, MapPin, X } from "lucide-react";
 
 export default function ListingModal({ listing, onClose }) {
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (!listing) return undefined;
+
+    closeButtonRef.current?.focus();
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [listing, onClose]);
+
   if (!listing) return null;
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
       onClick={onClose}
+      role="presentation"
     >
       <div
         className="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="listing-dialog-title"
       >
         {/* Image */}
         <div className="relative aspect-[16/9] overflow-hidden">
@@ -21,10 +39,13 @@ export default function ListingModal({ listing, onClose }) {
             className="w-full h-full object-cover"
           />
           <button
+            ref={closeButtonRef}
             onClick={onClose}
             className="absolute top-3 right-3 w-9 h-9 bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-colors"
+            type="button"
+            aria-label="Close listing details"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
           <div className="absolute top-3 left-3 flex gap-2">
             <span className="bg-[#0A1628]/90 text-white text-[10px] font-semibold px-3 py-1 tracking-wider uppercase">
@@ -45,7 +66,7 @@ export default function ListingModal({ listing, onClose }) {
               <p className="text-[#C9A84C] font-bold text-2xl">
                 ${listing.price?.toLocaleString()}
               </p>
-              <h2 className="mt-1 text-xl font-bold text-[#0A1628] leading-tight">
+              <h2 id="listing-dialog-title" className="mt-1 text-xl font-bold text-[#0A1628] leading-tight">
                 {listing.title}
               </h2>
             </div>
@@ -56,7 +77,7 @@ export default function ListingModal({ listing, onClose }) {
 
           {(listing.neighborhood || listing.city) && (
             <p className="mt-2 text-slate-400 text-sm flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5" />
+              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
               {listing.neighborhood}
               {listing.city ? `, ${listing.city}` : ""}
             </p>
@@ -70,17 +91,17 @@ export default function ListingModal({ listing, onClose }) {
           <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-6 text-slate-600 text-sm">
             {listing.bedrooms != null && (
               <span className="flex items-center gap-1.5">
-                <Bed className="w-4 h-4" /> {listing.bedrooms} Bedrooms
+                <Bed className="w-4 h-4" aria-hidden="true" /> {listing.bedrooms} Bedrooms
               </span>
             )}
             {listing.bathrooms != null && (
               <span className="flex items-center gap-1.5">
-                <Bath className="w-4 h-4" /> {listing.bathrooms} Bathrooms
+                <Bath className="w-4 h-4" aria-hidden="true" /> {listing.bathrooms} Bathrooms
               </span>
             )}
             {listing.area_sqft != null && (
               <span className="flex items-center gap-1.5">
-                <Maximize className="w-4 h-4" /> {listing.area_sqft} sqft
+                <Maximize className="w-4 h-4" aria-hidden="true" /> {listing.area_sqft} sqft
               </span>
             )}
           </div>

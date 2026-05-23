@@ -5,7 +5,7 @@ import { pagesConfig } from "./pages.config";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import PageNotFound from "./lib/PageNotFound";
 import { AuthProvider } from "@/lib/AuthContext";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -20,28 +20,25 @@ function ScrollToTop() {
   return null;
 }
 
-const LayoutWrapper = ({ children, currentPageName }) =>
-  Layout ? (
+const LayoutWrapper = ({ children, currentPageName }) => {
+  const shouldReduceMotion = useReducedMotion();
+  const motionProps = shouldReduceMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 10 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -6 },
+        transition: { duration: 0.25, ease: "easeInOut" },
+      };
+
+  return Layout ? (
     <Layout currentPageName={currentPageName}>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -6 }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
-      >
-        {children}
-      </motion.div>
+      <motion.div {...motionProps}>{children}</motion.div>
     </Layout>
   ) : (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -6 }}
-      transition={{ duration: 0.25, ease: "easeInOut" }}
-    >
-      {children}
-    </motion.div>
+    <motion.div {...motionProps}>{children}</motion.div>
   );
+};
 
 function AppRoutes() {
   const location = useLocation();

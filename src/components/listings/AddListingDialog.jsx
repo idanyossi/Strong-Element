@@ -59,6 +59,7 @@ export default function AddListingDialog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    /** @type {any} */
     const data = {
       ...form,
       price: form.price ? Number(form.price) : undefined,

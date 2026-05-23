@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, Loader2, X } from 'lucide-react';
+import { Plus, Loader2 } from 'lucide-react';
 
 const initialForm = {
   name: '',
@@ -42,6 +42,7 @@ export default function AddAgentDialog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    /** @type {any} */
     const data = {
       ...form,
       years_experience: form.years_experience ? Number(form.years_experience) : undefined,

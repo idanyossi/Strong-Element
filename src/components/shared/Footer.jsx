@@ -9,6 +9,7 @@ const navLinks = [
   { label: "About", page: "About" },
   { label: "Agents", page: "Agents" },
   { label: "Articles", page: "Articles" },
+  { label: "Accessibility", page: "Accessibility" },
 ];
 
 export default function Footer() {
@@ -18,9 +19,9 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <h3 className="text-xl font-bold tracking-tight">
+            <p className="text-xl font-bold tracking-tight">
               STRONG<span className="text-[#C9A84C]">ELEMENT</span>
-            </h3>
+            </p>
             <p className="mt-4 text-slate-400 text-sm leading-relaxed">
               Premium real estate services built on expertise, integrity, and
               results.
@@ -67,7 +68,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-4 text-sm text-slate-300">
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 text-[#C9A84C] flex-shrink-0" />
+                <MapPin className="w-4 h-4 mt-0.5 text-[#C9A84C] flex-shrink-0" aria-hidden="true" />
                 <span>
                   123 Business Avenue
                   <br />
@@ -75,12 +76,16 @@ export default function Footer() {
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#C9A84C] flex-shrink-0" />
-                <span>+1 (555) 123-4567</span>
+                <Phone className="w-4 h-4 text-[#C9A84C] flex-shrink-0" aria-hidden="true" />
+                <a href="tel:+15551234567" className="hover:text-[#C9A84C]">
+                  +1 (555) 123-4567
+                </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#C9A84C] flex-shrink-0" />
-                <span>info@strongelement.com</span>
+                <Mail className="w-4 h-4 text-[#C9A84C] flex-shrink-0" aria-hidden="true" />
+                <a href="mailto:info@strongelement.com" className="hover:text-[#C9A84C]">
+                  info@strongelement.com
+                </a>
               </li>
             </ul>
           </div>

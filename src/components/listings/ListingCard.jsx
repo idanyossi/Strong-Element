@@ -30,13 +30,14 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
         </div>
         <div className="absolute top-3 right-3 flex items-center gap-2">
           {isAdmin && (
-            <button
-              onClick={handleDelete}
-              className="w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
-              title="Delete listing"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-            </button>
+          <button
+            onClick={handleDelete}
+            className="w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
+            type="button"
+            aria-label={`Delete listing ${listing.title}`}
+          >
+            <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+          </button>
           )}
           <span className="bg-white/90 backdrop-blur-sm text-[#0A1628] text-xs font-medium px-3 py-1 capitalize">
             {listing.property_type?.replace("_", " ")}
@@ -52,7 +53,7 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
         </h3>
         {(listing.neighborhood || listing.city) && (
           <p className="mt-1.5 text-slate-400 text-sm flex items-center gap-1">
-            <MapPin className="w-3 h-3" />
+            <MapPin className="w-3 h-3" aria-hidden="true" />
             {listing.neighborhood}
             {listing.city ? `, ${listing.city}` : ""}
           </p>
@@ -60,17 +61,17 @@ export default function ListingCard({ listing, isAdmin, onDelete }) {
         <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-4 text-slate-500 text-xs">
           {listing.bedrooms != null && (
             <span className="flex items-center gap-1">
-              <Bed className="w-3.5 h-3.5" /> {listing.bedrooms} Beds
+              <Bed className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bedrooms} Beds
             </span>
           )}
           {listing.bathrooms != null && (
             <span className="flex items-center gap-1">
-              <Bath className="w-3.5 h-3.5" /> {listing.bathrooms} Baths
+              <Bath className="w-3.5 h-3.5" aria-hidden="true" /> {listing.bathrooms} Baths
             </span>
           )}
           {listing.area_sqft != null && (
             <span className="flex items-center gap-1">
-              <Maximize className="w-3.5 h-3.5" /> {listing.area_sqft} sqft
+              <Maximize className="w-3.5 h-3.5" aria-hidden="true" /> {listing.area_sqft} sqft
             </span>
           )}
         </div>

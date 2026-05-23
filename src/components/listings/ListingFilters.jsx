@@ -28,6 +28,8 @@ const STATUS_OPTIONS = [
 ];
 
 export default function ListingFilters({ filters, setFilters, isMobile }) {
+  const suffix = isMobile ? "mobile" : "desktop";
+
   const updateFilter = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
@@ -58,7 +60,7 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
     : "bg-white p-6 shadow-sm space-y-6 sticky top-24";
 
   return (
-    <div className={containerClass}>
+    <aside className={containerClass} aria-label={isMobile ? "Mobile listing filters" : "Listing filters"}>
       {!isMobile && (
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-[#0A1628] text-sm tracking-[0.1em] uppercase">
@@ -68,8 +70,9 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
             <button
               onClick={clearFilters}
               className="text-xs text-[#C9A84C] hover:underline flex items-center gap-1"
+              type="button"
             >
-              <X className="w-3 h-3" /> Clear
+              <X className="w-3 h-3" aria-hidden="true" /> Clear
             </button>
           )}
         </div>
@@ -77,9 +80,13 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
 
       {/* Search */}
       <div className={isMobile ? "" : ""}>
+        <Label htmlFor={`search-${suffix}`} className="sr-only">
+          Search properties
+        </Label>
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
           <Input
+            id={`search-${suffix}`}
             placeholder="Search properties..."
             value={filters.search}
             onChange={(e) => updateFilter("search", e.target.value)}
@@ -91,16 +98,17 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
       <div className={isMobile ? "grid grid-cols-2 gap-3" : "space-y-5"}>
         {/* Property Type */}
         <div>
-          {!isMobile && (
-            <Label className="text-xs text-slate-500 mb-2 block">
-              Property Type
-            </Label>
-          )}
+          <Label
+            htmlFor={`property-type-${suffix}`}
+            className={isMobile ? "sr-only" : "text-xs text-slate-500 mb-2 block"}
+          >
+            Property Type
+          </Label>
           <Select
             value={filters.property_type}
             onValueChange={(v) => updateFilter("property_type", v)}
           >
-            <SelectTrigger className="rounded-none h-11 border-slate-200">
+            <SelectTrigger id={`property-type-${suffix}`} className="rounded-none h-11 border-slate-200">
               <SelectValue placeholder="Type" />
             </SelectTrigger>
             <SelectContent>
@@ -115,14 +123,17 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
 
         {/* Status */}
         <div>
-          {!isMobile && (
-            <Label className="text-xs text-slate-500 mb-2 block">Status</Label>
-          )}
+          <Label
+            htmlFor={`status-${suffix}`}
+            className={isMobile ? "sr-only" : "text-xs text-slate-500 mb-2 block"}
+          >
+            Status
+          </Label>
           <Select
             value={filters.status}
             onValueChange={(v) => updateFilter("status", v)}
           >
-            <SelectTrigger className="rounded-none h-11 border-slate-200">
+            <SelectTrigger id={`status-${suffix}`} className="rounded-none h-11 border-slate-200">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -137,16 +148,17 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
 
         {/* Bedrooms */}
         <div>
-          {!isMobile && (
-            <Label className="text-xs text-slate-500 mb-2 block">
-              Bedrooms
-            </Label>
-          )}
+          <Label
+            htmlFor={`bedrooms-${suffix}`}
+            className={isMobile ? "sr-only" : "text-xs text-slate-500 mb-2 block"}
+          >
+            Bedrooms
+          </Label>
           <Select
             value={filters.bedrooms}
             onValueChange={(v) => updateFilter("bedrooms", v)}
           >
-            <SelectTrigger className="rounded-none h-11 border-slate-200">
+            <SelectTrigger id={`bedrooms-${suffix}`} className="rounded-none h-11 border-slate-200">
               <SelectValue placeholder="Bedrooms" />
             </SelectTrigger>
             <SelectContent>
@@ -162,10 +174,14 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
 
         {/* City */}
         <div>
-          {!isMobile && (
-            <Label className="text-xs text-slate-500 mb-2 block">City</Label>
-          )}
+          <Label
+            htmlFor={`city-${suffix}`}
+            className={isMobile ? "sr-only" : "text-xs text-slate-500 mb-2 block"}
+          >
+            City
+          </Label>
           <Input
+            id={`city-${suffix}`}
             placeholder="City"
             value={filters.city}
             onChange={(e) => updateFilter("city", e.target.value)}
@@ -175,21 +191,29 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
 
         {/* Price Range */}
         <div className={isMobile ? "col-span-2" : ""}>
-          {!isMobile && (
-            <Label className="text-xs text-slate-500 mb-2 block">
-              Price Range
-            </Label>
-          )}
+          <Label className={isMobile ? "sr-only" : "text-xs text-slate-500 mb-2 block"}>
+            Price Range
+          </Label>
           <div className="flex gap-2">
+            <Label htmlFor={`min-price-${suffix}`} className="sr-only">
+              Minimum price
+            </Label>
             <Input
+              id={`min-price-${suffix}`}
               type="number"
+              inputMode="numeric"
               placeholder="Min"
               value={filters.min_price}
               onChange={(e) => updateFilter("min_price", e.target.value)}
               className="rounded-none h-11 border-slate-200"
             />
+            <Label htmlFor={`max-price-${suffix}`} className="sr-only">
+              Maximum price
+            </Label>
             <Input
+              id={`max-price-${suffix}`}
               type="number"
+              inputMode="numeric"
               placeholder="Max"
               value={filters.max_price}
               onChange={(e) => updateFilter("max_price", e.target.value)}
@@ -205,9 +229,9 @@ export default function ListingFilters({ filters, setFilters, isMobile }) {
           variant="ghost"
           className="text-xs text-[#C9A84C] w-full rounded-none"
         >
-          <X className="w-3 h-3 mr-1" /> Clear All Filters
+          <X className="w-3 h-3 mr-1" aria-hidden="true" /> Clear All Filters
         </Button>
       )}
-    </div>
+    </aside>
   );
 }

@@ -58,7 +58,8 @@ export default function Agents() {
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {isLoading ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" role="status" aria-live="polite">
+              <span className="sr-only">Loading agents</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="bg-white shadow-sm">
                   <Skeleton className="aspect-[3/4] w-full rounded-none" />
@@ -72,7 +73,7 @@ export default function Agents() {
           ) : agents.length === 0 ? (
             <div className="text-center py-20">
               <div className="w-16 h-16 bg-slate-100 flex items-center justify-center mx-auto mb-6">
-                <Award className="w-8 h-8 text-slate-300" />
+                <Award className="w-8 h-8 text-slate-300" aria-hidden="true" />
               </div>
               <h3 className="text-xl font-semibold text-[#0A1628]">
                 Team Coming Soon
@@ -101,9 +102,10 @@ export default function Agents() {
                             deleteMutation.mutate(agent.id);
                         }}
                         className="absolute top-2 right-2 z-10 w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
-                        title="Delete agent"
+                        type="button"
+                        aria-label={`Delete agent ${agent.name}`}
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                       </button>
                     )}
                     {agent.photo_url ? (
@@ -122,22 +124,24 @@ export default function Agents() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     {/* Hover overlay contact */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 group-focus-within:translate-y-0 transition-transform duration-500">
                       <div className="flex gap-3">
                         {agent.email && (
                           <a
                             href={`mailto:${agent.email}`}
                             className="w-10 h-10 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-[#C9A84C] transition-colors"
+                            aria-label={`Email ${agent.name}`}
                           >
-                            <Mail className="w-4 h-4" />
+                            <Mail className="w-4 h-4" aria-hidden="true" />
                           </a>
                         )}
                         {agent.phone && (
                           <a
                             href={`tel:${agent.phone}`}
                             className="w-10 h-10 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-[#C9A84C] transition-colors"
+                            aria-label={`Call ${agent.name}`}
                           >
-                            <Phone className="w-4 h-4" />
+                            <Phone className="w-4 h-4" aria-hidden="true" />
                           </a>
                         )}
                         {agent.linkedin_url && (
@@ -146,8 +150,9 @@ export default function Agents() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-[#C9A84C] transition-colors"
+                            aria-label={`Open ${agent.name}'s LinkedIn profile`}
                           >
-                            <Linkedin className="w-4 h-4" />
+                            <Linkedin className="w-4 h-4" aria-hidden="true" />
                           </a>
                         )}
                       </div>

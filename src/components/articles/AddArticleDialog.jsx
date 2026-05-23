@@ -55,7 +55,7 @@ export default function AddArticleDialog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createMutation.mutate(form);
+    createMutation.mutate(/** @type {any} */ (form));
   };
 
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));

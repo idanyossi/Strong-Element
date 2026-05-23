@@ -5,7 +5,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, User, BookOpen, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import AddArticleDialog from "../components/articles/AddArticleDialog";
 
@@ -84,9 +83,11 @@ export default function Articles() {
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
+                type="button"
+                aria-pressed={selectedCategory === cat.value}
                 className={`px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors ${
                   selectedCategory === cat.value
-                    ? "bg-[#0A1628] text-white"
+                    ? "bg-[#0A1628] text-white underline underline-offset-4"
                     : "text-slate-500 hover:text-[#0A1628] hover:bg-slate-50"
                 }`}
               >
@@ -101,7 +102,8 @@ export default function Articles() {
       <section className="py-16 lg:py-20 bg-slate-50 min-h-[60vh]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {isLoading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" role="status" aria-live="polite">
+              <span className="sr-only">Loading articles</span>
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="bg-white">
                   <Skeleton className="aspect-[16/10] w-full rounded-none" />
@@ -134,6 +136,16 @@ export default function Articles() {
                   onClick={() =>
                     setExpandedId(expandedId === article.id ? null : article.id)
                   }
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setExpandedId(expandedId === article.id ? null : article.id);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={expandedId === article.id}
+                  aria-label={`${expandedId === article.id ? "Collapse" : "Read"} article ${article.title}`}
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img
@@ -152,9 +164,10 @@ export default function Articles() {
                             deleteMutation.mutate(article.id);
                         }}
                         className="absolute top-2 right-2 z-10 w-7 h-7 bg-red-600/90 hover:bg-red-700 flex items-center justify-center text-white transition-colors"
-                        title="Delete article"
+                        type="button"
+                        aria-label={`Delete article ${article.title}`}
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
                       </button>
                     )}
                     <div className="absolute top-3 left-3">
@@ -167,7 +180,7 @@ export default function Articles() {
                     <div className="flex items-center gap-4 text-xs text-slate-400 mb-3">
                       {article.created_date && (
                         <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
+                          <Calendar className="w-3 h-3" aria-hidden="true" />
                           {format(
                             new Date(article.created_date),
                             "MMM d, yyyy",
@@ -176,7 +189,7 @@ export default function Articles() {
                       )}
                       {article.author_name && (
                         <span className="flex items-center gap-1">
-                          <User className="w-3 h-3" />
+                          <User className="w-3 h-3" aria-hidden="true" />
                           {article.author_name}
                         </span>
                       )}
@@ -190,7 +203,8 @@ export default function Articles() {
                       </p>
                     )}
                     <div className="mt-4 flex items-center text-sm font-medium text-[#C9A84C] group-hover:text-[#0A1628] transition-colors">
-                      Read Article <ArrowRight className="ml-1 w-4 h-4" />
+                      {expandedId === article.id ? "Collapse Article" : "Read Article"}{" "}
+                      <ArrowRight className="ml-1 w-4 h-4" aria-hidden="true" />
                     </div>
                   </div>
 

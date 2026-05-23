@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 import {
   SlidersHorizontal,
-  X,
   ChevronLeft,
   ChevronRight,
   Loader2,
@@ -102,7 +101,9 @@ export default function Listings() {
       result.sort((a, b) => (b.price || 0) - (a.price || 0));
     else
       result.sort(
-        (a, b) => new Date(b.created_date) - new Date(a.created_date),
+        (a, b) =>
+          new Date(b.created_date).getTime() -
+          new Date(a.created_date).getTime(),
       );
 
     return result;
@@ -158,12 +159,18 @@ export default function Listings() {
         <button
           onClick={() => setShowMobileFilters(!showMobileFilters)}
           className="flex items-center gap-2 text-sm font-medium text-[#0A1628]"
+          type="button"
+          aria-expanded={showMobileFilters}
+          aria-controls="mobile-listing-filters"
         >
-          <SlidersHorizontal className="w-4 h-4" />
+          <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
           {showMobileFilters ? "Hide Filters" : "Show Filters"}
         </button>
         <Select value={sortBy} onValueChange={setSortBy}>
-          <SelectTrigger className="w-36 rounded-none h-9 text-xs border-slate-200">
+          <SelectTrigger
+            className="w-36 rounded-none h-9 text-xs border-slate-200"
+            aria-label="Sort listings"
+          >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -176,7 +183,7 @@ export default function Listings() {
 
       {/* Mobile filters */}
       {showMobileFilters && (
-        <div className="lg:hidden">
+        <div className="lg:hidden" id="mobile-listing-filters">
           <ListingFilters filters={filters} setFilters={setFilters} isMobile />
         </div>
       )}
@@ -204,7 +211,10 @@ export default function Listings() {
                   {filteredListings.length}
                 </p>
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-44 rounded-none h-10 border-slate-200">
+                  <SelectTrigger
+                    className="w-44 rounded-none h-10 border-slate-200"
+                    aria-label="Sort listings"
+                  >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -218,8 +228,9 @@ export default function Listings() {
               </div>
 
               {isLoading ? (
-                <div className="flex items-center justify-center py-32">
-                  <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+                <div className="flex items-center justify-center py-32" role="status" aria-live="polite">
+                  <Loader2 className="w-6 h-6 animate-spin text-slate-400" aria-hidden="true" />
+                  <span className="sr-only">Loading listings</span>
                 </div>
               ) : paginatedListings.length === 0 ? (
                 <div className="text-center py-32">
@@ -239,6 +250,7 @@ export default function Listings() {
                       })
                     }
                     className="mt-4 text-[#C9A84C] text-sm font-medium hover:underline"
+                    type="button"
                   >
                     Clear all filters
                   </button>
@@ -247,7 +259,20 @@ export default function Listings() {
                 <>
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                     {paginatedListings.map((listing) => (
-                      <div key={listing.id} onClick={() => setSelectedListing(listing)} className="cursor-pointer">
+                      <div
+                        key={listing.id}
+                        onClick={() => setSelectedListing(listing)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setSelectedListing(listing);
+                          }
+                        }}
+                        className="cursor-pointer text-left"
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`View details for ${listing.title}`}
+                      >
                         <ListingCard
                           listing={listing}
                           isAdmin={isAdmin}
@@ -266,8 +291,9 @@ export default function Listings() {
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                         disabled={page === 1}
                         className="rounded-none w-10 h-10 border-slate-200"
+                        aria-label="Previous listings page"
                       >
-                        <ChevronLeft className="w-4 h-4" />
+                        <ChevronLeft className="w-4 h-4" aria-hidden="true" />
                       </Button>
                       {Array.from({ length: totalPages }, (_, i) => i + 1)
                         .filter(
@@ -291,6 +317,8 @@ export default function Listings() {
                               key={p}
                               variant={page === p ? "default" : "outline"}
                               onClick={() => setPage(p)}
+                              aria-label={`Go to listings page ${p}`}
+                              aria-current={page === p ? "page" : undefined}
                               className={`rounded-none w-10 h-10 ${
                                 page === p
                                   ? "bg-[#0A1628] hover:bg-[#1B2D4F] text-white"
@@ -309,8 +337,9 @@ export default function Listings() {
                         }
                         disabled={page === totalPages}
                         className="rounded-none w-10 h-10 border-slate-200"
+                        aria-label="Next listings page"
                       >
-                        <ChevronRight className="w-4 h-4" />
+                        <ChevronRight className="w-4 h-4" aria-hidden="true" />
                       </Button>
                     </div>
                   )}
