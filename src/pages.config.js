@@ -53,6 +53,7 @@ import Agents from './pages/Agents';
 import Listings from './pages/Listing';
 import Articles from './pages/Articles';
 import Accessibility from './pages/Accessibility';
+import Privacy from './pages/Privacy';
 import __Layout from './Layout.jsx';
 
 
@@ -63,6 +64,7 @@ export const PAGES = {
     "Listings": Listings,
     "Articles": Articles,
     "Accessibility": Accessibility,
+    "Privacy": Privacy,
 }
 
 export const pagesConfig = {

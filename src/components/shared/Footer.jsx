@@ -4,12 +4,13 @@ import { createPageUrl } from "@/utils";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", page: "Home" },
-  { label: "Listings", page: "Listings" },
-  { label: "About", page: "About" },
-  { label: "Agents", page: "Agents" },
-  { label: "Articles", page: "Articles" },
-  { label: "Accessibility", page: "Accessibility" },
+  { label: "בית", page: "Home" },
+  { label: "נכסים", page: "Listings" },
+  { label: "אודות", page: "About" },
+  { label: "הצוות", page: "Agents" },
+  { label: "מאמרים", page: "Articles" },
+  { label: "נגישות", page: "Accessibility" },
+  { label: "מדיניות פרטיות", page: "Privacy" },
 ];
 
 export default function Footer() {
@@ -22,13 +23,13 @@ export default function Footer() {
               STRONG<span>ELEMENT</span><span>.</span>
             </p>
             <p className="mt-5 max-w-md text-base font-bold leading-relaxed text-white/75">
-              Premium real estate services built on expertise, integrity, and
-              results.
+              ניסיון, מומחיות משפטית, חשיבה שיווקית אגרסיבית והבנה עמוקה בשוק
+              הנדל"ן.
             </p>
           </div>
 
           <div className="rounded-[28px] bg-white/10 p-7 backdrop-blur-md">
-            <h4 className="mb-5 text-sm font-black">Navigation</h4>
+            <h4 className="mb-5 text-sm font-black">ניווט</h4>
             <ul className="grid grid-cols-2 gap-3">
               {navLinks.map((link) => (
                 <li key={link.page}>
@@ -44,26 +45,26 @@ export default function Footer() {
           </div>
 
           <div className="rounded-[28px] bg-white/10 p-7 backdrop-blur-md">
-            <h4 className="mb-5 text-sm font-black">Contact</h4>
+            <h4 className="mb-5 text-sm font-black">יצירת קשר</h4>
             <ul className="space-y-4 text-sm font-bold text-white/75">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
                 <span>
-                  123 Business Avenue
+                  בן יהודה 191 א'
                   <br />
-                  New York, NY 10001
+                  תל אביב
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
-                <a href="tel:+15551234567" className="hover:text-white">
-                  +1 (555) 123-4567
+                <a href="tel:+972548078079" className="hover:text-white">
+                  0548078079
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
-                <a href="mailto:info@strongelement.com" className="hover:text-white">
-                  info@strongelement.com
+                <a href="mailto:guy@ha-tovim.co.il" className="hover:text-white">
+                  guy@ha-tovim.co.il
                 </a>
               </li>
             </ul>
@@ -72,7 +73,7 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-white/15 pt-7">
           <p className="text-xs font-bold text-white/55">
-            © {new Date().getFullYear()} Strong Element. All rights reserved.
+            © {new Date().getFullYear()} Strong Element Ltd. כל הזכויות שמורות.
           </p>
         </div>
       </div>

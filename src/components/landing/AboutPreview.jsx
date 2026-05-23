@@ -7,21 +7,21 @@ import { motion } from "framer-motion";
 const values = [
   {
     icon: Shield,
-    title: "Integrity First",
+    title: "יחסי אנוש",
     description:
-      "Transparent dealings and honest counsel form the bedrock of every client relationship.",
+      "אנחנו בונים קשרים, לא רשימות תפוצה. אנחנו יודעים איפה נמצאת ההזדמנות הבאה עוד לפני שהיא יוצאת לשוק, כי עסקים עושים עם אנשים, לא עם עסקים.",
   },
   {
     icon: TrendingUp,
-    title: "Data-Driven",
+    title: "בחינה משפטית",
     description:
-      "We leverage market analytics and deep local insight to maximize your investment returns.",
+      "אנחנו מפרקים כל עסקה לגורמים כדי להבטיח ביטחון וודאות, וכך אנו מזהים בעיות משפטיות לפני שהן מתרחשות ומונעים אותן מראש.",
   },
   {
     icon: Users,
-    title: "Client Focused",
+    title: "שיווק יצירתי בשוק משתנה",
     description:
-      "Every strategy is tailored to your goals, timeline, and risk profile - no generic playbook.",
+      "אנחנו לא \"מפרסמים\" נכסים, אנחנו מספרים עליהם סיפור שגורם לשוק לעצור את הנשימה.",
   },
 ];
 
@@ -31,21 +31,19 @@ export default function AboutPreview() {
       <div className="mx-auto max-w-[1760px] px-5 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div>
-            <p className="mb-3 text-sm font-black text-[#082b86]">Who We Are</p>
+            <p className="mb-3 text-sm font-black text-[#082b86]">WHO WE ARE</p>
             <h2 className="max-w-2xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-[#082b86] sm:text-6xl">
-              A Foundation Built on Expertise
+              נדל"ן הוא לא רק קירות ובטון
             </h2>
             <p className="mt-6 max-w-xl text-lg font-medium leading-relaxed text-slate-600">
-              Strong Element is a premier real estate firm specializing in
-              high-value residential and commercial properties. With over a
-              decade of market expertise, we connect discerning clients with
-              exceptional investment opportunities.
+              ב- Strong Element, אנחנו מאמינים שנדל"ן הוא שילוב של שלוש זרועות
+              עוצמתיות שחייבות לעבוד בסנכרון מושלם.
             </p>
             <Link
               to={createPageUrl("About")}
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#082b86] px-7 py-4 text-sm font-extrabold text-white hover:bg-[#06216b]"
             >
-              Learn More About Us
+              קרא עוד עלינו
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>

@@ -7,11 +7,11 @@ import Footer from "./components/shared/Footer";
 import LoginModal from "./components/shared/LoginModal";
 
 const navLinks = [
-  { label: "Home", page: "Home" },
-  { label: "Listings", page: "Listings" },
-  { label: "About", page: "About" },
-  { label: "Agents", page: "Agents" },
-  { label: "Articles", page: "Articles" },
+  { label: "בית", page: "Home" },
+  { label: "נכסים", page: "Listings" },
+  { label: "אודות", page: "About" },
+  { label: "הצוות", page: "Agents" },
+  { label: "מאמרים", page: "Articles" },
 ];
 
 export default function Layout({ children, currentPageName }) {
@@ -47,6 +47,9 @@ export default function Layout({ children, currentPageName }) {
               <span className="text-2xl font-black uppercase tracking-[-0.06em] text-white lg:text-[34px]">
                 STRONG<span>ELEMENT</span><span>.</span>
               </span>
+              <span className="me-3 hidden text-[11px] font-extrabold uppercase tracking-wide text-white/70 sm:inline">
+                since 1985
+              </span>
             </Link>
 
             <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
@@ -71,7 +74,7 @@ export default function Layout({ children, currentPageName }) {
                 to={createPageUrl("Listings")}
                 className="flex h-11 items-center rounded-full bg-white px-6 text-sm font-extrabold text-[#082b86]"
               >
-                All Homes
+                כל הנכסים
               </Link>
               {user ? (
                 <button

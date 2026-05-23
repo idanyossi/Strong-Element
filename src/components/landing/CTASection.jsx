@@ -16,23 +16,23 @@ export default function CTASection() {
       <div className="absolute inset-0 bg-black/55" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center lg:px-8">
-        <p className="mb-4 text-sm font-black">Get Started</p>
+        <p className="mb-4 text-sm font-black">לתיאום פגישה</p>
 
         <h2 className="text-5xl font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl">
-          Ready to Find Your
+          בואו נבנה את
           <br />
-          Next Property?
+          העסקה הבאה שלכם
         </h2>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/85">
-          Whether you're buying, selling, or investing - our team of expert
-          agents is ready to guide you through every step of the journey.
+          ניסיון, מומחיות משפטית, חשיבה שיווקית אגרסיבית והבנה עמוקה בשוק
+          הנדל"ן - כולם עובדים יחד כדי לייצר עבורכם יתרון אמיתי.
         </p>
 
         <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
           <Link to={createPageUrl("Listings")}>
             <Button className="h-14 w-full rounded-full bg-white px-9 text-sm font-extrabold text-[#082b86] hover:bg-slate-100 sm:w-auto">
-              Browse Listings
+              לתיאום פגישת אסטרטגיה
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Button>
           </Link>
@@ -42,7 +42,7 @@ export default function CTASection() {
               className="h-14 w-full rounded-full border-white/35 bg-white/10 px-9 text-sm font-extrabold text-white backdrop-blur-md hover:bg-white hover:text-[#082b86] sm:w-auto"
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
-              Contact an Agent
+              פנו לצוות שלנו
             </Button>
           </Link>
         </div>

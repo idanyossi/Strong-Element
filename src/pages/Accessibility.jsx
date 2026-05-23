@@ -2,73 +2,83 @@ import React from "react";
 
 export default function Accessibility() {
   return (
-    <div className="pt-20">
-      <section className="bg-[#0A1628] py-20 lg:py-24">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <h1 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
-            Accessibility Statement
+    <div className="bg-[#f4f4f4] pt-24">
+      <section className="px-5 pb-8 pt-8 sm:px-8 lg:pt-14">
+        <div className="mx-auto max-w-[1760px] rounded-[34px] bg-[#082b86] px-7 py-14 text-white sm:px-10 lg:rounded-[44px] lg:px-14 lg:py-20">
+          <p className="mb-4 text-sm font-black text-white/75">
+            עדכון אחרון: מרץ 2026
+          </p>
+          <h1 className="text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+            הצהרת נגישות
           </h1>
-          <p className="mt-4 text-slate-300 leading-relaxed">
-            Strong Element is working to make this website accessible in
-            accordance with Israeli Standard 5568 and WCAG level AA guidance.
+          <p className="mt-6 max-w-3xl text-lg font-bold leading-relaxed text-white/75">
+            חברת Strong Element Ltd רואה חשיבות עליונה במתן שירות שוויוני,
+            מכובד ונגיש לכלל לקוחותיה, לרבות אנשים עם מוגבלות.
           </p>
         </div>
       </section>
 
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 space-y-10 text-slate-600 leading-relaxed">
-          <div>
-            <h2 className="text-2xl font-bold text-[#0A1628]">
-              Accessibility Adjustments
+      <section className="px-5 pb-20 pt-8 sm:px-8 lg:pb-28">
+        <div className="mx-auto max-w-5xl space-y-4">
+          <article className="rounded-2xl bg-white p-7">
+            <h2 className="text-2xl font-black text-[#082b86]">
+              1. נגישות אתר האינטרנט
             </h2>
-            <ul className="mt-4 list-disc space-y-2 pr-6">
-              <li>Semantic page structure, headings, landmarks, and navigation.</li>
-              <li>Keyboard-accessible menus, filters, listings, articles, and dialogs.</li>
-              <li>Visible focus indicators and skip navigation.</li>
-              <li>Text alternatives for meaningful images and hidden decorative icons.</li>
-              <li>Support for reduced-motion preferences.</li>
-              <li>Screen-reader labels for controls whose purpose is not visible.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-bold text-[#0A1628]">
-              Known Limitations
-            </h2>
-            <p className="mt-4">
-              Some listing, article, and agent content may be supplied by site
-              administrators or third-party sources. We review this content and
-              improve accessibility where issues are found.
+            <p className="mt-3 font-medium leading-relaxed text-slate-600">
+              אתר זה הונגש בהתאם להוראות תקן ישראלי ת"י 5568 לנגישות תכנים
+              באינטרנט ברמת AA, ובהתאם למסמך WCAG 2.1 הבינלאומי.
             </p>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-bold text-[#0A1628]">
-              Accessibility Contact
-            </h2>
-            <p className="mt-4">
-              If you find an accessibility issue or need information in another
-              format, please contact us:
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li>
-                Email:{" "}
-                <a className="font-medium text-[#0A1628] underline" href="mailto:info@strongelement.com">
-                  info@strongelement.com
-                </a>
-              </li>
-              <li>
-                Phone:{" "}
-                <a className="font-medium text-[#0A1628] underline" href="tel:+15551234567">
-                  +1 (555) 123-4567
-                </a>
-              </li>
+            <ul className="mt-4 list-disc space-y-2 pr-6 font-medium leading-relaxed text-slate-600">
+              <li>ניווט מלא באמצעות מקלדת בלבד.</li>
+              <li>תאימות לקוראי מסך כגון NVDA ו-Jaws.</li>
+              <li>תגיות Alt-Text לתמונות משמעותיות.</li>
+              <li>הגדלת גופנים וניגודיות ללא פגיעה בתצוגת המידע.</li>
+              <li>מבנה היררכי וסמנטי עקבי בכותרות ובתוכן.</li>
+              <li>טפסים עם תוויות ברורות והודעות שגיאה נגישות.</li>
             </ul>
-          </div>
+          </article>
 
-          <p className="text-sm text-slate-500">
-            Statement last updated: May 23, 2026.
-          </p>
+          <article className="rounded-2xl bg-white p-7">
+            <h2 className="text-2xl font-black text-[#082b86]">
+              2. סייגים לנגישות
+            </h2>
+            <p className="mt-3 font-medium leading-relaxed text-slate-600">
+              אנו משקיעים מאמצים רבים בתחזוקת נגישות האתר. ייתכן כי דפים
+              מסוימים או קבצים כגון PDF ישנים של תוכניות בניין או מסמכים
+              משפטיים חיצוניים טרם הונגשו במלואם. רכיבים המוטמעים מצדדים
+              שלישיים, כגון מפות Google או סרטוני YouTube, עשויים להיות מושפעים
+              ממגבלות הטכנולוגיה של אותם ספקים.
+            </p>
+          </article>
+
+          <article className="rounded-2xl bg-white p-7">
+            <h2 className="text-2xl font-black text-[#082b86]">
+              3. נגישות פיזית - משרדי החברה
+            </h2>
+            <ul className="mt-4 list-disc space-y-2 pr-6 font-medium leading-relaxed text-slate-600">
+              <li>משרדנו ממוקם ברחוב בן יהודה 191 א', תל אביב.</li>
+              <li>קיימת כניסה נגישה למבנה.</li>
+              <li>אין שירותים נגישים במשרדנו.</li>
+              <li>קיימת חניית נכים בסמיכות למשרדנו וברחוב בן יהודה.</li>
+              <li>צוות המשרד זמין להענקת סיוע אישי בתיאום מראש.</li>
+            </ul>
+          </article>
+
+          <article className="rounded-2xl bg-white p-7">
+            <h2 className="text-2xl font-black text-[#082b86]">
+              4. רכז נגישות ודיווח על תקלות
+            </h2>
+            <p className="mt-3 font-medium leading-relaxed text-slate-600">
+              אם נתקלתם בקושי בגלישה באתר, או אם יש לכם הערה בנושא הנגישות,
+              נשמח לשמוע מכם כדי לשפר את השירות.
+            </p>
+            <ul className="mt-4 space-y-2 font-medium text-slate-600">
+              <li>שם: גיא ברוך</li>
+              <li>טלפון: 0548078079</li>
+              <li>דוא"ל: Guy@ha-tovim.co.il</li>
+              <li>כתובת למשלוח דואר: בן יהודה 191 א', תל אביב</li>
+            </ul>
+          </article>
         </div>
       </section>
     </div>

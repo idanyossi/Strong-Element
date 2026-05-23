@@ -5,44 +5,31 @@ import { Award, CheckCircle, Lightbulb, Shield, Target } from "lucide-react";
 const values = [
   {
     icon: Shield,
-    title: "Integrity",
-    text: "We operate with full transparency and uphold the highest ethical standards in every transaction.",
+    title: "יחסי אנוש",
+    text: "אנחנו בונים קשרים, לא רשימות תפוצה. עסקים עושים עם אנשים, לא עם עסקים.",
   },
   {
     icon: Target,
-    title: "Precision",
-    text: "Every property we recommend is backed by rigorous market analysis and financial modeling.",
+    title: "בחינה משפטית",
+    text: "אנחנו מפרקים כל עסקה לגורמים, מזהים בעיות משפטיות לפני שהן מתרחשות ומונעים אותן מראש.",
   },
   {
     icon: Lightbulb,
-    title: "Innovation",
-    text: "We leverage cutting-edge technology and data to stay ahead of market trends.",
+    title: "שיווק יצירתי",
+    text: "אנחנו לא מפרסמים נכסים, אנחנו מספרים עליהם סיפור שגורם לשוק לעצור את הנשימה.",
   },
   {
     icon: Award,
-    title: "Excellence",
-    text: "We hold ourselves to the highest standards in service delivery and client outcomes.",
+    title: "מצוינות בשטח",
+    text: "שילוב של ניסיון, מומחיות משפטית, הבנת שוק ויכולת ביצוע מוכחת.",
   },
 ];
 
-const milestones = [
-  {
-    year: "2010",
-    text: "Strong Element founded with a vision to redefine real estate services.",
-  },
-  {
-    year: "2014",
-    text: "Expanded operations to commercial real estate and investment advisory.",
-  },
-  { year: "2018", text: "Surpassed $1B in total transaction volume." },
-  {
-    year: "2022",
-    text: "Launched data-driven property analytics platform for clients.",
-  },
-  {
-    year: "2025",
-    text: "Celebrating 15+ years of market leadership and client trust.",
-  },
+const services = [
+  "תיווך נדל\"ן בתל אביב-יפו",
+  "שיווק פרויקטים למגורים, מסחר ותעסוקה",
+  "ניהול מתחמי התחדשות עירונית",
+  "ליווי משפטי ועסקי בתחום הנדל\"ן המניב",
 ];
 
 export default function About() {
@@ -58,16 +45,15 @@ export default function About() {
           />
           <div className="absolute inset-0 bg-black/45" />
           <div className="relative z-10 mx-auto w-full max-w-[1760px]">
-            <p className="mb-4 text-sm font-black text-white/75">About Us</p>
+            <p className="mb-4 text-sm font-black text-white/75">ABOUT US</p>
             <h1 className="max-w-5xl text-5xl font-black leading-none tracking-[-0.055em] sm:text-6xl lg:text-7xl">
-              Where Strength Meets Strategy in Real Estate
+              נדל"ן הוא עסק של אנשים
             </h1>
-            <p className="mt-6 max-w-2xl text-lg font-bold leading-relaxed text-white/80">
-              Strong Element was founded on a simple principle: real estate
-              decisions should be driven by data, guided by expertise, and
-              delivered with integrity. We are not just agents - we are
-              strategic partners in your wealth-building journey.
-            </p>
+            <blockquote className="mt-6 max-w-3xl text-lg font-bold leading-relaxed text-white/85">
+              "100% of customers are people. 100% of employees are people. If
+              you don't understand people, you don't understand business."
+              <span className="block text-sm text-white/65">(Simon Sinek)</span>
+            </blockquote>
           </div>
         </div>
       </section>
@@ -75,44 +61,43 @@ export default function About() {
       <section className="px-5 py-12 sm:px-8 lg:py-20">
         <div className="mx-auto grid max-w-[1760px] gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <p className="mb-3 text-sm font-black text-[#082b86]">Our Story</p>
+            <p className="mb-3 text-sm font-black text-[#082b86]">החברה</p>
             <h2 className="text-5xl font-black leading-none tracking-[-0.055em] text-[#082b86] sm:text-6xl">
-              Built to Move Differently
+              Strong Element בע"מ
             </h2>
             <div className="mt-7 space-y-5 text-lg font-medium leading-relaxed text-slate-600">
               <p>
-                What began as a boutique advisory firm in 2010 has grown into
-                one of the most trusted names in premium real estate. Our
-                founder envisioned a company that would marry deep market
-                intelligence with white-glove client service.
+                חברת Strong Element בע"מ הינה חברת תיווך ושיווק פרויקטים
+                בישראל. החברה עוסקת ב-4 תחומים עיקריים: תיווך נדל"ן בתל
+                אביב-יפו, שיווק פרויקטים, ניהול מתחמי התחדשות עירונית וליווי
+                משפטי ועסקי בתחום הנדל"ן המניב.
               </p>
               <p>
-                Today, Strong Element represents a curated portfolio of
-                residential and commercial properties, serving discerning
-                clients who demand excellence. Our team of seasoned agents
-                brings decades of combined experience across luxury residential,
-                commercial investments, and development consulting.
+                את החברה מוביל צוות מקצועי אשר מביא להצלחת החברה לאורך השנים.
+                החברה ביצעה מספר עסקאות מהגדולות בשוק התל אביבי בהיקפים
+                מרשימים בגודלם.
               </p>
               <p>
-                We believe that every property transaction is a significant life
-                event - and we treat it as such. From first-time homebuyers to
-                seasoned investors, we deliver the same unwavering commitment to
-                results.
+                העבודה הממושכת שלנו בשטח, בין הרחובות של תל אביב וערי המרכז,
+                היא הרבה מעבר ל"סגירת עסקאות". היא העין החדה שלנו כמשפטנים
+                וכאנשי אסטרטגיה, שמאפשרת לנו לפרק לגורמים כל נכס, להבין לעומק
+                את פוטנציאל ההשבחה והתכנון בעיר, ולזהות אתגרים עוד לפני שהם
+                הופכים למכשול.
               </p>
             </div>
           </div>
           <div className="relative overflow-hidden rounded-[28px]">
             <img
               src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=85"
-              alt="Modern office"
+              alt="משרד מודרני"
               className="aspect-[4/3] w-full object-cover"
             />
             <div className="absolute bottom-5 right-5 rounded-2xl bg-white px-6 py-5">
               <p className="text-4xl font-black tracking-[-0.05em] text-[#082b86]">
-                15+
+                since 1985
               </p>
               <p className="text-sm font-black text-slate-500">
-                Years of Excellence
+                לבדוק עם צחי
               </p>
             </div>
           </div>
@@ -121,13 +106,18 @@ export default function About() {
 
       <section className="px-5 py-12 sm:px-8 lg:py-20">
         <div className="mx-auto max-w-[1760px]">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-10 max-w-3xl">
             <p className="mb-3 text-sm font-black text-[#082b86]">
-              Core Values
+              השיטה שלנו
             </p>
             <h2 className="text-5xl font-black leading-none tracking-[-0.055em] text-[#082b86] sm:text-6xl">
-              What Drives Us
+              איכות בלתי מתפשרת בכל שלב
             </h2>
+            <p className="mt-6 text-lg font-medium leading-relaxed text-slate-600">
+              עבורנו, נדל"ן הוא לא רק קירות ובטון - הוא חלק מהמרקם החי של
+              העיר. האיכות שלנו באה לידי ביטוי בכל שלב: מהדיוק התכנוני והבדיקה
+              המשפטית המקיפה, ועד לקשר האישי והרציף עם בעלי הנכסים והדיירים.
+            </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
@@ -158,23 +148,13 @@ export default function About() {
         <div className="mx-auto grid max-w-[1760px] gap-8 lg:grid-cols-2">
           <div className="rounded-[28px] bg-white p-8 lg:p-10">
             <h2 className="text-4xl font-black tracking-[-0.05em] text-[#082b86]">
-              Our Journey
+              תחומי פעילות
             </h2>
             <div className="mt-8 space-y-4">
-              {milestones.map((m, i) => (
-                <motion.div
-                  key={m.year}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="rounded-2xl bg-[#f4f4f4] p-5"
-                >
-                  <p className="text-xl font-black text-[#082b86]">{m.year}</p>
-                  <p className="mt-1 font-medium leading-relaxed text-slate-600">
-                    {m.text}
-                  </p>
-                </motion.div>
+              {services.map((item) => (
+                <div key={item} className="rounded-2xl bg-[#f4f4f4] p-5">
+                  <p className="text-lg font-black text-[#082b86]">{item}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -182,20 +162,26 @@ export default function About() {
           <div className="overflow-hidden rounded-[28px] bg-[#082b86] text-white">
             <img
               src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=900&q=85"
-              alt="Property"
+              alt="נכס"
               className="aspect-[16/10] w-full object-cover"
             />
             <div className="p-8 lg:p-10">
               <h2 className="text-4xl font-black tracking-[-0.05em]">
-                Why Choose Strong Element
+                יחידת עילית לעסקה שלך
               </h2>
+              <p className="mt-6 font-bold leading-relaxed text-white/80">
+                השילוב בין הליווי המשפטי הצמוד, היצירתיות השיווקית וההצלחות
+                המוכחות שלנו, הוא מה שנותן ללקוחות שלנו את השקט הנפשי. הם יודעים
+                שמאחוריהם עומדת יחידת עילית שמנהלת את הסיכונים, ממקסמת את
+                הרווחים ושומרת על האינטרסים שלהם בסטנדרט הגבוה ביותר.
+              </p>
               <div className="mt-8 space-y-4">
                 {[
-                  "Access to exclusive off-market properties",
-                  "Dedicated agent support from first call to closing",
-                  "Data-backed market intelligence and pricing strategy",
-                  "Proven track record with $2B+ in transactions",
-                  "Full-service: buying, selling, investing, and management",
+                  "ליווי משפטי צמוד",
+                  "יצירתיות שיווקית",
+                  "ניהול סיכונים",
+                  "מקסום רווחים",
+                  "קשר אנושי חזק",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-white" aria-hidden="true" />
@@ -203,6 +189,10 @@ export default function About() {
                   </div>
                 ))}
               </div>
+              <p className="mt-8 font-black text-white">
+                כי בסוף, עסקים עושים עם אנשים - ואנחנו כאן כדי לוודא שהאנשים
+                שלנו תמיד מנצחים.
+              </p>
             </div>
           </div>
         </div>

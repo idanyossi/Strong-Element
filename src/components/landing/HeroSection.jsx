@@ -23,20 +23,29 @@ export default function HeroSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="w-full"
         >
+          <p className="mb-5 text-sm font-black uppercase tracking-[0.2em] text-white/80">
+            PREMIUM REAL ESTATE
+          </p>
           <h1 className="mx-auto max-w-4xl text-5xl font-black leading-[0.98] tracking-[-0.055em] text-white sm:text-6xl lg:text-[76px]">
             Build Your Strongest Investment
           </h1>
 
-          <p className="mx-auto mt-7 max-w-2xl text-base font-extrabold leading-relaxed text-white sm:text-lg">
-            Strong Element delivers elite real estate services with data-driven
-            precision. We find properties that perform - not just today, but for
-            decades.
-          </p>
+          <div className="mx-auto mt-7 max-w-3xl space-y-5 text-base font-extrabold leading-relaxed text-white sm:text-lg">
+            <blockquote>
+              "האנשים שמשוגעים מספיק כדי לחשוב שהם יכולים לשנות את העולם, הם
+              אלו שמשנים אותו."
+              <span className="block text-sm text-white/75">(Steven Paul Jobs)</span>
+            </blockquote>
+            <p>
+              ניסיון, מומחיות משפטית, חשיבה שיווקית אגרסיבית והבנה עמוקה בשוק
+              הנדל"ן. אנחנו לא רק מוכרים, אנחנו בונים עבורך את העסקה הבאה.
+            </p>
+          </div>
 
           <div className="mx-auto mt-9 flex max-w-[740px] items-center rounded-full bg-white p-2 shadow-2xl">
             <div className="flex min-h-16 flex-1 items-center gap-3 px-6 text-start text-slate-400">
               <span className="text-sm font-medium sm:text-base">
-                Search Strong Element properties, locations, agents...
+                חיפוש נכסים, אזורים ואנשי מקצוע של Strong Element...
               </span>
             </div>
             <LocateFixed className="ms-4 hidden h-5 w-5 text-slate-500 sm:block" aria-hidden="true" />
@@ -50,7 +59,7 @@ export default function HeroSection() {
           <div className="mt-7 flex justify-center gap-3">
             <Link to={createPageUrl("Listings")}>
               <Button className="h-12 rounded-full bg-white px-7 text-sm font-extrabold text-[#082b86] hover:bg-slate-100">
-                Explore Properties
+                לתיאום פגישת אסטרטגיה לחץ כאן
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Button>
             </Link>
@@ -59,7 +68,7 @@ export default function HeroSection() {
                 variant="outline"
                 className="h-12 rounded-full border-white/40 bg-white/10 px-7 text-sm font-extrabold text-white backdrop-blur-md hover:bg-white hover:text-[#082b86]"
               >
-                About Us
+                אודות החברה
               </Button>
             </Link>
           </div>
