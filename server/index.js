@@ -179,8 +179,9 @@ app.get('*', (req, res) => {
 // ── Start ─────────────────────────────────────────────────────────────────────
 async function startServer() {
   await connectDB();
-  app.listen(PORT, () => {
-    console.log(`API server running at http://localhost:${PORT}`);
+  // Add '0.0.0.0' right after PORT
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`API server running at http://0.0.0.0:${PORT}`);
   });
 }
 
