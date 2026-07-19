@@ -55,17 +55,17 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          <div className="mt-7 flex justify-center gap-3">
-            <Link to={createPageUrl("Listings")}>
-              <Button className="h-12 rounded-full bg-white px-7 text-sm font-extrabold text-[#082b86] hover:bg-slate-100">
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link to={createPageUrl("Listings")} className="w-full max-w-xs sm:w-auto">
+              <Button className="h-auto min-h-12 w-full whitespace-normal rounded-full bg-white px-7 py-3 text-center text-sm font-extrabold text-[#082b86] hover:bg-slate-100 sm:w-auto sm:whitespace-nowrap">
                 {hero.ctaButton}
-                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
               </Button>
             </Link>
-            <Link to={createPageUrl("About")}>
+            <Link to={createPageUrl("About")} className="w-full max-w-xs sm:w-auto">
               <Button
                 variant="outline"
-                className="h-12 rounded-full border-white/40 bg-white/10 px-7 text-sm font-extrabold text-white backdrop-blur-md hover:bg-white hover:text-[#082b86]"
+                className="h-12 w-full rounded-full border-white/40 bg-white/10 px-7 text-sm font-extrabold text-white backdrop-blur-md hover:bg-white hover:text-[#082b86] sm:w-auto"
               >
                 {hero.aboutButton}
               </Button>

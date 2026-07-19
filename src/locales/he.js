@@ -1,6 +1,6 @@
 export const he = {
   brand: {
-    name: "STRONGELEMENT.",
+    name: "STRONGELEMENT",
     since: "since 1985",
   },
 
@@ -51,6 +51,9 @@ export const he = {
     skipToMain: "דלג לתוכן הראשי",
     homeAria: "דף הבית של Strong Element",
     mainNavAria: "ניווט ראשי",
+    mobileNavAria: "ניווט במובייל",
+    openMenuAria: "פתיחת תפריט ניווט",
+    closeMenuAria: "סגירת תפריט ניווט",
   },
 
   footer: {
