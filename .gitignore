@@ -13,6 +13,7 @@ dist-ssr
 *.local
 .env
 server/db.json
+SECURITY-AUDIT.md
 
 # Editor directories and files
 .vscode/*
